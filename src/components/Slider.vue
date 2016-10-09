@@ -62,8 +62,8 @@
             | via Twitter
 
     .arrows
-      .arrow-left(@click="onClickLeft")
-      .arrow-right(@click="onClickRight")
+      .arrow.arrow-left(@click="onClickLeft")
+      .arrow.arrow-right(@click="onClickRight")
 
 </template>
 
@@ -111,20 +111,22 @@
       justify-content: center
       align-items: center
       z-index: 100
-
-    .arrow-left
-      background: url("~assets/images/arrow-left.svg") no-repeat center center / contain
+      
+    .arrow
       width: 31px
       height: 38px
-      margin-right: 24px
       cursor: pointer
+      
+    .arrow:hover
+      filter: drop-shadow(0px 0px 2px #ffffff)
+  
+    .arrow-left
+      background: url("~assets/images/arrow-left.svg") no-repeat center center / contain
+      margin-right: 24px
 
     .arrow-right
       background: url("~assets/images/arrow-right.svg") no-repeat center center / contain
-      width: 31px
-      height: 38px
       margin-left: 24px
-      cursor: pointer
 
     .quote
       height: 100%
