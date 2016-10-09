@@ -18,7 +18,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.vue'],
-    modulesDirectories: ['src', 'node_modules', 'static'],
+    modulesDirectories: ['src', 'node_modules'],
     alias: {
       'vue': 'vue/dist/vue'
     }
@@ -48,7 +48,7 @@ module.exports = {
         loader: 'url',
         query: {
           limit: 10000,
-          name: 'static/img/[name].[hash:7].[ext]'
+          name: 'static/images/[name].[hash:7].[ext]'
         }
       },
       {
@@ -63,6 +63,15 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
+  ],
+  postcss: () => [
+    require('autoprefixer')(),
+    require('postcss-import')(),
+    require('postcss-normalize')(),
+    require('precss'),
+    require('postcss-font-magician')({
+      hosted: 'src/assets/fonts'
+    })
   ],
   vue: {
     loaders: utils.cssLoaders(),
@@ -82,3 +91,4 @@ Object.keys(module.exports.entry).forEach(page => {
     }) );
   }
 });
+

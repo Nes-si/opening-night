@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
-import pic from 'images/alona.png';
-//import styles from 'styles/layout.scss';
+import styles from 'styles/layout.sss';
+//import pug from 'pages/index.pug';
 
 
 new Vue({
