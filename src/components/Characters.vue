@@ -89,9 +89,6 @@
 
         box-shadow: 0px 2px 13px 0px rgba(0,0,0,0.80), inset 0px 51px 52px 0px #000000;
 
-        box-shadow: inset 40px -30px 30px 0px rgba(0,0,0,0.20);
-
-
 
       .char-inner
         position: absolute
