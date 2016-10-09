@@ -12,7 +12,7 @@ spinner.start();
 let destPath = path.resolve(__dirname, '../dist');
 rm('-rf', destPath);
 mkdir('-p', destPath);
-//cp('-R', 'static/*', destPath);
+cp('-R', 'static/*', destPath);
 
 webpack(webpackConfig, (err, stats) => {
   spinner.stop();
