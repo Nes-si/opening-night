@@ -2,7 +2,6 @@ const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
 const opn = require('opn');
-const proxyMiddleware = require('http-proxy-middleware');
 
 const webpackConfig = require('./webpack.dev.conf');
 

@@ -7,6 +7,8 @@ const utils = require('./utils');
 const baseWebpackConfig = require('./webpack.base.conf');
 
 
+process.env.NODE_ENV = 'production';
+
 let webpackConfig = merge(baseWebpackConfig, {
   module: {
     loaders: utils.styleLoaders({ sourceMap: true, extract: true })
@@ -23,13 +25,8 @@ let webpackConfig = merge(baseWebpackConfig, {
     })
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': "production"
-    }),
     new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
+      compress: {warnings: false}
     }),
     new ExtractTextPlugin('css/[name].[contenthash].css'),
     

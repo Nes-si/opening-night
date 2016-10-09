@@ -5,14 +5,6 @@ const webpack = require('webpack');
 
 const webpackConfig = require('./webpack.prod.conf');
 
-env.NODE_ENV = 'production';
-
-
-console.log(
-  '  Tip:\n' +
-  '  Built files are meant to be served over an HTTP server.\n' +
-  '  Opening index.html over file:// won\'t work.\n'
-);
 
 let spinner = ora('building for production...');
 spinner.start();
@@ -20,7 +12,7 @@ spinner.start();
 let destPath = path.resolve(__dirname, '../dist');
 rm('-rf', destPath);
 mkdir('-p', destPath);
-//cp('-R', 'static/*', assetsPath);
+//cp('-R', 'static/*', destPath);
 
 webpack(webpackConfig, (err, stats) => {
   spinner.stop();
