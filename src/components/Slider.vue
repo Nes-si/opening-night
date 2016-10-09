@@ -1,61 +1,65 @@
 <template lang="pug">
   .slider
-    .quote.rob(v-if="slideNum == 1")
-      .bg
-      .shade
-      .content
-        .in-touch
-          .icon
-          | In Touch Weekly
+    transition
+      .quote.rob(v-if="slideNum == 1" key="1")
+        .bg
+        .person
+        .shade
+        .content
+          .in-touch
+            .icon
+            | In Touch Weekly
+    
+          .title
+            .quote-left
+              | “
+            | “THE SHOW GOES THE F*CK ON”
+            .quote-right
+              | “
+    
+          a.twitter(href="twitter.com")
+            .icon
+            | via Twitter
+    
+      .quote.alona(v-if="slideNum == 2" key="2")
+        .bg
+        .person
+        .shade
+        .content
+          .in-touch
+            .icon
+            | In Touch Weekly
+    
+          .title
+            .quote-left
+              | “
+            | “FUNNIEST MOVIE TO OPEN THIS YEAR!”
+            .quote-right
+              | “
+    
+          a.twitter(href="twitter.com")
+            .icon
+            | via Twitter
   
-        .title
-          .quote-left
-            | “
-          | “THE SHOW GOES THE F*CK ON”
-          .quote-right
-            | “
-  
-        a.twitter(href="twitter.com")
-          .icon
-          | via Twitter
-        
-    .quote.alona(v-if="slideNum == 2")
-      .bg
-      .shade
-      .content
-        .in-touch
-          .icon
-          | In Touch Weekly
-  
-        .title
-          .quote-left
-            | “
-          | “FUNNIEST MOVIE TO OPEN THIS YEAR!”
-          .quote-right
-            | “
-  
-        a.twitter(href="twitter.com")
-          .icon
-          | via Twitter
-  
-    .quote.topher(v-if="slideNum == 3")
-      .bg
-      .shade
-      .content
-        .in-touch
-          .icon
-          | In Touch Weekly
-  
-        .title
-          .quote-left
-            | “
-          | “NEVER ENDING WRECK OF HILARIOUSNESS”
-          .quote-right
-            | “
-  
-        a.twitter(href="twitter.com")
-          .icon
-          | via Twitter
+      .quote.topher(v-if="slideNum == 3" key="3")
+        .bg
+        .person
+        .shade
+        .content
+          .in-touch
+            .icon
+            | In Touch Weekly
+    
+          .title
+            .quote-left
+              | “
+            | “NEVER ENDING WRECK OF HILARIOUSNESS”
+            .quote-right
+              | “
+    
+          a.twitter(href="twitter.com")
+            .icon
+            | via Twitter
     
     .arrows
       .arrow-left(@click="onClickLeft")
@@ -94,6 +98,8 @@
 
 <style lang="sss" scoped rel="stylesheet/sass">
   .slider
+    height: 720px
+    width: 100%
     position: relative
     
     .arrows
@@ -121,8 +127,14 @@
       cursor: pointer
     
     .quote
-      height: 720px
-      position: relative
+      height: 100%
+      width: 100%
+      position: absolute
+      
+      .bg
+        height: 100%
+        width: 100%
+        position: absolute
       
       .shade
         position: absolute
@@ -132,7 +144,7 @@
         width: 100%
         z-index: 5
       
-      .bg
+      .person
         width: 100%
         height: 100%
         position: absolute
@@ -209,12 +221,13 @@
             height: 26px
       
       &.rob
-        background-image: linear-gradient(-174deg, #6f26d9 0%, #4125b8 100%)
+        .bg
+          background-image: linear-gradient(-174deg, #6f26d9 0%, #4125b8 100%)
         
         .shade
           background: rgba(27, 2, 30, 0.12)
         
-        .bg
+        .person
           background: url("~assets/images/rob.png") no-repeat right bottom / contain
         
         .quote-left, .quote-right
@@ -224,12 +237,13 @@
           width: 55%
       
       &.alona
-        background-image: linear-gradient(-174deg, #ffe038 0%, #fea345 100%)
+        .bg
+          background-image: linear-gradient(-174deg, #ffe038 0%, #fea345 100%)
         
         .shade
           background: rgba(246, 186, 64, 0.4)
         
-        .bg
+        .person
           background: url("~assets/images/alona.png") no-repeat right bottom / contain
         
         .quote-left, .quote-right
@@ -239,7 +253,7 @@
           left: -25%
         
         .quote-right
-          right: 0%
+          right: 0
           top: initial
           bottom: -40%
         
@@ -247,12 +261,13 @@
           width: 57%
       
       &.topher
-        background-image: linear-gradient(2deg, #fa228d 0%, #fd20d4 98%)
+        .bg
+          background-image: linear-gradient(2deg, #fa228d 0%, #fd20d4 98%)
         
         .shade
           background: #F413C2
         
-        .bg
+        .person
           background: url("~assets/images/topher.png") no-repeat right bottom / contain
         
         .quote-left, .quote-right
@@ -268,4 +283,34 @@
         
         .title
           width: 70%
+  
+  .v-enter-active
+    transition-duration: 1s
+  
+    .bg, .shade
+      transition-property: opacity
+      transition-duration: .5s
+      
+    .person, .content
+      transition-property: opacity
+      transition-delay: .5s
+      transition-duration: .5s
+      
+  .v-leave-active
+    transition-duration: 1s
+  
+    .bg, .shade
+      transition-property: opacity
+      transition-duration: .5s
+              
+    .person, .content
+      transition-property: opacity
+      transition-duration: .5s
+      transition-timing-function: linear
+  
+  .v-leave-active, .v-enter
+    .bg, .person, .shade, .content
+      opacity: 0.01
+  
+    
 </style>
