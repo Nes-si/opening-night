@@ -1,5 +1,6 @@
 <template lang="pug">
   .characters
+    .spacer
     .char-box.rob
       .char-inner
 
@@ -61,7 +62,15 @@
         transform: skew(-18.5deg) translate3D(-35vw,0,0)
       .lesli
         transform: skew(-18.5deg) translate3D(-40vw,0,0)
-
+    .spacer
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      z-index: 9
+      &:hover ~ *
+        transform: skew(-18.5deg) !important
     .char-box
       position: absolute
       bottom: 0
@@ -71,11 +80,12 @@
       width: 45vw
       max-width: 12.3vw
       overflow: hidden
-      transition: max-width .3s ease, transform .3s ease .3s, z-index 0s ease .3s
+      z-index: 10
+      transition: max-width .3s ease-in-out, transform .3s ease-in-out .3s, z-index 0s ease-in-out .3s
       &:hover
         max-width: 50vw
         z-index: 100
-        transition: max-width .3s ease .3s, transform .3s ease .3s, z-index 0s ease 0s
+        transition: max-width .3s ease-in-out .3s, transform .3s ease-in-out .3s, z-index 0s ease-in-out 0s
 
         box-shadow: 0px 2px 13px 0px rgba(0,0,0,0.80), inset 0px 51px 52px 0px #000000;
 

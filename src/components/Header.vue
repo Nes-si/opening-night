@@ -36,6 +36,7 @@
     background: url("~assets/images/head-bg.png") no-repeat center center / cover
     // height: 100vh;
     height: 100vh
+    overflow: hidden
     display: flex
     flex-flow: column nowrap
     align-items: center
@@ -124,6 +125,7 @@
       height: 29px
       width: 29px
       cursor: pointer
+      z-index: 105
 
 
 </style>
