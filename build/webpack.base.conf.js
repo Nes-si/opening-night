@@ -9,7 +9,6 @@ const projectRoot = path.resolve(__dirname, '../');
 module.exports = {
   entry: {
     index: './src/index.js'
-    //profile: './src/profile.js'
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -63,6 +62,11 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
+    new HtmlWebpackPlugin({
+      template: 'src/index.pug',
+      inject: true,
+      filename: 'index.html'
+    })
   ],
   postcss: () => [
     require('autoprefixer')(),
@@ -82,12 +86,3 @@ module.exports = {
     ]
   }
 };
-
-Object.keys(module.exports.entry).forEach(page => {
-  module.exports.plugins.push(new HtmlWebpackPlugin({
-    filename: page + '.html',
-    template: 'src/pages/' + page + '.pug',
-    inject: true
-  }) );
-});
-
