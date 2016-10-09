@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
-    filename: '[name].js'
+    filename: 'js/[name].js'
   },
   resolve: {
     extensions: ['', '.js', '.vue'],
@@ -48,7 +48,7 @@ module.exports = {
         loader: 'url',
         query: {
           limit: 10000,
-          name: 'static/images/[name].[hash:7].[ext]'
+          name: 'assets/images/[name].[hash:7].[ext]'
         }
       },
       {
@@ -56,7 +56,7 @@ module.exports = {
         loader: 'url',
         query: {
           limit: 10000,
-          name: 'static/fonts/[name].[hash:7].[ext]'
+          name: 'assets/fonts/[name].[hash:7].[ext]'
         }
       }
     ]
@@ -84,11 +84,10 @@ module.exports = {
 };
 
 Object.keys(module.exports.entry).forEach(page => {
-  if (page !== 'vendors') {
-    module.exports.plugins.push(new HtmlWebpackPlugin({
-      filename: page + '.html',
-      template: 'src/pages/' + page + '.pug'
-    }) );
-  }
+  module.exports.plugins.push(new HtmlWebpackPlugin({
+    filename: page + '.html',
+    template: 'src/pages/' + page + '.pug',
+    inject: true
+  }) );
 });
 

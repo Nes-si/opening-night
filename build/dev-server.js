@@ -42,12 +42,14 @@ app.use(devMiddleware);
 app.use(hotMiddleware);
 
 // serve pure static assets
+/*
 let staticPath = path.posix.join('/', 'static');
 app.use(staticPath, express.static('./static'));
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
+*/
 
 module.exports = app.listen(port, err => {
   if (err) {

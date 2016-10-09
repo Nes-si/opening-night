@@ -13,8 +13,8 @@ let webpackConfig = merge(baseWebpackConfig, {
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'static/js/[name].js',
-    chunkFilename: 'static/js/[id].js'
+    filename: 'js/[name].js',
+    chunkFilename: 'js/[id].js'
   },
   vue: {
     loaders: utils.cssLoaders({
@@ -31,7 +31,7 @@ let webpackConfig = merge(baseWebpackConfig, {
         warnings: false
       }
     }),
-    new ExtractTextPlugin('static/css/[name].[contenthash].css'),
+    new ExtractTextPlugin('css/[name].[contenthash].css'),
     
     /*
     // generate dist index.html with correct asset hash for caching.

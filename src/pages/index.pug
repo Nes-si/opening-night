@@ -4,25 +4,21 @@ head
   title FeatureProof
   meta(name="viewport" content="width=device-width")
   meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
-  link(rel="stylesheet" href="styles/layout.scss")
   link(rel="icon" href="images/favicon.png")
 
-  script(src="js/index.js")
-
-  script.
-    require('scripts/initialize');
+  ///script(src="js/index.js")
 
 
 body
   include components/header
 
-  .quote.rob
+  .quote.rob#app-root
     .bg
     .shade
     .content
       .in-touch
         .icon
-        | In Touch Weekly
+        | {{message}}
 
       .title
         .quote-left
