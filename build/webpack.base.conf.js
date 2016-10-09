@@ -54,7 +54,7 @@ module.exports = {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url',
         query: {
-          limit: 10000,
+          limit: 100,
           name: 'assets/fonts/[name].[hash:7].[ext]'
         }
       }
@@ -74,7 +74,7 @@ module.exports = {
     require('postcss-normalize')(),
     require('precss'),
     require('postcss-font-magician')({
-      hosted: 'src/assets/fonts'
+      hosted: 'assets/fonts'
     })
   ],
   vue: {
