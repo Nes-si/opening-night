@@ -24,42 +24,33 @@
 </template>
 
 <script>
-  const YOUTUBE = "youtube";
-  const GIPHY = "giphy";
-  
   const items = [
     {
-      type: YOUTUBE,
       url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
       preview: "assets/images/video-1.png",
       text: "1"
     },
     {
-      type: YOUTUBE,
-      url: "https://www.youtube.com/embed/-_MSyT1SqLY?rel=0",
+      url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
       preview: "assets/images/video-2.png",
       text: "2"
     },
     {
-      type: YOUTUBE,
       url: "https://www.youtube.com/embed/d9TpRfDdyU0?rel=0",
       preview: "assets/images/video-3.png",
       text: "3"
     },
     {
-      type: YOUTUBE,
       url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
       preview: "assets/images/video-4.png",
       text: "4"
     },
     {
-      type: YOUTUBE,
       url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
       preview: "assets/images/video-3.png",
       text: "5"
     },
     {
-      type: YOUTUBE,
       url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
       preview: "assets/images/video-4.png",
       text: "6"
