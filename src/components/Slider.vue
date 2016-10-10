@@ -1,5 +1,5 @@
 <template lang="pug">
-  .slider
+  .slider(@mousemove="onMouseMove")
     transition
       .quote.rob(v-if="slideNum == 1" key="1")
         .bg
@@ -68,15 +68,39 @@
 </template>
 
 <script>
+  import {TweenLite} from 'gsap';
+  
+  
   const SLIDES = 3;
+  const PARALLAX = 20;
 
   export default {
     name: "SliderComponent",
 
     data: function () {
       return {
-        slideNum: 1
+        slideNum: 1,
+        
+        elmY: 0,
+        elmHeight: 0,
+        elmWidth: 0
       };
+    },
+    
+    mounted: function () {
+      var box = document.querySelector('.slider').getBoundingClientRect();
+      this.elmHeight = box.height;
+      this.elmWidth = box.width;
+  
+      var body = document.body;
+      var docElem = document.documentElement;
+  
+      var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+  
+      var clientTop = docElem.clientTop || body.clientTop || 0;
+      var top = box.top +  scrollTop - clientTop;
+  
+      this.elmY = Math.round(top);
     },
 
     methods: {
@@ -91,6 +115,16 @@
           this.slideNum++;
         else
           this.slideNum = 1;
+      },
+      onMouseMove: function (e) {
+        let x = Math.min(1, Math.max(0, e.pageX / this.elmWidth));
+        let y = Math.min(1, Math.max(0, (e.pageY - this.elmY) / this.elmHeight));
+        
+        x = (x - .5) * PARALLAX;
+        y = (y - .5) * PARALLAX;
+        
+        let person = document.querySelector('.slider .quote .person');
+        TweenLite.to(person, 0.2, {left: x + "px", top: y + "px"});
       }
     }
   }
