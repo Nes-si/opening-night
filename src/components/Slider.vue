@@ -355,33 +355,41 @@
         .title
           width: 70%
 
-  .v-enter-active
+  .v-leave-active
     transition-duration: 1s
+  
+    .bg, .shade
+      transition-property: opacity
+      transition-duration: 1s
+  
+    .person, .content
+      transition-property: opacity
+      transition-duration: .5s
+  
+    .content
+      transition-property: opacity, transform
+
+  .v-enter-active
+    transition-duration: 2s
 
     .bg, .shade
       transition-property: opacity
-      transition-duration: .5s
+      transition-duration: 1s
 
     .person, .content
       transition-property: opacity
       transition-delay: .5s
       transition-duration: .5s
-
-  .v-leave-active
-    transition-duration: 1s
-
-    .bg, .shade
-      transition-property: opacity
-      transition-duration: .5s
-
-    .person, .content
-      transition-property: opacity
-      transition-duration: .5s
-      transition-timing-function: linear
+      
+    .content
+      transition-property: opacity, transform
+      transition-delay: .7s
 
   .v-leave-active, .v-enter
     .bg, .person, .shade, .content
       opacity: 0.01
+    .content
+      transform: translate3d(0, -50px, 0)
 
 
 </style>
