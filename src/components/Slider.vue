@@ -93,8 +93,7 @@
         elmWidth: 0,
         
         person: null,
-        
-        blockParallax: false,
+        content: null,
         
         leaving: false,
         entering: false
@@ -102,24 +101,28 @@
     },
     
     mounted: function () {
-      var box = document.querySelector('.slider').getBoundingClientRect();
-      this.elmHeight = box.height;
-      this.elmWidth = box.width;
-  
-      var body = document.body;
-      var docElem = document.documentElement;
-  
-      var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
-  
-      var clientTop = docElem.clientTop || body.clientTop || 0;
-      var top = box.top +  scrollTop - clientTop;
-  
-      this.elmY = Math.round(top);
-  
+      window.onresize = this.onResize;
+      this.onResize();
       this.person = document.querySelector('.slider .quote .person');
     },
 
     methods: {
+      onResize: function () {
+        let box = document.querySelector('.slider').getBoundingClientRect();
+        this.elmHeight = box.height;
+        this.elmWidth = box.width;
+  
+        let body = document.body;
+        let docElem = document.documentElement;
+  
+        let scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+  
+        let clientTop = docElem.clientTop || body.clientTop || 0;
+        let top = box.top +  scrollTop - clientTop;
+  
+        this.elmY = Math.round(top);
+      },
+      
       beforeLeave: function () {
         this.leaving = true;
       },
@@ -156,9 +159,9 @@
         let y = Math.min(1, Math.max(0, (e.pageY - this.elmY) / this.elmHeight));
         
         x = (1 - x) * PARALLAX;
-        y = (1 - y) * PARALLAX;
+        y = - y * PARALLAX;
         
-        TweenLite.to(this.person, 0.2, {x: x + "px", y: y + "px", z: 0.01});
+        TweenLite.to(this.person, 0.5, {x: x + "px", y: y + "px", z: 0.01});
       }
     }
   }
@@ -220,7 +223,7 @@
         height: 100%
         position: absolute
         left: 0
-        bottom: 0
+        bottom: -20px
         z-index: 10
 
       .content
