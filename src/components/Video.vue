@@ -26,7 +26,7 @@
 <script>
   import {TweenLite} from 'gsap';
   import ScrollToPlugin from 'gsap/src/uncompressed/plugins/ScrollToPlugin';
-  
+
   const items = [
     {
       url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
@@ -215,9 +215,10 @@
         cursor: pointer
         flex-grow: 1
         flex-shrink: 0
-        flex-basis: 25%
+        flex-basis: 24.5%
         order: 2
         height: 100%
+        margin-right: 0.5%
 
         &:hover
           .play
