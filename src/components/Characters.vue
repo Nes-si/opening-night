@@ -193,7 +193,7 @@
       z-index: 4
       opacity: 1
       transition: opacity 0.3s ease 0.4s
-      will-change: opacity
+      will-change: opacity, transform
 
     .char-player
       position: absolute;
@@ -342,6 +342,8 @@
 
         .char-bg
           opacity: 0
+          transform: translateX(-100%)
+          transition: opacity 0.3s ease 0.4s, transform 0s ease 0.7s
 
       .char-inner
         position: absolute
