@@ -3,9 +3,14 @@
     .spacer
     .char-box.rob
       .char-inner
+        .char-bg
         .char-player
           .char-video
           .char-socials
+            | SHARE
+            a.facebook(href="#")
+            a.twitter(href="#")
+            a.instagram(href="#")
 
         .char-list
           .char-video
@@ -19,9 +24,14 @@
 
     .char-box.anne
       .char-inner
+        .char-bg
         .char-player
           .char-video
           .char-socials
+            | SHARE
+            a.facebook(href="#")
+            a.twitter(href="#")
+            a.instagram(href="#")
 
         .char-list
           .char-video
@@ -35,9 +45,14 @@
 
     .char-box.topher
       .char-inner
+        .char-bg
         .char-player
           .char-video
           .char-socials
+            | SHARE
+            a.facebook(href="#")
+            a.twitter(href="#")
+            a.instagram(href="#")
 
         .char-list
           .char-video
@@ -51,9 +66,14 @@
 
     .char-box.alona
       .char-inner
+        .char-bg
         .char-player
           .char-video
           .char-socials
+            | SHARE
+            a.facebook(href="#")
+            a.twitter(href="#")
+            a.instagram(href="#")
 
         .char-list
           .char-video
@@ -67,9 +87,14 @@
 
     .char-box.jc
       .char-inner
+        .char-bg
         .char-player
           .char-video
           .char-socials
+            | SHARE
+            a.facebook(href="#")
+            a.twitter(href="#")
+            a.instagram(href="#")
 
         .char-list
           .char-video
@@ -83,9 +108,14 @@
 
     .char-box.taye
       .char-inner
+        .char-bg
         .char-player
           .char-video
           .char-socials
+            | SHARE
+            a.facebook(href="#")
+            a.twitter(href="#")
+            a.instagram(href="#")
 
         .char-list
           .char-video
@@ -99,9 +129,14 @@
 
     .char-box.paul
       .char-inner
+        .char-bg
         .char-player
           .char-video
           .char-socials
+            | SHARE
+            a.facebook(href="#")
+            a.twitter(href="#")
+            a.instagram(href="#")
 
         .char-list
           .char-video
@@ -115,9 +150,14 @@
 
     .char-box.lesli
       .char-inner
+        .char-bg
         .char-player
           .char-video
           .char-socials
+            | SHARE
+            a.facebook(href="#")
+            a.twitter(href="#")
+            a.instagram(href="#")
 
         .char-list
           .char-video
@@ -142,24 +182,76 @@
 <style lang="sass" scoped rel="stylesheet/sass">
   .characters
 
+    .char-bg
+      position: absolute
+      left: 15.5vw
+      bottom: 0;
+      width: 32.6vw
+      height: 100%
+      transform: skew(-18.5deg)
+      background: #000
+      z-index: 4
+      opacity: 1
+      transition: opacity 0.3s ease 0.4s
+      will-change: opacity
+
     .char-player
       position: absolute;
       left: 20vw
       overflow: hidden;
 
+      display: flex
+      flex-flow: row nowrap
+      align-items: flex-start
+
       .char-video
-        height: 15vw
+        height: 10.2vw
         width: 23.5vw
-        background: url("~assets/images/large-video.png")
+        background: url("~assets/images/large-video.png") no-repeat center center / cover
+        margin-top: 1vw;
+
+      .char-socials
+        margin-top: 1vw
+        margin-left: 1vw
+        display: flex
+        flex-flow: column nowrap
+        justify-content: center
+        align-items: center
+
+        font-family: 'Open Sans Condensed'
+        font-weight: 300
+        font-size: 1vw
+        color: #FFFFFF
+        letter-spacing: 0.15vw
+
+        .facebook,
+        .twitter,
+        .instagram
+          display: block
+          height: 2vw
+          width: 2vw
+          margin-top: 0.5vw
+          border-radius: 100px
+          background: #000 no-repeat center center / contain
+
+        .facebook
+          background-image: url('~assets/images/facebook.svg')
+          margin-top: 0.3vw
+
+        .twitter
+          background-image: url('~assets/images/twitter.svg')
+
+        .instagram
+          background-image: url('~assets/images/instagram.svg')
 
     .char-list
       position: absolute
       left: 13.4vw
-      bottom: 0.8vw;
-      width: 32.6vw;
+      bottom: 0.8vw
+      width: 32.6vw
       height: 5vw
       transform: skew(-18.5deg)
-      padding-left: 0.9vw;
+      padding-left: 0.9vw
 
       .char-video
         display: inline-block
@@ -248,6 +340,8 @@
 
         box-shadow: 0px 2px 13px 0px rgba(0,0,0,0.80), inset 0px 51px 52px 0px #000000;
 
+        .char-bg
+          opacity: 0
 
       .char-inner
         position: absolute

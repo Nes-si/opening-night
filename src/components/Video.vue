@@ -143,7 +143,7 @@
 
     &-full
       position: relative
-      padding-bottom: 56.25%
+      padding-bottom: 50%
       padding-top: 25px
       height: 0
 

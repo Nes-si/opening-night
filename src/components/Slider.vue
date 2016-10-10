@@ -111,15 +111,15 @@
       justify-content: center
       align-items: center
       z-index: 100
-      
+
     .arrow
       width: 31px
       height: 38px
       cursor: pointer
-      
+
     .arrow:hover
       filter: drop-shadow(0px 0px 2px #ffffff)
-  
+
     .arrow-left
       background: url("~assets/images/arrow-left.svg") no-repeat center center / contain
       margin-right: 24px
@@ -132,6 +132,7 @@
       height: 100%
       width: 100%
       position: absolute
+      overflow: hidden
 
       .bg
         height: 100%
@@ -218,7 +219,7 @@
 
           .icon
             margin-right: 14px
-            background: url("~assets/images/twitter.svg") no-repeat center center / contain
+            background: url("~assets/images/twitter-large.svg") no-repeat center center / contain
             width: 32px
             height: 26px
 
