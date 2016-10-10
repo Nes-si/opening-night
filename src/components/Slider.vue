@@ -137,6 +137,7 @@
       afterEnter: function () {
         setTimeout(() => {
           this.person = document.querySelector('.slider .quote .person');
+          this.content = document.querySelector('.slider .quote .content');
           this.entering = false;
         }, 50);
       },
