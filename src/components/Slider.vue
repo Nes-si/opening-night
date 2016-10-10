@@ -1,6 +1,13 @@
 <template lang="pug">
   .slider(@mousemove="onMouseMove")
-    transition
+    transition(
+      v-on:before-leave="beforeLeave"
+      v-on:after-leave="afterLeave"
+      v-on:leave-cancelled="afterLeave"
+      v-on:before-enter="beforeEnter"
+      v-on:after-enter="afterEnter"
+      v-on:enter-cancelled="afterEnter"
+      )
       .quote.rob(v-if="slideNum == 1" key="1")
         .bg
         .person
@@ -83,7 +90,14 @@
         
         elmY: 0,
         elmHeight: 0,
-        elmWidth: 0
+        elmWidth: 0,
+        
+        person: null,
+        
+        blockParallax: false,
+        
+        leaving: false,
+        entering: false
       };
     },
     
@@ -101,9 +115,27 @@
       var top = box.top +  scrollTop - clientTop;
   
       this.elmY = Math.round(top);
+  
+      this.person = document.querySelector('.slider .quote .person');
     },
 
     methods: {
+      beforeLeave: function () {
+        this.leaving = true;
+      },
+      afterLeave: function () {
+        this.leaving = false;
+      },
+      beforeEnter: function () {
+        this.entering = true;
+      },
+      afterEnter: function () {
+        setTimeout(() => {
+          this.person = document.querySelector('.slider .quote .person');
+          this.entering = false;
+        }, 50);
+      },
+      
       onClickLeft: function () {
         if (this.slideNum > 1)
           this.slideNum--;
@@ -117,14 +149,16 @@
           this.slideNum = 1;
       },
       onMouseMove: function (e) {
+        if (this.leaving || this.entering)
+          return;
+        
         let x = Math.min(1, Math.max(0, e.pageX / this.elmWidth));
         let y = Math.min(1, Math.max(0, (e.pageY - this.elmY) / this.elmHeight));
         
-        x = (x - .5) * PARALLAX;
-        y = (y - .5) * PARALLAX;
+        x = (1 - x) * PARALLAX;
+        y = (1 - y) * PARALLAX;
         
-        let person = document.querySelector('.slider .quote .person');
-        TweenLite.to(person, 0.2, {left: x + "px", top: y + "px"});
+        TweenLite.to(this.person, 0.2, {x: x + "px", y: y + "px", z: 0.01});
       }
     }
   }
@@ -186,7 +220,7 @@
         height: 100%
         position: absolute
         left: 0
-        top: 0
+        bottom: 0
         z-index: 10
 
       .content
