@@ -19,7 +19,8 @@ module.exports = {
     extensions: ['', '.js', '.vue'],
     modulesDirectories: ['src', 'node_modules'],
     alias: {
-      'vue': 'vue/dist/vue'
+      'vue': 'vue/dist/vue',
+      "TweenLite": "gsap/src/uncompressed/TweenLite"
     }
   },
   module: {

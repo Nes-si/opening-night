@@ -1,6 +1,6 @@
 <template lang="pug">
   .video
-    .video-full
+    .video-full#video-anchor
       iframe(:src="currentItem.url" frameborder="0" allowfullscreen)
 
     .video-list
@@ -24,6 +24,9 @@
 </template>
 
 <script>
+  import {TweenLite} from 'gsap';
+  import ScrollToPlugin from 'gsap/src/uncompressed/plugins/ScrollToPlugin';
+  
   const items = [
     {
       url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
@@ -78,6 +81,7 @@
     methods: {
       onClickItem: function (item) {
         this.currentItem = item;
+        TweenLite.to(window, .5, {scrollTo: "#video-anchor"});
       },
       
       next: function (num) {
