@@ -80,6 +80,7 @@
   
   const SLIDES = 3;
   const PARALLAX = 20;
+  const PARALLAX_2 = 45;
 
   export default {
     name: "SliderComponent",
@@ -104,6 +105,7 @@
       window.onresize = this.onResize;
       this.onResize();
       this.person = document.querySelector('.slider .quote .person');
+      this.content = document.querySelector('.slider .quote .content');
     },
 
     methods: {
@@ -158,10 +160,13 @@
         let x = Math.min(1, Math.max(0, e.pageX / this.elmWidth));
         let y = Math.min(1, Math.max(0, (e.pageY - this.elmY) / this.elmHeight));
         
-        x = (1 - x) * PARALLAX;
-        y = - y * PARALLAX;
-        
-        TweenLite.to(this.person, 0.5, {x: x + "px", y: y + "px", z: 0.01});
+        let X = (1 - x) * PARALLAX;
+        let Y = - y * PARALLAX;
+        TweenLite.to(this.person, 0.5, {x: X + "px", y: Y + "px", z: 0.01});
+  
+        X = (1 - x) * PARALLAX_2;
+        Y = - y * PARALLAX_2;
+        TweenLite.to(this.content, 0.5, {x: X + "px", y: Y + "px", z: 0.01});
       }
     }
   }
