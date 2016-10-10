@@ -18,15 +18,27 @@
 
     characters-component
     a.smule(href="/")
-    .arrow
+    .arrow(@click="onClickScroll")
 </template>
 
 <script>
+  import {TweenLite} from 'gsap';
+  import ScrollToPlugin from 'gsap/src/uncompressed/plugins/ScrollToPlugin';
+  
   import CharactersComponent from 'components/Characters';
+  
+  
   export default {
     name: "HeaderComponent",
+    
     components: {
       CharactersComponent
+    },
+    
+    methods: {
+      onClickScroll: function () {
+        TweenLite.to(window, .5, {scrollTo: document.documentElement.clientHeight});
+      }
     }
   }
 </script>
@@ -128,6 +140,9 @@
       width: 29px
       cursor: pointer
       z-index: 105
+  
+    .arrow:hover
+      filter: drop-shadow(0px 0px 2px #ffffff)
 
 
 </style>
