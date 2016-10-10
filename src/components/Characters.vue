@@ -3,27 +3,131 @@
     .spacer
     .char-box.rob
       .char-inner
+        .char-player
+          .char-video
+          .char-socials
+
+        .char-list
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
 
     .char-box.anne
       .char-inner
+        .char-player
+          .char-video
+          .char-socials
+
+        .char-list
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
 
     .char-box.topher
       .char-inner
+        .char-player
+          .char-video
+          .char-socials
+
+        .char-list
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
 
     .char-box.alona
       .char-inner
+        .char-player
+          .char-video
+          .char-socials
+
+        .char-list
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
 
     .char-box.jc
       .char-inner
+        .char-player
+          .char-video
+          .char-socials
+
+        .char-list
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
 
     .char-box.taye
       .char-inner
+        .char-player
+          .char-video
+          .char-socials
+
+        .char-list
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
 
     .char-box.paul
       .char-inner
+        .char-player
+          .char-video
+          .char-socials
+
+        .char-list
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
 
     .char-box.lesli
       .char-inner
+        .char-player
+          .char-video
+          .char-socials
+
+        .char-list
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
+          .char-video
+            .char-videoInner
 
 
 
@@ -36,6 +140,60 @@
 </script>
 
 <style lang="sass" scoped rel="stylesheet/sass">
+  .characters
+
+    .char-player
+      position: absolute;
+      left: 20vw
+      overflow: hidden;
+
+      .char-video
+        height: 15vw
+        width: 23.5vw
+        background: url("~assets/images/large-video.png")
+
+    .char-list
+      position: absolute
+      left: 13.4vw
+      bottom: 0.8vw;
+      width: 32.6vw;
+      height: 5vw
+      transform: skew(-18.5deg)
+      padding-left: 0.9vw;
+
+      .char-video
+        display: inline-block
+        width: 7vw
+        height: 5vw
+        margin-right: 1vw
+        overflow: hidden
+        outline: 2px transparent solid
+        position: relative
+
+        &:last-child
+          margin-right: 0
+
+        &:nth-child(1) .char-videoInner
+          background-image: url("~assets/images/shot-1.png")
+        &:nth-child(2) .char-videoInner
+          background-image: url("~assets/images/shot-2.png")
+        &:nth-child(3) .char-videoInner
+          background-image: url("~assets/images/shot-3.png")
+        &:nth-child(4) .char-videoInner
+          background-image: url("~assets/images/shot-4.png")
+
+        .char-videoInner
+          position: absolute;
+          left: -15%;
+          height: 100%;
+          width: 130%;
+          background: #FFF no-repeat left center / cover
+
+          transform: skew(18.5deg);
+
+        &:hover
+          outline: 2px #fff solid
+
 
   .characters
     position: absolute
@@ -80,6 +238,7 @@
       width: 45vw
       max-width: 12.3vw
       overflow: hidden
+      cursor: pointer;
       z-index: 10
       transition: max-width .3s ease-in-out, transform .3s ease-in-out .3s, z-index 0s ease-in-out .3s
       &:hover
@@ -213,10 +372,5 @@
           background-image: url("~assets/images/chars/lesli.png")
         &:hover
           transform: skew(-18.5deg) scale(1.1) translate3D(-35vw,0,0)
-
-
-
-
-
 
 </style>

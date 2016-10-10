@@ -5,7 +5,7 @@
 
     .video-list
       .arrow.arrow-hover.arrow-left(@click="onClickArrow(true)")
-  
+
       .group-container
         .group.is-set
           .item(
@@ -19,7 +19,7 @@
               | {{item.text}}
             .bg
             .play
-  
+
       .arrow.arrow-hover.arrow-right(@click="onClickArrow(false)")
 </template>
 
@@ -59,45 +59,45 @@
       text: "6"
     }
   ];
-  
+
   export default {
     name: "VideoComponent",
-    
+
     data: function () {
       return {
         currentItem: items[0],
         currentItems: items,
-        
+
         itemGroup: null,
         itemElms: null,
       }
     },
-    
+
     mounted: function () {
       this.itemGroup = document.querySelector('.video .video-list .group');
       this.itemElms = document.querySelectorAll('.video .video-list .item');
     },
-    
+
     methods: {
       onClickItem: function (item) {
         this.currentItem = item;
         TweenLite.to(window, .5, {scrollTo: "#video-anchor"});
       },
-      
+
       next: function (num) {
         if (num < items.length - 1)
           return num + 1;
         else
           return 0;
       },
-      
+
       prev: function (num) {
         if (num > 0)
           return num - 1;
         else
           return items.length - 1;
       },
-      
+
       search: function (elm) {
         for (let i = 0; i < this.itemElms.length; i++) {
           let tempElm = this.itemElms[i];
@@ -106,11 +106,11 @@
         }
         return -1;
       },
-      
+
       onClickArrow: function (isPrev) {
         let elm =  document.querySelector('.video .video-list .item.isRef');
         elm.classList.remove('isRef');
-        
+
         let num;
         if (isPrev) {
           num = this.prev(this.search(elm));
@@ -119,7 +119,7 @@
           num = this.next(this.search(elm));
           this.itemGroup.classList.remove('is-reversing');
         }
-  
+
         let newItem = this.itemElms[num];
         newItem.classList.add('isRef');
         newItem.style.order = 1;
@@ -128,7 +128,7 @@
           let elm = this.itemElms[num];
           elm.style.order = i;
         }
-  
+
         this.itemGroup.classList.remove('is-set');
         setTimeout(() => this.itemGroup.classList.add('is-set'), 50);
       }
@@ -140,20 +140,20 @@
   .video
     background: #25182A
     padding: 30px
-    
+
     &-full
       position: relative
       padding-bottom: 56.25%
       padding-top: 25px
       height: 0
-      
+
       iframe
         position: absolute
         top: 0
         left: 0
         width: 100%
         height: 100%
-      
+
       .play
         background: url("~assets/images/play-big.svg") no-repeat center center / contain
         width: 147px
@@ -164,52 +164,52 @@
         transform: translate(-50%, -50%)
         z-index: 50
         cursor: pointer
-    
+
     &-list
       margin-top: 15px
       display: flex
       justify-content: space-between
       align-items: center
-      
+
     .arrow
       min-width: 31px
       height: 38px
       cursor: pointer
-      
+
     .arrow-hover:hover
       filter: drop-shadow(0px 0px 2px #ffffff)
-      
+
     .arrow-left
       background: url("~assets/images/arrow-left.svg") no-repeat center center / contain
       margin-right: 24px
-    
+
     .arrow-right
       background: url("~assets/images/arrow-right.svg") no-repeat center center / contain
       margin-left: 24px
-      
+
     .group-container
       flex-grow: 1
       height: 183px
       overflow: hidden
-      
+
       .group
         display: flex
         flex-flow: row nowrap
         justify-content: space-between
         align-items: center
-        
+
         height: 100%
         position: relative
         left: -25%
         transform: translateX(25%)
-        
+
       .group.is-reversing
         transform: translateX(-25%)
-        
+
       .group.is-set
         transform: none
         transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)
-        
+
       .item
         position: relative
         cursor: pointer
@@ -218,21 +218,21 @@
         flex-basis: 25%
         order: 2
         height: 100%
-        
+
         &:hover
           .play
             opacity: 1
-          
+
           .text
             opacity: 0
-        
+
         .img
           width: 100%
           height: 100%
           background-repeat: no-repeat
           background-position: center center
           background-size: cover
-        
+
         .text
           font-weight: bold
           font-size: 23.19px
@@ -247,7 +247,7 @@
           top: 50%
           transform: translate(-50%, -50%)
           text-align: center
-        
+
         .play
           background: url("~assets/images/play-middle.svg") no-repeat center center / contain
           width: 83px
@@ -259,10 +259,10 @@
           left: 50%
           top: 50%
           transform: translate(-50%, -50%)
-    
+
       .isRef
         order: 1
-  
-  
-  
+
+
+
 </style>

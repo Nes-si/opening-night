@@ -83,6 +83,8 @@
 
         span
           font-weight: bold
+          margin-left: 5px
+          margin-right: 5px
 
       &-trailer
         background: rgba(255, 255, 255, 0.09)
