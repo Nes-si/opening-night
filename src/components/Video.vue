@@ -4,54 +4,65 @@
       iframe(:src="currentItem.url" frameborder="0" allowfullscreen)
 
     .video-list
-      .arrow.arrow-left(@click="onClickLeft")
+      .arrow.arrow-hover.arrow-left(@click="onClickArrow(true)")
   
-      transition-group.group(tag="div")
-        .video-item(v-for="(item, index) of currentItems" key="index")
-          .img(:style="{ backgroundImage: 'url(' + item.preview + ')' }")
-          .text
-            | {{item.text}}
-          .bg
-          .play(@click="onClickItem(item)")
+      .group-container
+        .group.is-set
+          .item(
+            v-for="(item, index) of currentItems"
+            v-bind:key="item.url"
+            v-bind:class="{ isRef: index == currentItems.length - 1 }"
+            @click="onClickItem(item)"
+            )
+            .img(:style="{ backgroundImage: 'url(' + item.preview + ')' }")
+            .text
+              | {{item.text}}
+            .bg
+            .play
   
-      .arrow.arrow-hover.arrow-right(@click="onClickRight")
+      .arrow.arrow-hover.arrow-right(@click="onClickArrow(false)")
 </template>
 
 <script>
   const YOUTUBE = "youtube";
   const GIPHY = "giphy";
-  const ITEMS_ON_PAGE = 4;
   
   const items = [
     {
       type: YOUTUBE,
       url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
       preview: "assets/images/video-1.png",
-      text: "CHOPSTICKS"
+      text: "1"
     },
     {
       type: YOUTUBE,
       url: "https://www.youtube.com/embed/-_MSyT1SqLY?rel=0",
       preview: "assets/images/video-2.png",
-      text: "WELCOME TO WONDERLAND"
+      text: "2"
     },
     {
       type: YOUTUBE,
       url: "https://www.youtube.com/embed/d9TpRfDdyU0?rel=0",
       preview: "assets/images/video-3.png",
-      text: "WORDS, SAY WORDS"
+      text: "3"
     },
     {
       type: YOUTUBE,
       url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
       preview: "assets/images/video-4.png",
-      text: "ПЫЩЬ ПЫЩЬ"
+      text: "4"
     },
     {
       type: YOUTUBE,
       url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
       preview: "assets/images/video-3.png",
-      text: "ПЫЩЬ"
+      text: "5"
+    },
+    {
+      type: YOUTUBE,
+      url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+      preview: "assets/images/video-4.png",
+      text: "6"
     }
   ];
   
@@ -60,55 +71,71 @@
     
     data: function () {
       return {
-        pos: 0,
         currentItem: items[0],
-        currentItems: [],
+        currentItems: items,
         
-        leftArrow: null,
-        rightArrow: null,
-        
-        maxPos: items.length - ITEMS_ON_PAGE
-      }
-    },
-    
-    created: function () {
-      for (let i = 0; i < Math.min(ITEMS_ON_PAGE, items.length); i++) {
-        this.currentItems.push(items[i]);
+        itemGroup: null,
+        itemElms: null,
       }
     },
     
     mounted: function () {
-      this.leftArrow = document.querySelector('.video .video-list .arrow-left');
-      this.rightArrow = document.querySelector('.video .video-list .arrow-right');
+      this.itemGroup = document.querySelector('.video .video-list .group');
+      this.itemElms = document.querySelectorAll('.video .video-list .item');
     },
     
     methods: {
       onClickItem: function (item) {
         this.currentItem = item;
       },
-      onClickLeft: function () {
-        if (this.pos > 0) {
-          this.pos--;
-          this.currentItems.pop();
-          this.currentItems.unshift(items[this.pos]);
-          
-          if (this.pos == 0)
-            this.leftArrow.classList.remove('arrow-hover');
-          if (this.pos < this.maxPos)
-            this.rightArrow.classList.add('arrow-hover');
-        }
+      
+      next: function (num) {
+        if (num < items.length - 1)
+          return num + 1;
+        else
+          return 0;
       },
-      onClickRight: function () {
-        if (this.pos < this.maxPos) {
-          this.pos++;
-          this.currentItems.shift();
-          this.currentItems.push(items[this.pos + ITEMS_ON_PAGE - 1]);
-    
-          if (this.pos == this.maxPos)
-            this.rightArrow.classList.remove('arrow-hover');
-          if (this.pos > 0)
-            this.leftArrow.classList.add('arrow-hover');
+      
+      prev: function (num) {
+        if (num > 0)
+          return num - 1;
+        else
+          return items.length - 1;
+      },
+      
+      search: function (elm) {
+        for (let i = 0; i < this.itemElms.length; i++) {
+          let tempElm = this.itemElms[i];
+          if (tempElm == elm)
+            return i;
         }
+        return -1;
+      },
+      
+      onClickArrow: function (isPrev) {
+        let elm =  document.querySelector('.video .video-list .item.isRef');
+        elm.classList.remove('isRef');
+        
+        let num;
+        if (isPrev) {
+          num = this.prev(this.search(elm));
+          this.itemGroup.classList.add('is-reversing');
+        } else {
+          num = this.next(this.search(elm));
+          this.itemGroup.classList.remove('is-reversing');
+        }
+  
+        let newItem = this.itemElms[num];
+        newItem.classList.add('isRef');
+        newItem.style.order = 1;
+        for (let i = 2; i <= this.itemElms.length; i++) {
+          num = this.next(num);
+          let elm = this.itemElms[num];
+          elm.style.order = i;
+        }
+  
+        this.itemGroup.classList.remove('is-set');
+        setTimeout(() => this.itemGroup.classList.add('is-set'), 50);
       }
     }
   }
@@ -150,7 +177,7 @@
       align-items: center
       
     .arrow
-      width: 31px
+      min-width: 31px
       height: 38px
       cursor: pointer
       
@@ -165,59 +192,82 @@
       background: url("~assets/images/arrow-right.svg") no-repeat center center / contain
       margin-left: 24px
       
-    .group
-      display: flex
-      flex-flow: row nowrap
-      justify-content: space-between
-      align-items: center
+    .group-container
       flex-grow: 1
       height: 183px
+      overflow: hidden
       
-    &-item
-      position: relative
-      cursor: pointer
-      flex-grow: 1
-      height: 100%
-      
-      &:hover
-        .play
-          opacity: 1
+      .group
+        display: flex
+        flex-flow: row nowrap
+        justify-content: space-between
+        align-items: center
+        
+        height: 100%
+        position: relative
+        left: -25%
+        transform: translateX(25%)
+        
+      .group.is-reversing
+        transform: translateX(-25%)
+        
+      .group.is-set
+        transform: none
+        transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)
+        
+      .item
+        position: relative
+        cursor: pointer
+        flex-grow: 1
+        flex-shrink: 0
+        flex-basis: 25%
+        order: 2
+        height: 100%
+        
+        &:hover
+          .play
+            opacity: 1
+          
+          .text
+            opacity: 0
+        
+        .img
+          width: 100%
+          height: 100%
+          background-repeat: no-repeat
+          background-position: center center
+          background-size: cover
         
         .text
+          font-weight: bold
+          font-size: 23.19px
+          color: #FFFFFF
+          letter-spacing: 1.29px
+          line-height: 24px
+          opacity: 1
+          transition: opacity 0.3s ease
+          will-change: opacity
+          position: absolute
+          left: 50%
+          top: 50%
+          transform: translate(-50%, -50%)
+          text-align: center
+        
+        .play
+          background: url("~assets/images/play-middle.svg") no-repeat center center / contain
+          width: 83px
+          height: 83px
           opacity: 0
-      
-      .img
-        width: 100%
-        height: 100%
-        background-repeat: no-repeat
-        background-position: center center
-        background-size: cover
-      
-      .text
-        font-weight: bold
-        font-size: 23.19px
-        color: #FFFFFF
-        letter-spacing: 1.29px
-        line-height: 24px
-        opacity: 1
-        transition: opacity 0.3s ease
-        will-change: opacity
-        position: absolute
-        left: 50%
-        top: 50%
-        transform: translate(-50%, -50%)
-        text-align: center
-      
-      .play
-        background: url("~assets/images/play-middle.svg") no-repeat center center / contain
-        width: 83px
-        height: 83px
-        opacity: 0
-        transition: opacity 0.3s ease
-        will-change: opacity
-        position: absolute
-        left: 50%
-        top: 50%
-        transform: translate(-50%, -50%)
+          transition: opacity 0.3s ease
+          will-change: opacity
+          position: absolute
+          left: 50%
+          top: 50%
+          transform: translate(-50%, -50%)
+    
+      .isRef
+        order: 1
+  
+  
   
 </style>
