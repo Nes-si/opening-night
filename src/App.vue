@@ -46,6 +46,10 @@ export default {
 }
 </script>
 
+<style>
+  @import 'normalize.css';
+</style>
+
 <style lang="scss" rel="stylesheet/scss">
   @font-face {
   	font-family: 'Open Sans Hebrew Condensed';
