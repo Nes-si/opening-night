@@ -202,12 +202,19 @@
         position: relative
         left: -25%
         transform: translateX(25%)
+        
+        @media (max-width: 1200px)
+          left: -33.33333%
+          transform: translateX(33.33333%)
 
       .group.is-reversing
         transform: translateX(-25%)
+        
+        @media (max-width: 1200px)
+          transform: translateX(-33.33333%)
 
       .group.is-set
-        transform: none
+        transform: none !important
         transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)
 
       .item
@@ -219,6 +226,9 @@
         order: 2
         height: 100%
         margin-right: 0.5%
+  
+        @media (max-width: 1200px)
+          flex-basis: 32.83333%
 
         &:hover
           .play
