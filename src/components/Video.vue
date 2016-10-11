@@ -26,7 +26,7 @@
     .video-mobile
       .group-container
         .item(
-          v-for="(item, index) of currentItems"
+          v-for="(item, index) of сurrentItemsMobile"
           v-bind:key="item.url"
           v-bind:class="{ isRef: index == currentItems.length - 1 }"
           @click="onClickItem(item)"
@@ -82,6 +82,7 @@
       return {
         currentItem: items[0],
         currentItems: items,
+        сurrentItemsMobile: items.slice(0, 3),
 
         itemGroup: null,
         itemElms: null,
