@@ -1,6 +1,6 @@
 <template lang="pug">
-  .video
-    .video-full#video-anchor
+  .video#video-anchor
+    .video-full
       iframe(:src="currentItem.url" frameborder="0" allowfullscreen)
 
     .video-list
