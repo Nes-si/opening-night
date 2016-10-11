@@ -73,10 +73,7 @@ module.exports = {
     require('autoprefixer')(),
     require('postcss-import')(),
     require('postcss-normalize')(),
-    require('precss'),
-    require('postcss-font-magician')({
-      hosted: 'assets/fonts'
-    })
+    require('precss')
   ],
   vue: {
     loaders: utils.cssLoaders(),
