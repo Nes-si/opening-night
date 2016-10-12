@@ -98,12 +98,16 @@
         entering: false,
         
         scrollMagicCtrl: null,
-        scrollMagicScenes: []
+        scrollMagicScenes: [],
+        
+        start: 0,
+        dur: 0
       };
     },
     
     mounted: function () {
       window.addEventListener('resize', this.onResize);
+      window.addEventListener('scroll', this.onScroll);
       
       this.person = document.querySelector('.slider .quote .person');
       this.content = document.querySelector('.slider .quote .content');
@@ -112,6 +116,9 @@
       this.scrollMagicCtrl = new ScrollMagic.Controller();
   
       this.onResize();
+  
+      this.start = this.person.offsetTop;
+      this.dur = window.innerHeight * 2;
     },
 
     methods: {
@@ -133,6 +140,13 @@
   
           this.scrollMagicInit();
         })();
+      },
+      
+      onScroll: function () {
+        let pos = window.pageYOffset;
+        let progress = (pos - this.start) / this.dur;
+        if (progress >= 0 && progress <= 1)
+          TweenLite.to(this.person, 0.1, {y: (progress * 80)});
       },
       
       enter: function () {
@@ -165,17 +179,17 @@
     
         let screenHeight = window.innerHeight;
     
-        let personOffset = - Math.round(screenHeight / 4);
+        let personOffset = Math.round(screenHeight / 4);
         let scene = new ScrollMagic.Scene({
           triggerElement: this.container,
           triggerHook: .6,
           duration: '150%'
         })
           .setTween(this.person, {y: personOffset.toString(), z: '0.01'})
-          .addTo(this.scrollMagicCtrl);
+          //.addTo(this.scrollMagicCtrl);
         this.scrollMagicScenes.push(scene);
     
-        let titleOffset = - Math.round(screenHeight / 1.5);
+        let titleOffset = - Math.round(screenHeight / 2);
         scene = new ScrollMagic.Scene({
           triggerElement: this.container,
           triggerHook: .6,
@@ -260,7 +274,7 @@
         height: 100%
         position: absolute
         left: 0
-        bottom: -25vh
+        bottom: 0
         z-index: 10
 
       .content
