@@ -246,9 +246,9 @@
 
     .char-list
       position: absolute
-      left: 13.4vw
+      left: 13.3vw
       bottom: 0.8vw
-      width: 32.6vw
+      width: 32.7vw
       height: 5vw
       transform: skew(-18.5deg)
       padding-left: 0.9vw
