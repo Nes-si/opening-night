@@ -1,11 +1,16 @@
 <template lang="pug">
   .characters
     .spacer
-    .char-box.rob
+    .char-box(
+      v-for="(char, index) of chars"
+      v-bind:class="[char.name]"
+      v-bind:key="char.name"
+      )
       .char-inner
         .char-bg
         .char-player
           .char-video
+            iframe(:src="char.videos[currentVideo].url" frameborder="0" allowfullscreen)
           .char-socials
             | SHARE
             a.facebook(href="#")
@@ -13,169 +18,200 @@
             a.instagram(href="#")
 
         .char-list
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-
-    .char-box.anne
-      .char-inner
-        .char-bg
-        .char-player
-          .char-video
-          .char-socials
-            | SHARE
-            a.facebook(href="#")
-            a.twitter(href="#")
-            a.instagram(href="#")
-
-        .char-list
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-
-    .char-box.topher
-      .char-inner
-        .char-bg
-        .char-player
-          .char-video
-          .char-socials
-            | SHARE
-            a.facebook(href="#")
-            a.twitter(href="#")
-            a.instagram(href="#")
-
-        .char-list
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-
-    .char-box.alona
-      .char-inner
-        .char-bg
-        .char-player
-          .char-video
-          .char-socials
-            | SHARE
-            a.facebook(href="#")
-            a.twitter(href="#")
-            a.instagram(href="#")
-
-        .char-list
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-
-    .char-box.jc
-      .char-inner
-        .char-bg
-        .char-player
-          .char-video
-          .char-socials
-            | SHARE
-            a.facebook(href="#")
-            a.twitter(href="#")
-            a.instagram(href="#")
-
-        .char-list
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-
-    .char-box.taye
-      .char-inner
-        .char-bg
-        .char-player
-          .char-video
-          .char-socials
-            | SHARE
-            a.facebook(href="#")
-            a.twitter(href="#")
-            a.instagram(href="#")
-
-        .char-list
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-
-    .char-box.paul
-      .char-inner
-        .char-bg
-        .char-player
-          .char-video
-          .char-socials
-            | SHARE
-            a.facebook(href="#")
-            a.twitter(href="#")
-            a.instagram(href="#")
-
-        .char-list
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-
-    .char-box.lesli
-      .char-inner
-        .char-bg
-        .char-player
-          .char-video
-          .char-socials
-            | SHARE
-            a.facebook(href="#")
-            a.twitter(href="#")
-            a.instagram(href="#")
-
-        .char-list
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
-          .char-video
-            .char-videoInner
+          .char-video(v-for="n in 4" @click="onClickPreview(n - 1)")
+            .char-videoInner(:style="{ backgroundImage: 'url(' + char.videos[n - 1].preview + ')' }")
 
 
 
 </template>
 
 <script>
+  const charactersData = [
+    {
+      name: 'rob',
+      videos: [
+        {
+          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          preview: "assets/images/video-1.png"
+        },
+        {
+          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          preview: "assets/images/video-2.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          preview: "assets/images/video-3.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          preview: "assets/images/video-4.png"
+        }
+      ]
+    },
+    {
+      name: 'anne',
+      videos: [
+        {
+          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          preview: "assets/images/video-1.png"
+        },
+        {
+          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          preview: "assets/images/video-2.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          preview: "assets/images/video-3.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          preview: "assets/images/video-4.png"
+        }
+      ]
+    },
+    {
+      name: 'topher',
+      videos: [
+        {
+          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          preview: "assets/images/video-1.png"
+        },
+        {
+          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          preview: "assets/images/video-2.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          preview: "assets/images/video-3.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          preview: "assets/images/video-4.png"
+        }
+      ]
+    },
+    {
+      name: 'alona',
+      videos: [
+        {
+          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          preview: "assets/images/video-1.png"
+        },
+        {
+          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          preview: "assets/images/video-2.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          preview: "assets/images/video-3.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          preview: "assets/images/video-4.png"
+        }
+      ]
+    },
+    {
+      name: 'jc',
+      videos: [
+        {
+          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          preview: "assets/images/video-1.png"
+        },
+        {
+          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          preview: "assets/images/video-2.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          preview: "assets/images/video-3.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          preview: "assets/images/video-4.png"
+        }
+      ]
+    },
+    {
+      name: 'taye',
+      videos: [
+        {
+          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          preview: "assets/images/video-1.png"
+        },
+        {
+          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          preview: "assets/images/video-2.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          preview: "assets/images/video-3.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          preview: "assets/images/video-4.png"
+        }
+      ]
+    },
+    {
+      name: 'paul',
+      videos: [
+        {
+          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          preview: "assets/images/video-1.png"
+        },
+        {
+          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          preview: "assets/images/video-2.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          preview: "assets/images/video-3.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          preview: "assets/images/video-4.png"
+        }
+      ]
+    },
+    {
+      name: 'lesli',
+      videos: [
+        {
+          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          preview: "assets/images/video-1.png"
+        },
+        {
+          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          preview: "assets/images/video-2.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          preview: "assets/images/video-3.png"
+        },
+        {
+          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          preview: "assets/images/video-4.png"
+        }
+      ]
+    }
+  ];
+  
   export default {
-    name: "CharactersComponent"
+    name: "CharactersComponent",
+    
+    data: function () {
+      return {
+        chars: charactersData,
+        currentVideo: 0
+      }
+    },
+    
+    methods: {
+      onClickPreview: function (num) {
+        this.currentVideo = num;
+      }
+    }
   }
 </script>
 
@@ -207,9 +243,16 @@
       .char-video
         height: 10.2vw
         width: 23.5vw
-        background: url("~assets/images/large-video.png") no-repeat center center / cover
-        margin-top: 1vw;
-
+        margin-top: 1vw
+        position: relative
+        
+        iframe
+          position: absolute
+          top: 0
+          left: 0
+          width: 100%
+          height: 100%
+          
       .char-socials
         margin-top: 1vw
         margin-left: 1vw
@@ -264,15 +307,6 @@
 
         &:last-child
           margin-right: 0
-
-        &:nth-child(1) .char-videoInner
-          background-image: url("~assets/images/shot-1.png")
-        &:nth-child(2) .char-videoInner
-          background-image: url("~assets/images/shot-2.png")
-        &:nth-child(3) .char-videoInner
-          background-image: url("~assets/images/shot-3.png")
-        &:nth-child(4) .char-videoInner
-          background-image: url("~assets/images/shot-4.png")
 
         .char-videoInner
           position: absolute;
