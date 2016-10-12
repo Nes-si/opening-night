@@ -71,9 +71,7 @@
 </template>
 
 <script>
-  import {TweenLite} from 'gsap';
-  import ScrollMagic from 'scrollmagic';
-  import 'imports?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap';
+  import {TweenLite, Power0} from 'gsap';
   import debounce from 'throttle-debounce/debounce';
   
   const SLIDES = 3;
@@ -95,13 +93,7 @@
         person: null,
         content: null,
         
-        entering: false,
-        
-        scrollMagicCtrl: null,
-        scrollMagicScenes: [],
-        
-        start: 0,
-        dur: 0
+        entering: false
       };
     },
     
@@ -113,12 +105,8 @@
       this.content = document.querySelector('.slider .quote .content');
   
       this.container = document.querySelector('.slider');
-      this.scrollMagicCtrl = new ScrollMagic.Controller();
   
       this.onResize();
-  
-      this.start = this.person.offsetTop;
-      this.dur = window.innerHeight * 2;
     },
 
     methods: {
@@ -137,23 +125,25 @@
           let top = box.top +  scrollTop - clientTop;
   
           this.elmY = Math.round(top);
-  
-          this.scrollMagicInit();
         })();
       },
       
       onScroll: function () {
-        let pos = window.pageYOffset;
-        let progress = (pos - this.start) / this.dur;
-        if (progress >= 0 && progress <= 1)
-          TweenLite.to(this.person, 0.1, {y: (progress * 80)});
+        if (this.entering)
+          return;
+        
+        let dur = window.innerHeight * 1.5;
+        let progress = (window.pageYOffset - this.person.offsetTop) / dur;
+        if (progress >= 0 && progress <= 1) {
+          TweenLite.to(this.person, 0.1, {y: (progress * 100), z: '0.01', ease: Power0.easeInOut});
+          TweenLite.to(this.content, 0.1, {y: -(progress * 500), z: '0.01', ease: Power0.easeInOut});
+        }
       },
       
       enter: function () {
         this.person = document.querySelector(`.slider .quote[data="${this.slideNum}"] .person`);
         this.content = document.querySelector(`.slider .quote[data="${this.slideNum}"] .content`);
         this.entering = false;
-        this.scrollMagicInit();
       },
       
       onMouseMove: function (e) {
@@ -171,35 +161,7 @@
         Y = - y * PARALLAX_2;
         TweenLite.to(this.content, 0.5, {x: X + "px", y: Y + "px", z: 0.01});
       },
-  
-      scrollMagicInit: function () {
-        for (let scene of this.scrollMagicScenes) {
-          scene.remove();
-        }
-    
-        let screenHeight = window.innerHeight;
-    
-        let personOffset = Math.round(screenHeight / 4);
-        let scene = new ScrollMagic.Scene({
-          triggerElement: this.container,
-          triggerHook: .6,
-          duration: '150%'
-        })
-          .setTween(this.person, {y: personOffset.toString(), z: '0.01'})
-          //.addTo(this.scrollMagicCtrl);
-        this.scrollMagicScenes.push(scene);
-    
-        let titleOffset = - Math.round(screenHeight / 2);
-        scene = new ScrollMagic.Scene({
-          triggerElement: this.container,
-          triggerHook: .6,
-          duration: '150%'
-        })
-          .setTween(this.content, {y: titleOffset.toString(), z: '0.01'})
-          .addTo(this.scrollMagicCtrl);
-        this.scrollMagicScenes.push(scene);
-      },
-  
+
       onClickLeft: function () {
         this.entering = true;
         if (this.slideNum > 1)
