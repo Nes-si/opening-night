@@ -40,7 +40,7 @@
 
 <script>
   import {TweenLite} from 'gsap';
-  import ScrollToPlugin from 'gsap/src/uncompressed/plugins/ScrollToPlugin';
+  import 'gsap/src/uncompressed/plugins/ScrollToPlugin';
 
   const items = [
     {

@@ -1,14 +1,10 @@
 <template lang="pug">
   .slider(@mousemove="onMouseMove")
     transition(
-      v-on:before-leave="beforeLeave"
-      v-on:after-leave="afterLeave"
-      v-on:leave-cancelled="afterLeave"
-      v-on:before-enter="beforeEnter"
-      v-on:after-enter="afterEnter"
-      v-on:enter-cancelled="afterEnter"
+      v-on:enter="enter"
+      v-on:enter-cancelled="enter"
       )
-      .quote.rob(v-if="slideNum == 1" key="1")
+      .quote.rob(v-if="slideNum == 1" key="1" data="1")
         .bg
         .person
         .shade
@@ -28,7 +24,7 @@
             .icon
             | via Twitter
 
-      .quote.alona(v-if="slideNum == 2" key="2")
+      .quote.alona(v-if="slideNum == 2" key="2" data="2")
         .bg
         .person
         .shade
@@ -48,7 +44,7 @@
             .icon
             | via Twitter
 
-      .quote.topher(v-if="slideNum == 3" key="3")
+      .quote.topher(v-if="slideNum == 3" key="3" data="3")
         .bg
         .person
         .shade
@@ -76,7 +72,9 @@
 
 <script>
   import {TweenLite} from 'gsap';
-  
+  import ScrollMagic from 'scrollmagic';
+  import 'imports?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap';
+  import debounce from 'throttle-debounce/debounce';
   
   const SLIDES = 3;
   const PARALLAX = 20;
@@ -93,69 +91,59 @@
         elmHeight: 0,
         elmWidth: 0,
         
+        container: null,
         person: null,
         content: null,
         
-        leaving: false,
-        entering: false
+        entering: false,
+        
+        scrollMagicCtrl: null,
+        scrollMagicScenes: []
       };
     },
     
     mounted: function () {
-      window.onresize = this.onResize;
-      this.onResize();
+      window.addEventListener('resize', this.onResize);
+      
       this.person = document.querySelector('.slider .quote .person');
       this.content = document.querySelector('.slider .quote .content');
+  
+      this.container = document.querySelector('.slider');
+      this.scrollMagicCtrl = new ScrollMagic.Controller();
+  
+      this.onResize();
     },
 
     methods: {
       onResize: function () {
-        let box = document.querySelector('.slider').getBoundingClientRect();
-        this.elmHeight = box.height;
-        this.elmWidth = box.width;
+        debounce(300, false, () => {
+          let box = document.querySelector('.slider').getBoundingClientRect();
+          this.elmHeight = box.height;
+          this.elmWidth = box.width;
   
-        let body = document.body;
-        let docElem = document.documentElement;
+          let body = document.body;
+          let docElem = document.documentElement;
   
-        let scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+          let scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
   
-        let clientTop = docElem.clientTop || body.clientTop || 0;
-        let top = box.top +  scrollTop - clientTop;
+          let clientTop = docElem.clientTop || body.clientTop || 0;
+          let top = box.top +  scrollTop - clientTop;
   
-        this.elmY = Math.round(top);
+          this.elmY = Math.round(top);
+  
+          this.scrollMagicInit();
+        })();
       },
       
-      beforeLeave: function () {
-        this.leaving = true;
-      },
-      afterLeave: function () {
-        this.leaving = false;
-      },
-      beforeEnter: function () {
-        this.entering = true;
-      },
-      afterEnter: function () {
-        setTimeout(() => {
-          this.person = document.querySelector('.slider .quote .person');
-          this.content = document.querySelector('.slider .quote .content');
-          this.entering = false;
-        }, 50);
+      enter: function () {
+        this.person = document.querySelector(`.slider .quote[data="${this.slideNum}"] .person`);
+        this.content = document.querySelector(`.slider .quote[data="${this.slideNum}"] .content`);
+        this.entering = false;
+        this.scrollMagicInit();
       },
       
-      onClickLeft: function () {
-        if (this.slideNum > 1)
-          this.slideNum--;
-        else
-          this.slideNum = SLIDES;
-      },
-      onClickRight: function () {
-        if (this.slideNum < SLIDES)
-          this.slideNum++;
-        else
-          this.slideNum = 1;
-      },
       onMouseMove: function (e) {
-        if (this.leaving || this.entering)
+        //if (this.entering)
           return;
         
         let x = Math.min(1, Math.max(0, e.pageX / this.elmWidth));
@@ -168,6 +156,49 @@
         X = (1 - x) * PARALLAX_2;
         Y = - y * PARALLAX_2;
         TweenLite.to(this.content, 0.5, {x: X + "px", y: Y + "px", z: 0.01});
+      },
+  
+      scrollMagicInit: function () {
+        for (let scene of this.scrollMagicScenes) {
+          scene.remove();
+        }
+    
+        let screenHeight = window.innerHeight;
+    
+        let personOffset = - Math.round(screenHeight / 4);
+        let scene = new ScrollMagic.Scene({
+          triggerElement: this.container,
+          triggerHook: .3,
+          duration: '130%'
+        })
+          .setTween(this.person, {y: personOffset.toString(), z: '0.01'})
+          .addTo(this.scrollMagicCtrl);
+        this.scrollMagicScenes.push(scene);
+    
+        let titleOffset = - Math.round(screenHeight);
+        scene = new ScrollMagic.Scene({
+          triggerElement: this.container,
+          triggerHook: .3,
+          duration: '130%'
+        })
+          .setTween(this.content, {y: titleOffset.toString(), z: '0.01'})
+          .addTo(this.scrollMagicCtrl);
+        this.scrollMagicScenes.push(scene);
+      },
+  
+      onClickLeft: function () {
+        this.entering = true;
+        if (this.slideNum > 1)
+          this.slideNum--;
+        else
+          this.slideNum = SLIDES;
+      },
+      onClickRight: function () {
+        this.entering = true;
+        if (this.slideNum < SLIDES)
+          this.slideNum++;
+        else
+          this.slideNum = 1;
       }
     }
   }
@@ -229,34 +260,14 @@
         height: 100%
         position: absolute
         left: 0
-        bottom: -20px
+        bottom: -25vh
         z-index: 10
 
       .content
-        position: relative
-        display: flex
-        flex-flow: column nowrap
-        justify-content: center
-        height: 100%
-        margin-left: 12%
+        position: absolute
+        left: 12%
+        bottom: 10vh
         z-index: 55
-
-        .quote-left, .quote-right
-          font-family: 'Helvetica', sans-serif
-          font-size: 500px
-          letter-spacing: 0.54px
-          line-height: 416px
-          z-index: -1
-          position: absolute
-
-        .quote-left
-          left: -16%
-          top: -20%
-
-        .quote-right
-          transform: rotate(180deg)
-          right: 0
-          top: -90%
 
         .in-touch
           opacity: 0.8
@@ -281,7 +292,24 @@
           letter-spacing: 2.23px
           line-height: 92.66px
           position: relative
-
+  
+          .quote-left, .quote-right
+            font-family: 'Helvetica', sans-serif
+            font-size: 500px
+            letter-spacing: 0.54px
+            line-height: 416px
+            z-index: -1
+            position: absolute
+    
+          .quote-left
+            left: -16%
+            top: -20%
+    
+          .quote-right
+            transform: rotate(180deg)
+            right: 0
+            top: -90%
+    
         .twitter
           margin-top: 22px
           opacity: 0.5
