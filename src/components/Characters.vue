@@ -219,7 +219,7 @@
     .char-bg
       position: absolute
       left: 15.5vw
-      bottom: 0;
+      bottom: 0
       width: 32.6vw
       height: 100%
       transform: skew(-18.5deg)
@@ -230,9 +230,9 @@
       will-change: opacity, transform
 
     .char-player
-      position: absolute;
+      position: absolute
       left: 20vw
-      overflow: hidden;
+      overflow: hidden
 
       display: flex
       flex-flow: row nowrap
@@ -363,7 +363,7 @@
       width: 45vw
       max-width: 12.3vw
       overflow: hidden
-      cursor: pointer;
+      cursor: pointer
       z-index: 10
       transition: max-width .3s ease-in-out, transform .3s ease-in-out .3s, z-index 0s ease-in-out .3s
       &:hover
