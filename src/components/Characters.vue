@@ -21,8 +21,6 @@
           .char-video(v-for="n in 4" @click="onClickPreview(n - 1)")
             .char-videoInner(:style="{ backgroundImage: 'url(' + char.videos[n - 1].preview + ')' }")
 
-
-
 </template>
 
 <script>
