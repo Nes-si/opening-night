@@ -307,13 +307,13 @@
           margin-right: 0
 
         .char-videoInner
-          position: absolute;
-          left: -15%;
-          height: 100%;
-          width: 130%;
+          position: absolute
+          left: -15%
+          height: 100%
+          width: 130%
           background: #FFF no-repeat left center / cover
 
-          transform: skew(18.5deg);
+          transform: skew(18.5deg)
 
         &:hover
           outline: 2px #fff solid
@@ -353,6 +353,7 @@
       z-index: 9
       &:hover ~ *
         transform: skew(-18.5deg) !important
+        
     .char-box
       position: absolute
       bottom: 0
@@ -370,7 +371,7 @@
         z-index: 100
         transition: max-width .3s ease-in-out .3s, transform .3s ease-in-out .3s, z-index 0s ease-in-out 0s
 
-        box-shadow: 0px 2px 13px 0px rgba(0,0,0,0.80), inset 0px 51px 52px 0px #000000;
+        box-shadow: 0px 2px 13px 0px rgba(0,0,0,0.80), inset 0px 51px 52px 0px #000000
 
         .char-bg
           opacity: 0
