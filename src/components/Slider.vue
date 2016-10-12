@@ -168,18 +168,18 @@
         let personOffset = - Math.round(screenHeight / 4);
         let scene = new ScrollMagic.Scene({
           triggerElement: this.container,
-          triggerHook: .3,
-          duration: '130%'
+          triggerHook: .6,
+          duration: '150%'
         })
           .setTween(this.person, {y: personOffset.toString(), z: '0.01'})
           .addTo(this.scrollMagicCtrl);
         this.scrollMagicScenes.push(scene);
     
-        let titleOffset = - Math.round(screenHeight);
+        let titleOffset = - Math.round(screenHeight / 1.5);
         scene = new ScrollMagic.Scene({
           triggerElement: this.container,
-          triggerHook: .3,
-          duration: '130%'
+          triggerHook: .6,
+          duration: '150%'
         })
           .setTween(this.content, {y: titleOffset.toString(), z: '0.01'})
           .addTo(this.scrollMagicCtrl);
