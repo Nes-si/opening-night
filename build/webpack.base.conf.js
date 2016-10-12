@@ -70,6 +70,8 @@ module.exports = {
     })
   ],
   postcss: () => [
+    require('postcss-flexibility'),
+    require('postcss-flexbugs-fixes'),
     require('autoprefixer')(),
     require('postcss-import')(),
     require('precss')
