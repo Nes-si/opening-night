@@ -1,8 +1,9 @@
 <template lang="pug">
   .video#video-anchor
     .video-desktop
-      .video-full
-        iframe(:src="currentItem.url" frameborder="0" allowfullscreen)
+      .video-container
+        .video-player#main-video
+        video.giphy(autoplay loop)
   
       .video-list
         .arrow.arrow-hover.arrow-left(@click="onClickArrow(true)")
@@ -10,9 +11,9 @@
         .group-container
           .group.is-set
             .item(
-              v-for="(item, index) of currentItems"
+              v-for="(item, index) of items"
               v-bind:key="item.url"
-              v-bind:class="{ isRef: index == currentItems.length - 1 }"
+              v-bind:class="{ isRef: index == items.length - 1 }"
               @click="onClickItem(item)"
               )
               .img(:style="{ backgroundImage: 'url(' + item.preview + ')' }")
@@ -26,10 +27,8 @@
     .video-mobile
       .group-container
         .item(
-          v-for="(item, index) of сurrentItemsMobile"
+          v-for="(item, index) of itemsMobile"
           v-bind:key="item.url"
-          v-bind:class="{ isRef: index == currentItems.length - 1 }"
-          @click="onClickItem(item)"
           )
           .img(:style="{ backgroundImage: 'url(' + item.preview + ')' }")
           .text
@@ -41,35 +40,47 @@
 <script>
   import {TweenLite} from 'gsap';
   import 'gsap/src/uncompressed/plugins/ScrollToPlugin';
+  import YouTubePlayer from 'youtube-player';
+  import debounce from 'throttle-debounce/debounce';
 
+
+  const TYPE_YOUTUBE = "TYPE_YOUTUBE";
+  const TYPE_GIPHY = "TYPE_GIPHY";
+  
   const items = [
     {
-      url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+      type: TYPE_YOUTUBE,
+      id: "jh-hzbG5FzI",
       preview: "assets/images/video-1.png",
       text: "1"
     },
     {
-      url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+      type: TYPE_GIPHY,
+      id: "l41YktuUJjzzOshri",
       preview: "assets/images/video-2.png",
       text: "2"
     },
     {
-      url: "https://www.youtube.com/embed/d9TpRfDdyU0?rel=0",
+      type: TYPE_YOUTUBE,
+      id: "d9TpRfDdyU0",
       preview: "assets/images/video-3.png",
       text: "3"
     },
     {
-      url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+      type: TYPE_YOUTUBE,
+      id: "XVwqSlTFQq0",
       preview: "assets/images/video-4.png",
       text: "4"
     },
     {
-      url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+      type: TYPE_YOUTUBE,
+      id: "I3W3mRs4ULQ",
       preview: "assets/images/video-3.png",
       text: "5"
     },
     {
-      url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+      type: TYPE_YOUTUBE,
+      id: "XVwqSlTFQq0",
       preview: "assets/images/video-4.png",
       text: "6"
     }
@@ -81,23 +92,74 @@
     data: function () {
       return {
         currentItem: items[0],
-        currentItems: items,
-        сurrentItemsMobile: items.slice(0, 3),
+        items: items,
+        itemsMobile: items.slice(0, 3),
 
         itemGroup: null,
         itemElms: null,
+        
+        player: null,
+        giphyElm: null
       }
     },
 
     mounted: function () {
+      window.addEventListener('resize', this.onResize);
+      
       this.itemGroup = document.querySelector('.video .video-list .group');
       this.itemElms = document.querySelectorAll('.video .video-list .item');
+  
+      this.giphyElm = document.querySelector(`.video .video-desktop .giphy`);
+  
+      this.setVideo();
+      this.onResize();
     },
 
     methods: {
+      setVideo: function () {
+        let playerElm = document.getElementById('main-video');
+  
+        if (this.currentItem.type == TYPE_YOUTUBE) {
+          if (this.player) {
+            this.player.loadVideoById(this.currentItem.id);
+          } else {
+            this.player = new YouTubePlayer('main-video', {
+              playerVars: { 'autoplay': 0, 'controls': 1, 'showinfo': 1, 'rel': 0, 'modestbranding': 1, 'disablekb': 0},
+              videoId: this.currentItem.id
+            });
+          }
+    
+          this.giphyElm.style.visibility = 'hidden';
+          playerElm.style.visibility = 'visible';
+    
+        } else if (this.currentItem.type == TYPE_GIPHY) {
+          this.giphyElm.src = (document.location.protocol == "https:" ? "https://" : "http://") +
+            `//media.giphy.com/media/${this.currentItem.id}/giphy.mp4`;
+    
+          this.giphyElm.style.visibility = 'visible';
+          playerElm.style.visibility = 'hidden';
+        }
+      },
+      
+      onResize: function () {
+        debounce(300, () => {
+          let dimH = Math.round(window.innerHeight / 9 * .8);
+          let dimW = Math.round(window.innerWidth / 16);
+          let dim = Math.min(dimH, dimW);
+          
+          if (this.player)
+            this.player.setSize(dim * 16, dim * 9);
+  
+          let container = document.querySelector('.video .video-desktop .video-container');
+          this.giphyElm.height = container.clientHeight;
+          this.giphyElm.width = container.clientWidth;
+        })();
+      },
+      
       onClickItem: function (item) {
         this.currentItem = item;
         TweenLite.to(window, .5, {scrollTo: "#video-anchor"});
+        this.setVideo();
       },
 
       next: function (num) {
@@ -157,33 +219,17 @@
     background: #25182A
       
     .video-desktop
-      padding: 30px
+      padding-top: 30px
+      padding-bottom: 30px
       @media (max-width: 700px)
         display: none
-  
-      .video-full
-        position: relative
-        padding-bottom: 50%
-        padding-top: 25px
-        height: 0
-  
-        iframe
-          position: absolute
-          top: 0
-          left: 0
-          width: 100%
-          height: 100%
-  
-        .play
-          background: url("~assets/images/play-big.svg") no-repeat center center / contain
-          width: 147px
-          height: 147px
-          position: absolute
-          top: 50%
-          left: 50%
-          transform: translate(-50%, -50%)
-          z-index: 50
-          cursor: pointer
+        
+      .video-container
+        text-align: center
+        
+      .video-player, .giphy
+        position: absolute
+        left: 0
   
     .video-list
       margin-top: 15px
