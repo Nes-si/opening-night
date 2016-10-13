@@ -93,6 +93,7 @@
         container: null,
         person: null,
         content: null,
+        quotes: null,
 
         entering: false
       };
@@ -103,7 +104,8 @@
 
       this.person = document.querySelector('.slider .quote .person');
       this.content = document.querySelector('.slider .quote .content');
-
+      this.quotes = document.querySelector('.slider .quote .quotes');
+      
       this.container = document.querySelector('.slider');
     },
 
@@ -118,12 +120,14 @@
           progress *= window.innerHeight / 100;
           TweenLite.to(this.person, 0.1, {y: (progress * 10), z: '0.01', ease: Power0.easeInOut});
           TweenLite.to(this.content, 0.1, {y: -(progress * 50), z: '0.01', ease: Power0.easeInOut});
+          TweenLite.to(this.quotes, 0.1, {y: -(progress * 20), z: '0.01', ease: Power0.easeInOut});
         }
       },
 
       enter: function () {
         this.person = document.querySelector(`.slider .quote[data="${this.slideNum}"] .person`);
         this.content = document.querySelector(`.slider .quote[data="${this.slideNum}"] .content`);
+        this.quotes = document.querySelector(`.slider .quote[data="${this.slideNum}"] .quotes`);
         this.entering = false;
         this.onScroll();
       },
@@ -212,12 +216,12 @@
 
       .quote-left
         left: 5%
-        bottom: 22vh
+        bottom: 12vh
 
       .quote-right
         transform: rotate(180deg)
         left: 42%
-        bottom: 30vh
+        bottom: 20vh
 
       .person
         width: 100%
@@ -346,11 +350,11 @@
       transition-property: opacity
       transition-duration: 1s
 
-    .person, .content
+    .person, .content, .quotes
       transition-property: opacity
       transition-duration: .5s
 
-    .content
+    .content, .quotes
       transition-property: opacity, transform
 
   .v-enter-active
@@ -360,19 +364,19 @@
       transition-property: opacity
       transition-duration: 1s
 
-    .person, .content
+    .person, .content, .quotes
       transition-property: opacity
       transition-delay: .5s
       transition-duration: .5s
 
-    .content
+    .content, .quotes
       transition-property: opacity, transform
       transition-delay: .7s
 
   .v-leave-active, .v-enter
-    .bg, .person, .shade, .content
+    .bg, .person, .shade, .content, .quotes
       opacity: 0.01
-    .content
+    .content, .quotes
       transform: translate3d(0, -50px, 0)
 
 
