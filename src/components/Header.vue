@@ -64,9 +64,9 @@
         let progress = window.pageYOffset / dur;
         if (progress >= 0 && progress <= 1) {
           progress *= window.innerHeight / 100;
-          TweenLite.to(this.background, 0.1, {y: (progress * 10), z: '0.01', ease: Power0.easeInOut});
-          TweenLite.to(this.karaoke, 0.1, {y: (progress * 50), z: '0.01', ease: Power0.easeInOut});
-          TweenLite.to(this.logo, 0.1, {y: -(progress * 20), z: '0.01', ease: Power0.easeInOut});
+          TweenLite.to(this.background, 0.2, {y: (progress * 10), z: '0.01', ease: Power0.easeInOut});
+          TweenLite.to(this.karaoke, 0.2, {y: (progress * 50), z: '0.01', ease: Power0.easeInOut});
+          TweenLite.to(this.logo, 0.2, {y: -(progress * 20), z: '0.01', ease: Power0.easeInOut});
         }
       }
     }
