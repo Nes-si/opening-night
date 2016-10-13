@@ -20,8 +20,11 @@
             a.instagram(href="#")
 
         .char-list
-          .char-video(v-for="n in 4" @click="onClickPreview(n - 1)")
-            .char-videoInner(:style="{ backgroundImage: 'url(' + char.videos[n - 1].preview + ')' }")
+          .char-video(
+            v-for="n in 4" @click="onClickPreview(n - 1)"
+            v-bind:class="{'char-video-selected': n - 1 == currentVideo}"
+            )
+            .char-videoInner(v-bind:style="{ backgroundImage: 'url(' + char.videos[n - 1].preview + ')' }")
 
 </template>
 
@@ -249,7 +252,8 @@
         player: null,
         players: [],
 
-        playerActive: false
+        playerActive: false,
+        timeout: 0
       }
     },
 
@@ -272,14 +276,17 @@
           if (this.player && this.playerActive) {
             this.player.loadVideoById(videoData.id);
           } else {
-            this.player = new YouTubePlayer(playerId, {
-              playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 1},
-              height: h.toString(),
-              width: w.toString(),
-              //videoId: videoData.id
-            });
-            this.playerActive = true;
-            setTimeout(() => this.player.loadVideoById(videoData.id), 600);
+            if (this.timeout)
+              clearTimeout(this.timeout);
+            this.timeout = setTimeout(() => {
+              this.player = new YouTubePlayer(playerId, {
+                playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 1},
+                height: h.toString(),
+                width: w.toString(),
+                videoId: videoData.id
+              });
+              this.playerActive = true;
+            }, 400);
           }
 
           giphyElm.style.visibility = 'hidden';
@@ -320,6 +327,8 @@
       },
 
       onLeave: function () {
+        if (this.timeout)
+          clearTimeout(this.timeout);
         if (this.playerActive)
           this.player.destroy();
         this.playerActive = false;
@@ -433,7 +442,7 @@
 
           transform: skew(18.5deg)
 
-        &:hover
+        &:hover, &-selected
           outline: 2px #fff solid
 
 
