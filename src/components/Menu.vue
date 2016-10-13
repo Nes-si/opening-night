@@ -1,5 +1,5 @@
 <template lang="pug">
-  .menu
+  .menu(v-bind:class="{ 'showedMenu': this.scrolled }")
     a.menu-logo(href="#")
       img(src="~assets/images/logo-small.png")
     .menu-list
@@ -13,10 +13,18 @@
 <script>
   export default {
     name: "MenuComponent",
-    components: {
+    data: function() {
+      return {
+        scrolled: false
+      }
+    },
+    methods: {
+      handleScroll () {
+        this.scrolled = window.scrollY > window.innerHeight;
+      }
     },
     mounted: function() {
-      console.log('Menu Mounted')
+      window.addEventListener('scroll', this.handleScroll);
     }
   }
 </script>
@@ -40,6 +48,13 @@
 
     padding: 0 30px
     height: 60px
+
+    transform: translateY(-120%)
+    transition: transform 0.3s ease
+    will-change: transform
+
+    &.showedMenu
+      transform: translateY(0)
 
     &-logo
       position: relative
