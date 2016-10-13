@@ -111,8 +111,9 @@
         let dur = window.innerHeight * 1.5;
         let progress = (window.pageYOffset - this.person.offsetTop) / dur;
         if (progress >= 0 && progress <= 1) {
-          TweenLite.to(this.person, 0.1, {y: (progress * 100), z: '0.01', ease: Power0.easeInOut});
-          TweenLite.to(this.content, 0.1, {y: -(progress * 500), z: '0.01', ease: Power0.easeInOut});
+          progress *= window.innerHeight / 100;
+          TweenLite.to(this.person, 0.1, {y: (progress * 10), z: '0.01', ease: Power0.easeInOut});
+          TweenLite.to(this.content, 0.1, {y: -(progress * 50), z: '0.01', ease: Power0.easeInOut});
         }
       },
       
@@ -120,6 +121,7 @@
         this.person = document.querySelector(`.slider .quote[data="${this.slideNum}"] .person`);
         this.content = document.querySelector(`.slider .quote[data="${this.slideNum}"] .content`);
         this.entering = false;
+        this.onScroll();
       },
 
       onClickLeft: function () {
