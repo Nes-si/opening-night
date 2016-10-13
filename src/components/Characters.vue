@@ -10,8 +10,9 @@
       .char-inner
         .char-bg
         .char-player
-          .char-video
+          .char-video(v-bind:id="'video-char-' + index")
             .video-player(v-bind:id="'video-player-char-' + index")
+            video.giphy(autoplay loop)
           .char-socials
             | SHARE
             a.facebook(href="#")
@@ -31,28 +32,28 @@
   const TYPE_YOUTUBE = "TYPE_YOUTUBE";
   const TYPE_GIPHY = "TYPE_GIPHY";
   
-  const charactersData = [
+  const chars = [
     {
       name: 'rob',
       videos: [
         {
           type: TYPE_YOUTUBE,
-          url: "ADPk5PpkjMg",
+          id: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
           type: TYPE_GIPHY,
-          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          id: "feqkVgjJpYtjy",
           preview: "assets/images/video-2.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "I3W3mRs4ULQ",
+          id: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "XVwqSlTFQq0",
+          id: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -62,22 +63,22 @@
       videos: [
         {
           type: TYPE_YOUTUBE,
-          url: "ADPk5PpkjMg",
+          id: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
           type: TYPE_GIPHY,
-          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          id: "3oz8xYi5tmDZYPIrza",
           preview: "assets/images/video-2.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "I3W3mRs4ULQ",
+          id: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "XVwqSlTFQq0",
+          id: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -87,22 +88,22 @@
       videos: [
         {
           type: TYPE_YOUTUBE,
-          url: "ADPk5PpkjMg",
+          id: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
           type: TYPE_GIPHY,
-          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          id: "feqkVgjJpYtjy",
           preview: "assets/images/video-2.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "I3W3mRs4ULQ",
+          id: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "XVwqSlTFQq0",
+          id: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -112,22 +113,22 @@
       videos: [
         {
           type: TYPE_YOUTUBE,
-          url: "ADPk5PpkjMg",
+          id: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
           type: TYPE_GIPHY,
-          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          id: "feqkVgjJpYtjy",
           preview: "assets/images/video-2.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "I3W3mRs4ULQ",
+          id: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "XVwqSlTFQq0",
+          id: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -137,22 +138,22 @@
       videos: [
         {
           type: TYPE_YOUTUBE,
-          url: "ADPk5PpkjMg",
+          id: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
           type: TYPE_GIPHY,
-          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          id: "feqkVgjJpYtjy",
           preview: "assets/images/video-2.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "I3W3mRs4ULQ",
+          id: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "XVwqSlTFQq0",
+          id: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -162,22 +163,22 @@
       videos: [
         {
           type: TYPE_YOUTUBE,
-          url: "ADPk5PpkjMg",
+          id: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
           type: TYPE_GIPHY,
-          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          id: "feqkVgjJpYtjy",
           preview: "assets/images/video-2.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "I3W3mRs4ULQ",
+          id: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "XVwqSlTFQq0",
+          id: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -187,22 +188,22 @@
       videos: [
         {
           type: TYPE_YOUTUBE,
-          url: "ADPk5PpkjMg",
+          id: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
           type: TYPE_GIPHY,
-          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          id: "feqkVgjJpYtjy",
           preview: "assets/images/video-2.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "I3W3mRs4ULQ",
+          id: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "XVwqSlTFQq0",
+          id: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -212,22 +213,22 @@
       videos: [
         {
           type: TYPE_YOUTUBE,
-          url: "ADPk5PpkjMg",
+          id: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
           type: TYPE_GIPHY,
-          url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
+          id: "feqkVgjJpYtjy",
           preview: "assets/images/video-2.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "I3W3mRs4ULQ",
+          id: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
           type: TYPE_YOUTUBE,
-          url: "XVwqSlTFQq0",
+          id: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -239,11 +240,16 @@
     
     data: function () {
       return {
-        chars: charactersData,
+        chars,
+        "TYPE_YOUTUBE": TYPE_YOUTUBE,
+        "TYPE_GIPHY": TYPE_GIPHY,
+        
         currentChar: -1,
         currentVideo: 0,
         player: null,
-        players: []
+        players: [],
+        
+        playerActive: false
       }
     },
     
@@ -251,12 +257,52 @@
     },
     
     methods: {
+      setVideo: function () {
+        let playerId = `video-player-char-${this.currentChar}`;
+        let playerElm = document.getElementById(playerId);
+        
+        let giphyElm = document.querySelector(`#video-char-${this.currentChar} .giphy`);
+  
+        let h = Math.round(window.innerWidth / 100 * 10.2);
+        let w = Math.round(h * 16 / 9);
+        
+        let videoData = this.chars[this.currentChar].videos[this.currentVideo];
+        
+        if (videoData.type == TYPE_YOUTUBE) {
+          if (this.player && this.playerActive) {
+            this.player.loadVideoById(videoData.id);
+          } else {
+            this.player = new YouTubePlayer(playerId, {
+              playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 1},
+              height: h.toString(),
+              width: w.toString(),
+              videoId: videoData.id
+            });
+            this.playerActive = true;
+          }
+          
+          giphyElm.style.visibility = 'hidden';
+          playerElm.style.visibility = 'visible';
+    
+        } else if (videoData.type == TYPE_GIPHY) {
+          if (this.playerActive)
+            this.player.destroy();
+          this.playerActive = false;
+  
+          giphyElm.width = w;
+          giphyElm.height = h;
+          giphyElm.src = (document.location.protocol == "https:" ? "https://" : "http://") +
+            `//media.giphy.com/media/${videoData.id}/giphy.mp4`;
+          
+          giphyElm.style.visibility = 'visible';
+          playerElm.style.visibility = 'hidden';
+        }
+      },
+      
       onClickPreview: function (num) {
         if (this.currentVideo != num) {
           this.currentVideo = num;
-          let video = this.chars[this.currentChar].videos[num];
-          if (video.type == TYPE_YOUTUBE)
-            this.player.loadVideoById(video.url);
+          this.setVideo();
         }
       },
   
@@ -265,25 +311,17 @@
           this.currentChar = i;
           this.currentVideo = 0;
   
-          if (this.player)
+          if (this.playerActive)
             this.player.destroy();
-          
-          let h = Math.round(window.innerWidth / 100 * 10.2);
-          let w = Math.round(h * 16 / 9);
-          
-          let video = this.chars[i].videos[0];
-          this.player = new YouTubePlayer('video-player-char-' + i, {
-            playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 1},
-            height: h.toString(),
-            width: w.toString(),
-            videoId: video.url
-          });
+          this.playerActive = false;
+          this.setVideo();
         }
       },
       
       onLeave: function () {
-        if (this.player)
+        if (this.playerActive)
           this.player.destroy();
+        this.playerActive = false;
         this.currentChar = -1;
         this.currentVideo = 0;
       }
@@ -322,12 +360,13 @@
         margin-top: 1vw
         position: relative
         
-        .video-player
+        .video-player, .giphy
           position: absolute
           top: 0
           left: 0
           width: 100%
           height: 100%
+        
           
       .char-socials
         margin-top: 1vw
