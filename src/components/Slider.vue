@@ -6,6 +6,11 @@
       )
       .quote.rob(v-if="slideNum == 1" key="1" data="1")
         .bg
+        .quotes
+          .quote-left
+            | “
+          .quote-right
+            | “
         .person
         .shade
         .content
@@ -14,11 +19,7 @@
             | In Touch Weekly
 
           .title
-            .quote-left
-              | “
             | “THE SHOW GOES THE F*CK ON”
-            .quote-right
-              | “
 
           a.twitter(href="http://twitter.com")
             .icon
@@ -26,6 +27,11 @@
 
       .quote.alona(v-if="slideNum == 2" key="2" data="2")
         .bg
+        .quotes
+          .quote-left
+            | “
+          .quote-right
+            | “
         .person
         .shade
         .content
@@ -34,11 +40,7 @@
             | In Touch Weekly
 
           .title
-            .quote-left
-              | “
             | “FUNNIEST MOVIE TO OPEN THIS YEAR!”
-            .quote-right
-              | “
 
           a.twitter(href="http://twitter.com")
             .icon
@@ -46,6 +48,11 @@
 
       .quote.topher(v-if="slideNum == 3" key="3" data="3")
         .bg
+        .quotes
+          .quote-left
+            | “
+          .quote-right
+            | “
         .person
         .shade
         .content
@@ -54,11 +61,8 @@
             | In Touch Weekly
 
           .title
-            .quote-left
-              | “
             | “NEVER ENDING WRECK OF HILARIOUSNESS”
-            .quote-right
-              | “
+
 
           a.twitter(href="http://twitter.com")
             .icon
@@ -72,7 +76,7 @@
 
 <script>
   import {TweenLite, Power0} from 'gsap';
-  
+
   const SLIDES = 3;
 
   export default {
@@ -81,25 +85,25 @@
     data: function () {
       return {
         slideNum: 1,
-        
+
         elmY: 0,
         elmHeight: 0,
         elmWidth: 0,
-        
+
         container: null,
         person: null,
         content: null,
-        
+
         entering: false
       };
     },
-    
+
     mounted: function () {
       window.addEventListener('scroll', this.onScroll);
-      
+
       this.person = document.querySelector('.slider .quote .person');
       this.content = document.querySelector('.slider .quote .content');
-  
+
       this.container = document.querySelector('.slider');
     },
 
@@ -107,7 +111,7 @@
       onScroll: function () {
         if (this.entering)
           return;
-        
+
         let dur = window.innerHeight * 1.5;
         let progress = (window.pageYOffset - this.person.offsetTop) / dur;
         if (progress >= 0 && progress <= 1) {
@@ -116,7 +120,7 @@
           TweenLite.to(this.content, 0.1, {y: -(progress * 50), z: '0.01', ease: Power0.easeInOut});
         }
       },
-      
+
       enter: function () {
         this.person = document.querySelector(`.slider .quote[data="${this.slideNum}"] .person`);
         this.content = document.querySelector(`.slider .quote[data="${this.slideNum}"] .content`);
@@ -193,6 +197,28 @@
         width: 100%
         z-index: 5
 
+      .quotes
+        height: 100%
+        width: 100%
+        position: absolute
+        z-index: 4
+
+      .quote-left, .quote-right
+        font-family: 'Helvetica', sans-serif
+        font-size: 500px
+        letter-spacing: 0.54px
+        line-height: 416px
+        position: absolute
+
+      .quote-left
+        left: 5%
+        bottom: 22vh
+
+      .quote-right
+        transform: rotate(180deg)
+        left: 42%
+        bottom: 30vh
+
       .person
         width: 100%
         height: 100%
@@ -230,24 +256,7 @@
           letter-spacing: 2.23px
           line-height: 92.66px
           position: relative
-  
-          .quote-left, .quote-right
-            font-family: 'Helvetica', sans-serif
-            font-size: 500px
-            letter-spacing: 0.54px
-            line-height: 416px
-            z-index: -1
-            position: absolute
-    
-          .quote-left
-            left: -16%
-            top: -20%
-    
-          .quote-right
-            transform: rotate(180deg)
-            right: 0
-            top: -90%
-    
+
         .twitter
           margin-top: 22px
           opacity: 0.5
@@ -296,15 +305,15 @@
           color: #FFE57A
 
         .quote-left
-          left: -25%
+          left: 5%
+          bottom: 22vh
 
         .quote-right
-          right: 0
-          top: initial
-          bottom: -40%
+          left: 48%
+          bottom: 30vh
 
         .title
-          width: 57%
+          width: 60%
 
       &.topher
         .bg
@@ -320,27 +329,27 @@
           color: #FC56CE
 
         .quote-left
-          left: -25%
+          left: 5%
+          bottom: 22vh
 
         .quote-right
-          right: 15%
-          top: initial
-          bottom: -40%
+          left: 50%
+          bottom: 30vh
 
         .title
           width: 70%
 
   .v-leave-active
     transition-duration: 1s
-  
+
     .bg, .shade
       transition-property: opacity
       transition-duration: 1s
-  
+
     .person, .content
       transition-property: opacity
       transition-duration: .5s
-  
+
     .content
       transition-property: opacity, transform
 
@@ -355,7 +364,7 @@
       transition-property: opacity
       transition-delay: .5s
       transition-duration: .5s
-      
+
     .content
       transition-property: opacity, transform
       transition-delay: .7s
