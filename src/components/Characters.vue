@@ -27,11 +27,11 @@
 
 <script>
   import YouTubePlayer from 'youtube-player';
-  
-  
+
+
   const TYPE_YOUTUBE = "TYPE_YOUTUBE";
   const TYPE_GIPHY = "TYPE_GIPHY";
-  
+
   const chars = [
     {
       name: 'rob',
@@ -234,40 +234,40 @@
       ]
     }
   ];
-  
+
   export default {
     name: "CharactersComponent",
-    
+
     data: function () {
       return {
         chars,
         "TYPE_YOUTUBE": TYPE_YOUTUBE,
         "TYPE_GIPHY": TYPE_GIPHY,
-        
+
         currentChar: -1,
         currentVideo: 0,
         player: null,
         players: [],
-        
+
         playerActive: false
       }
     },
-    
+
     mounted: function () {
     },
-    
+
     methods: {
       setVideo: function () {
         let playerId = `video-player-char-${this.currentChar}`;
         let playerElm = document.getElementById(playerId);
-        
+
         let giphyElm = document.querySelector(`#video-char-${this.currentChar} .giphy`);
-  
+
         let h = Math.round(window.innerWidth / 100 * 10.2);
         let w = Math.round(h * 16 / 9);
-        
+
         let videoData = this.chars[this.currentChar].videos[this.currentVideo];
-        
+
         if (videoData.type == TYPE_YOUTUBE) {
           if (this.player && this.playerActive) {
             this.player.loadVideoById(videoData.id);
@@ -281,44 +281,44 @@
             this.playerActive = true;
             setTimeout(() => this.player.loadVideoById(videoData.id), 600);
           }
-          
+
           giphyElm.style.visibility = 'hidden';
           playerElm.style.visibility = 'visible';
-    
+
         } else if (videoData.type == TYPE_GIPHY) {
           if (this.playerActive)
             this.player.destroy();
           this.playerActive = false;
-  
+
           giphyElm.width = w;
           giphyElm.height = h;
           giphyElm.src = (document.location.protocol == "https:" ? "https://" : "http://") +
             `//media.giphy.com/media/${videoData.id}/giphy.mp4`;
-          
+
           giphyElm.style.visibility = 'visible';
           playerElm.style.visibility = 'hidden';
         }
       },
-      
+
       onClickPreview: function (num) {
         if (this.currentVideo != num) {
           this.currentVideo = num;
           this.setVideo();
         }
       },
-  
+
       onEnterChar: function (i) {
         if (i != this.currentChar) {
           this.currentChar = i;
           this.currentVideo = 0;
-  
+
           if (this.playerActive)
             this.player.destroy();
           this.playerActive = false;
           this.setVideo();
         }
       },
-      
+
       onLeave: function () {
         if (this.playerActive)
           this.player.destroy();
@@ -360,15 +360,15 @@
         width: 23.5vw
         margin-top: 1vw
         position: relative
-        
+
         .video-player, .giphy
           position: absolute
           top: 0
           left: 0
           width: 100%
           height: 100%
-        
-          
+
+
       .char-socials
         margin-top: 1vw
         margin-left: 1vw
@@ -444,6 +444,8 @@
     background: #21041D
     width: 100%
     height: 18.25vw
+    box-sizing: content-box
+    padding-top: 0.2vw
 
     &:hover
       .rob
@@ -471,7 +473,7 @@
       z-index: 9
       &:hover ~ *
         transform: skew(-18.5deg) !important
-        
+
     .char-box
       position: absolute
       bottom: 0

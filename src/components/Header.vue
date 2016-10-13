@@ -1,5 +1,6 @@
 <template lang="pug">
   .header
+    .bg
     .logo
 
     .watch
@@ -44,16 +45,24 @@
 </script>
 
 <style lang="sss" scoped rel="stylesheet/sass">
-  .header
-    background: url("~assets/images/head-bg.png") no-repeat center center / cover
-    background-attachment: fixed
-    // height: 100vh;
+  .header    
+    height: 100%
     height: 100vh
     overflow: hidden
     display: flex
     flex-flow: column nowrap
     align-items: center
     position: relative
+    .bg
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      z-index: -1
+      background: url("~assets/images/head-bg.jpg") no-repeat center center / cover
+      background-attachment: fixed
+      transform: translate3d(0,0,0)
 
     .logo
       background: url("~assets/images/logo.png") no-repeat center center / contain
