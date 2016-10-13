@@ -276,9 +276,10 @@
               playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 1},
               height: h.toString(),
               width: w.toString(),
-              videoId: videoData.id
+              //videoId: videoData.id
             });
             this.playerActive = true;
+            setTimeout(() => this.player.loadVideoById(videoData.id), 600);
           }
           
           giphyElm.style.visibility = 'hidden';
