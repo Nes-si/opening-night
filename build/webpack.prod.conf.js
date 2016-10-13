@@ -16,7 +16,8 @@ let webpackConfig = merge(baseWebpackConfig, {
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'js/[name].js',
-    chunkFilename: 'js/[id].js'
+    chunkFilename: 'js/[id].js',
+    publicPath: '/opening-night/'
   },
   vue: {
     loaders: utils.cssLoaders({
