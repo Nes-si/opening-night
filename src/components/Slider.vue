@@ -1,5 +1,5 @@
 <template lang="pug">
-  .slider(@mousemove="onMouseMove")
+  .slider
     transition(
       v-on:enter="enter"
       v-on:enter-cancelled="enter"
@@ -72,11 +72,8 @@
 
 <script>
   import {TweenLite, Power0} from 'gsap';
-  import debounce from 'throttle-debounce/debounce';
   
   const SLIDES = 3;
-  const PARALLAX = 20;
-  const PARALLAX_2 = 45;
 
   export default {
     name: "SliderComponent",
@@ -98,36 +95,15 @@
     },
     
     mounted: function () {
-      window.addEventListener('resize', this.onResize);
       window.addEventListener('scroll', this.onScroll);
       
       this.person = document.querySelector('.slider .quote .person');
       this.content = document.querySelector('.slider .quote .content');
   
       this.container = document.querySelector('.slider');
-  
-      this.onResize();
     },
 
     methods: {
-      onResize: function () {
-        debounce(300, false, () => {
-          let box = document.querySelector('.slider').getBoundingClientRect();
-          this.elmHeight = box.height;
-          this.elmWidth = box.width;
-  
-          let body = document.body;
-          let docElem = document.documentElement;
-  
-          let scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
-  
-          let clientTop = docElem.clientTop || body.clientTop || 0;
-          let top = box.top +  scrollTop - clientTop;
-  
-          this.elmY = Math.round(top);
-        })();
-      },
-      
       onScroll: function () {
         if (this.entering)
           return;
@@ -144,22 +120,6 @@
         this.person = document.querySelector(`.slider .quote[data="${this.slideNum}"] .person`);
         this.content = document.querySelector(`.slider .quote[data="${this.slideNum}"] .content`);
         this.entering = false;
-      },
-      
-      onMouseMove: function (e) {
-        //if (this.entering)
-          return;
-        
-        let x = Math.min(1, Math.max(0, e.pageX / this.elmWidth));
-        let y = Math.min(1, Math.max(0, (e.pageY - this.elmY) / this.elmHeight));
-        
-        let X = (1 - x) * PARALLAX;
-        let Y = - y * PARALLAX;
-        TweenLite.to(this.person, 0.5, {x: X + "px", y: Y + "px", z: 0.01});
-  
-        X = (1 - x) * PARALLAX_2;
-        Y = - y * PARALLAX_2;
-        TweenLite.to(this.content, 0.5, {x: X + "px", y: Y + "px", z: 0.01});
       },
 
       onClickLeft: function () {
@@ -242,7 +202,7 @@
       .content
         position: absolute
         left: 12%
-        bottom: 10vh
+        bottom: 2vh
         z-index: 55
 
         .in-touch
