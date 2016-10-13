@@ -24,20 +24,20 @@
 <script>
   import {TweenLite} from 'gsap';
   import ScrollToPlugin from 'gsap/src/uncompressed/plugins/ScrollToPlugin';
-  
+
   import CharactersComponent from 'components/Characters';
-  
-  
+
+
   export default {
     name: "HeaderComponent",
-    
+
     components: {
       CharactersComponent
     },
-    
+
     methods: {
       onClickScroll: function () {
-        TweenLite.to(window, .5, {scrollTo: document.documentElement.clientHeight});
+        TweenLite.to(window, .5, {scrollTo: document.documentElement.clientHeight+5});
       }
     }
   }
@@ -46,6 +46,7 @@
 <style lang="sss" scoped rel="stylesheet/sass">
   .header
     background: url("~assets/images/head-bg.png") no-repeat center center / cover
+    background-attachment: fixed
     // height: 100vh;
     height: 100vh
     overflow: hidden
@@ -140,7 +141,7 @@
       width: 29px
       cursor: pointer
       z-index: 105
-  
+
     .arrow:hover
       filter: drop-shadow(0px 0px 2px #ffffff)
 

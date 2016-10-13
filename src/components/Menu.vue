@@ -24,7 +24,33 @@
       }
     },
     mounted: function() {
-      window.addEventListener('scroll', this.handleScroll);
+      var raf = window.requestAnimationFrame ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame ||
+          window.msRequestAnimationFrame ||
+          window.oRequestAnimationFrame;
+          
+      var lastScrollTop = window.scrollY;
+
+       var loop = () => {
+          var scrollTop = window.scrollY;
+          if (lastScrollTop === scrollTop) {
+              raf(loop);
+              return;
+          } else {
+              lastScrollTop = scrollTop;
+
+              // fire scroll function if scrolls vertically
+              this.handleScroll();
+              raf(loop);
+          }
+      }
+
+      if (raf) {
+        loop();
+      }
+
+      // window.addEventListener('scroll', this.handleScroll);
     }
   }
 </script>
