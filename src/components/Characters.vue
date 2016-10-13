@@ -1,16 +1,17 @@
 <template lang="pug">
-  .characters
+  .characters(@mouseleave="onLeave")
     .spacer
     .char-box(
       v-for="(char, index) of chars"
       v-bind:class="[char.name]"
       v-bind:key="char.name"
+      @mouseenter="onEnterChar(index)"
       )
       .char-inner
         .char-bg
         .char-player
           .char-video
-            iframe(:src="char.videos[currentVideo].url" frameborder="0" allowfullscreen)
+            .video-player(v-bind:id="'video-player-char-' + index")
           .char-socials
             | SHARE
             a.facebook(href="#")
@@ -24,24 +25,34 @@
 </template>
 
 <script>
+  import YouTubePlayer from 'youtube-player';
+  
+  
+  const TYPE_YOUTUBE = "TYPE_YOUTUBE";
+  const TYPE_GIPHY = "TYPE_GIPHY";
+  
   const charactersData = [
     {
       name: 'rob',
       videos: [
         {
-          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
+          type: TYPE_GIPHY,
           url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
           preview: "assets/images/video-2.png"
         },
         {
-          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
-          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -50,19 +61,23 @@
       name: 'anne',
       videos: [
         {
-          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
+          type: TYPE_GIPHY,
           url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
           preview: "assets/images/video-2.png"
         },
         {
-          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
-          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -71,19 +86,23 @@
       name: 'topher',
       videos: [
         {
-          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
+          type: TYPE_GIPHY,
           url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
           preview: "assets/images/video-2.png"
         },
         {
-          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
-          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -92,19 +111,23 @@
       name: 'alona',
       videos: [
         {
-          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
+          type: TYPE_GIPHY,
           url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
           preview: "assets/images/video-2.png"
         },
         {
-          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
-          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -113,19 +136,23 @@
       name: 'jc',
       videos: [
         {
-          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
+          type: TYPE_GIPHY,
           url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
           preview: "assets/images/video-2.png"
         },
         {
-          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
-          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -134,19 +161,23 @@
       name: 'taye',
       videos: [
         {
-          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
+          type: TYPE_GIPHY,
           url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
           preview: "assets/images/video-2.png"
         },
         {
-          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
-          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -155,19 +186,23 @@
       name: 'paul',
       videos: [
         {
-          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
+          type: TYPE_GIPHY,
           url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
           preview: "assets/images/video-2.png"
         },
         {
-          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
-          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -176,19 +211,23 @@
       name: 'lesli',
       videos: [
         {
-          url: "https://www.youtube.com/embed/jh-hzbG5FzI?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "ADPk5PpkjMg",
           preview: "assets/images/video-1.png"
         },
         {
+          type: TYPE_GIPHY,
           url: "//giphy.com/embed/l41YktuUJjzzOshri?hideSocial=true",
           preview: "assets/images/video-2.png"
         },
         {
-          url: "https://www.youtube.com/embed/I3W3mRs4ULQ?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "I3W3mRs4ULQ",
           preview: "assets/images/video-3.png"
         },
         {
-          url: "https://www.youtube.com/embed/XVwqSlTFQq0?rel=0",
+          type: TYPE_YOUTUBE,
+          url: "XVwqSlTFQq0",
           preview: "assets/images/video-4.png"
         }
       ]
@@ -201,13 +240,52 @@
     data: function () {
       return {
         chars: charactersData,
-        currentVideo: 0
+        currentChar: -1,
+        currentVideo: 0,
+        player: null,
+        players: []
       }
+    },
+    
+    mounted: function () {
     },
     
     methods: {
       onClickPreview: function (num) {
-        this.currentVideo = num;
+        if (this.currentVideo != num) {
+          this.currentVideo = num;
+          let video = this.chars[this.currentChar].videos[num];
+          if (video.type == TYPE_YOUTUBE)
+            this.player.loadVideoById(video.url);
+        }
+      },
+  
+      onEnterChar: function (i) {
+        if (i != this.currentChar) {
+          this.currentChar = i;
+          this.currentVideo = 0;
+  
+          if (this.player)
+            this.player.destroy();
+          
+          let h = Math.round(window.innerWidth / 100 * 10.2);
+          let w = Math.round(h * 16 / 9);
+          
+          let video = this.chars[i].videos[0];
+          this.player = new YouTubePlayer('video-player-char-' + i, {
+            playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 1},
+            height: h.toString(),
+            width: w.toString(),
+            videoId: video.url
+          });
+        }
+      },
+      
+      onLeave: function () {
+        if (this.player)
+          this.player.destroy();
+        this.currentChar = -1;
+        this.currentVideo = 0;
       }
     }
   }
@@ -244,7 +322,7 @@
         margin-top: 1vw
         position: relative
         
-        iframe
+        .video-player
           position: absolute
           top: 0
           left: 0

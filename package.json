@@ -12,7 +12,8 @@
     "gsap": "^1.19.0",
     "scrollmagic": "^2.0.5",
     "throttle-debounce": "^1.0.1",
-    "vue": "^2.0.1"
+    "vue": "^2.0.1",
+    "youtube-player": "^3.0.4"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
