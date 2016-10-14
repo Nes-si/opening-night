@@ -2,6 +2,8 @@
   .app
     preloader-component
 
+    purchase-component
+
     menu-component
 
     header-component
@@ -48,6 +50,7 @@ import SliderComponent from 'components/Slider';
 import VideoComponent from 'components/Video';
 import MenuComponent from 'components/Menu';
 import PreloaderComponent from 'components/Preloader';
+import PurchaseComponent from 'components/Purchase';
 
 export default {
   components: {
@@ -55,7 +58,8 @@ export default {
     SliderComponent,
     VideoComponent,
     MenuComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    PurchaseComponent
   }
 }
 </script>
