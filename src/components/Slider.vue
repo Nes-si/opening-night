@@ -114,13 +114,16 @@
         if (this.entering)
           return;
 
-        let dur = window.innerHeight * 1.5;
-        let progress = (window.pageYOffset - this.person.offsetTop) / dur;
+        let ch = this.content.clientHeight;
+        
+        let wh = window.innerHeight;
+        let dur = 2 * wh;
+        let offset = 1 * wh;
+        let progress = (window.pageYOffset + offset - this.container.offsetTop) / dur;
         if (progress >= 0 && progress <= 1) {
-          progress *= window.innerHeight / 100;
-          TweenLite.to(this.person, 0.1, {y: (progress * 10), z: '0.01', ease: Power0.easeInOut});
-          TweenLite.to(this.content, 0.1, {y: -(progress * 50), z: '0.01', ease: Power0.easeInOut});
-          TweenLite.to(this.quotes, 0.1, {y: -(progress * 20), z: '0.01', ease: Power0.easeInOut});
+          TweenLite.to(this.person,   0.1,  {y: (progress * wh / 5),     z: '0.01', ease: Power0.easeInOut});
+          TweenLite.to(this.content,  0.1,  {y: - (progress * (wh - ch)), z: '0.01', ease: Power0.easeInOut});
+          TweenLite.to(this.quotes,   0.1,  {y: - (progress * wh / 5),   z: '0.01', ease: Power0.easeInOut});
         }
       },
 
@@ -234,7 +237,7 @@
       .content
         position: absolute
         left: 12%
-        bottom: 2vh
+        bottom: 10vh
         z-index: 55
 
         .in-touch
@@ -381,7 +384,7 @@
 
 
 </style>
-<style lang="scss" scoped>
+<style lang="scss" scoped rel="stylesheet/scss">
   @media (max-width: 768px) {
     .slider {
 
@@ -404,7 +407,7 @@
 
       .quote .content {
         width: 90%;
-        position: static;
+        //position: static;
       }
 
       .quote .content .title {
