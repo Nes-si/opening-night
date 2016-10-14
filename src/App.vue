@@ -4,7 +4,7 @@
 
     purchase-component(v-on:close="setWatch(false)" v-if="watchOpened")
 
-    menu-component
+    menu-component(v-on:watch="setWatch(true)")
 
     header-component(v-on:watch="setWatch(true)")
 

@@ -7,50 +7,52 @@
       a.menu-item.menu-active(href="#") Reviews
       a.menu-item(href="#") Clips
       a.menu-item(href="#") Contest
-    a.watch(href="#") Watch it now
+    .watch(@click="onClickWatch") Watch it now
     .burger
 </template>
 
 <script>
   export default {
     name: "MenuComponent",
+    
     data: function() {
       return {
         scrolled: false
       }
     },
+    
     methods: {
       handleScroll () {
         this.scrolled = window.scrollY > window.innerHeight;
+      },
+  
+      onClickWatch: function () {
+        this.$emit('watch');
       }
     },
+    
     mounted: function() {
-      var raf = window.requestAnimationFrame ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame ||
-          window.msRequestAnimationFrame ||
-          window.oRequestAnimationFrame;
-
-      var lastScrollTop = window.scrollY;
-
-       var loop = () => {
-          var scrollTop = window.scrollY;
-          if (lastScrollTop === scrollTop) {
-              raf(loop);
-              return;
-          } else {
-              lastScrollTop = scrollTop;
-
-              // fire scroll function if scrolls vertically
-              this.handleScroll();
-              raf(loop);
-          }
-      }
-
-      if (raf) {
+      let raf =
+        window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+  
+      let lastScrollTop = window.scrollY;
+  
+      let loop = () => {
+        if (lastScrollTop != window.scrollY) {
+          lastScrollTop = window.scrollY;
+          // fire scroll function if scrolls vertically
+          this.handleScroll();
+        }
+        raf(loop);
+      };
+  
+      if (raf)
         loop();
-      }
-
+  
       // window.addEventListener('scroll', this.handleScroll);
     }
   }
