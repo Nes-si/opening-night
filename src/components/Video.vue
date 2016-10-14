@@ -147,7 +147,7 @@
       onResize: function () {
         debounce(300, () => {
           let dimH = Math.round(window.innerHeight / 9 * .8);
-          let dimW = Math.round(window.innerWidth / 16);
+          let dimW = Math.round(window.innerWidth / 16 * .8);
           let dim = Math.min(dimH, dimW);
 
           if (this.player)
