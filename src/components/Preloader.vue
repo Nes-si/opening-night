@@ -20,12 +20,12 @@
       }
     },
     methods: {
-      handleLoad () {
+      handleLoad: function () {
         this.load = true;
       }
     },
     mounted: function() {
-      window.addEventListener('load', this.handleLoad());
+      window.addEventListener('load', this.handleLoad);
     }
   }
 </script>
