@@ -632,3 +632,61 @@
           transform: skew(-18.5deg) scale(1.1) translate3D(-35vw,0,0)
 
 </style>
+<style lang="scss" scoped rel="stylesheet/sсss">
+  @media (max-width: 510px) {
+    .characters {
+      height: 73vw;
+
+      .char-box {
+        height: 36.5vw;
+        max-width: 24.6vw;
+
+        .char-bg,
+        .char-list,
+        .char-player {
+          display: none;
+        }
+
+        .char-inner {
+          height: 36.5vw;
+        }
+
+        &.rob {
+          top: 0;
+          left: -2vw;
+        }
+
+        &.anne {
+          left: 0;
+        }
+
+        &.topher {
+          top: 0;
+          left: 20.6vw;
+        }
+
+        &.alona {
+          left: 20.6vw;
+        }
+
+        &.jc {
+          top: 0;
+          left: 44.8vw;
+        }
+
+        &.taye {
+          left: 44.8vw;
+        }
+
+        &.paul {
+          top: 0;
+          left: 69.2vw;
+        }
+
+        &.lesli {
+          left: 69.2vw;
+        }
+      }
+    }
+  }
+</style>
