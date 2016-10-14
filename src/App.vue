@@ -1,5 +1,7 @@
 <template lang="pug">
   .app
+    preloader-component
+
     menu-component
 
     header-component
@@ -45,13 +47,15 @@ import HeaderComponent from 'components/Header';
 import SliderComponent from 'components/Slider';
 import VideoComponent from 'components/Video';
 import MenuComponent from 'components/Menu';
+import PreloaderComponent from 'components/Preloader';
 
 export default {
   components: {
     HeaderComponent,
     SliderComponent,
     VideoComponent,
-    MenuComponent
+    MenuComponent,
+    PreloaderComponent
   }
 }
 </script>
