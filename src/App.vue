@@ -18,6 +18,8 @@
 
     video-component
 
+    download-component
+
     .watch-it-now(@click="setWatch(true)")
       .title
         | Watch It Now
@@ -51,6 +53,7 @@ import VideoComponent from 'components/Video';
 import MenuComponent from 'components/Menu';
 import PreloaderComponent from 'components/Preloader';
 import PurchaseComponent from 'components/Purchase';
+import DownloadComponent from 'components/Download';
 
 export default {
   components: {
@@ -59,7 +62,8 @@ export default {
     VideoComponent,
     MenuComponent,
     PreloaderComponent,
-    PurchaseComponent
+    PurchaseComponent,
+    DownloadComponent
   },
 
   data: function() {
