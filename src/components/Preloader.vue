@@ -30,7 +30,7 @@
   }
 </script>
 
-<style lang="scss" scoped rel="stylesheet/sass">
+<style lang="scss" scoped rel="stylesheet/scss">
   .preloader {
     background-image: linear-gradient(-182deg, #F45232 0%, #E52816 100%);
     box-shadow: 0px 3px 10px 0px rgba(79,24,91,0.68);

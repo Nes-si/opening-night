@@ -5,7 +5,7 @@
 
     .watch
       .watch-button
-        .watch-now
+        .watch-now(@click="onClickWatch")
           | Watch It Now
         .watch-starting
           | starting at
@@ -55,6 +55,10 @@
     },
 
     methods: {
+      onClickWatch: function () {
+        this.$emit('watch');
+      },
+      
       onClickScroll: function () {
         TweenLite.to(window, .5, {scrollTo: document.documentElement.clientHeight + 5});
       },

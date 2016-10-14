@@ -2,15 +2,15 @@
   .app
     preloader-component
 
-    purchase-component
+    purchase-component(v-on:close="setWatch(false)" v-if="watchOpened")
 
     menu-component
 
-    header-component
+    header-component(v-on:watch="setWatch(true)")
 
     slider-component
 
-    a.watch-it-now.watch-it-now-mobile(href="/")
+    .watch-it-now.watch-it-now-mobile(@click="setWatch(true)")
       .title
         | Watch It Now
       .subtitle
@@ -18,7 +18,7 @@
 
     video-component
 
-    a.watch-it-now(href="/")
+    .watch-it-now(@click="setWatch(true)")
       .title
         | Watch It Now
       .subtitle
@@ -60,6 +60,18 @@ export default {
     MenuComponent,
     PreloaderComponent,
     PurchaseComponent
+  },
+  
+  data: function() {
+    return {
+      watchOpened: false
+    }
+  },
+  
+  methods: {
+    setWatch: function (open) {
+      this.watchOpened = open;
+    }
   }
 }
 </script>
@@ -180,6 +192,7 @@ export default {
     display: flex
     flex-flow: column nowrap
     align-items: center
+    cursor: pointer
 
     .title
       font-weight: bold

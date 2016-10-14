@@ -1,7 +1,7 @@
 <template lang="pug">
-  .modal(v-bind:class="{ 'modal-hidden': this.hiddenModal }")
+  .modal
     .modal-inner
-      .modal-close
+      .modal-close(@click="onClose")
       .title
         | SELECT A SOURCE TO START WATCHING
       .buttons
@@ -14,23 +14,16 @@
 <script>
   export default {
     name: "PurchaseComponent",
-    data: function() {
-      return {
-        hiddenModal: false
-      }
-    },
+    
     methods: {
-      handleLoad () {
-        this.hiddenModal = true;
+      onClose: function () {
+        this.$emit('close');
       }
-    },
-    mounted: function() {
-      window.addEventListener('load', this.handleLoad());
     }
   }
 </script>
 
-<style lang="scss" scoped rel="stylesheet/sass">
+<style lang="scss" scoped rel="stylesheet/scss">
   .modal {
     background: rgba(0,0,0,0.4);
 
