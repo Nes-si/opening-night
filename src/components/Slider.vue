@@ -61,7 +61,7 @@
             | In Touch Weekly
 
           .title
-            | “NEVER ENDING WRECK OF HILARIOUSNESS”
+            | “NEVER ENDING WRECK OF <span>HILARIOUS</span><span>NESS”</span>
 
 
           a.twitter(href="http://twitter.com")
@@ -105,7 +105,7 @@
       this.person = document.querySelector('.slider .quote .person');
       this.content = document.querySelector('.slider .quote .content');
       this.quotes = document.querySelector('.slider .quote .quotes');
-      
+
       this.container = document.querySelector('.slider');
     },
 
@@ -380,4 +380,66 @@
       transform: translate3d(0, -50px, 0)
 
 
+</style>
+<style lang="scss" scoped>
+  @media (max-width: 768px) {
+    .slider {
+      .person {
+        display: none;
+      }
+
+      .quotes {
+        display: none;
+      }
+
+      .quote {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .quote .content {
+        width: 90%;
+        position: static;
+      }
+
+      .quote .content .title {
+        width: 100%;
+        font-size: 70px;
+        color: #FFFFFF;
+        letter-spacing: 1.89px;
+        line-height: 67.66px;
+      }
+
+
+      .arrows {
+        bottom: 20%;
+        right: 12%;
+      }
+
+      .arrow-left {
+        margin-right: 10px;
+      }
+
+      .arrow-right {
+        margin-left: 10px;
+      }
+
+      .arrow-left,
+      .arrow-right {
+        height: 22px;
+        width: 18px;
+      }
+    }
+  }
+
+  @media (max-width: 525px) {
+    .slider {
+      .quote .content .title {
+        font-size: 60px;
+        span { display: block; }
+      }
+    }
+  }
 </style>

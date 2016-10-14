@@ -6,6 +6,12 @@
 
     slider-component
 
+    a.watch-it-now.watch-it-now-mobile(href="/")
+      .title
+        | Watch It Now
+      .subtitle
+        | starting at $2.99 on Amazon Demand
+
     video-component
 
     a.watch-it-now(href="/")
@@ -156,6 +162,10 @@ export default {
 </style>
 
 <style lang="sss" scoped rel="stylesheet/sass">
+
+  .watch-it-now-mobile
+    display: none
+
   .watch-it-now
     background-image: linear-gradient(-182deg, #f45232 0%, #e52816 100%)
     padding: 22px 0
@@ -240,6 +250,11 @@ export default {
 
 
 <style scoped lang="scss">
+  @media (max-width: 699px) {
+    .watch-it-now-mobile {
+      display: flex;
+    }
+  }
 
   @media (max-width: 768px) {
     .watch-it-now {
