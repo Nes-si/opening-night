@@ -84,6 +84,7 @@
       color: #090909;
       letter-spacing: 1.75px;
       line-height: 22px;
+      text-align: center;
     }
 
     .buttons {
@@ -118,6 +119,22 @@
       background: url('~assets/images/itunes.png') no-repeat center center / contain;
       height: 45px;
       width: 151px;
+    }
+  }
+
+
+  @media (max-width: 425px) {
+    .modal {
+      &-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        padding: 0;
+      }
+
+      .buttons {
+        width: 90%;
+      }
     }
   }
 </style>
