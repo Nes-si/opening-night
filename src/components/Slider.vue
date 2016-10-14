@@ -237,7 +237,7 @@
       .content
         position: absolute
         left: 12%
-        bottom: 10vh
+        bottom: 5vh
         z-index: 55
 
         .in-touch
