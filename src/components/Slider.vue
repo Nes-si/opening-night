@@ -115,7 +115,7 @@
           return;
 
         let ch = this.content.clientHeight;
-        
+
         let wh = window.innerHeight;
         let dur = 2 * wh;
         let offset = 1 * wh;
@@ -406,8 +406,11 @@
       }
 
       .quote .content {
-        width: 90%;
-        //position: static;
+        width: 100%;
+        left: 0;
+        padding: 0 6%;
+        /*//position: static;*/
+        bottom: 1vh;
       }
 
       .quote .content .title {

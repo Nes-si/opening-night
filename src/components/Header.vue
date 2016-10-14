@@ -58,7 +58,7 @@
       onClickWatch: function () {
         this.$emit('watch');
       },
-      
+
       onClickScroll: function () {
         TweenLite.to(window, .5, {scrollTo: document.documentElement.clientHeight + 5});
       },
@@ -200,6 +200,7 @@
 
   @media (max-width: 768px) {
     .header {
+      height: 830px;
       .smule {
         display: none;
       }
@@ -228,6 +229,12 @@
         box-shadow: none;
         margin-top: 20px;
       }
+    }
+  }
+
+  @media (max-width: 425px) {
+    .header {
+      height: 740px;
     }
   }
 </style>
