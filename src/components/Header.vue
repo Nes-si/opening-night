@@ -75,7 +75,6 @@
 
 <style lang="sss" scoped rel="stylesheet/sass">
   .header
-    height: 100%
     height: 100vh
     overflow: hidden
     display: flex
@@ -183,7 +182,8 @@
       filter: drop-shadow(0px 0px 2px #ffffff)
 
 </style>
-<style scoped lang="scss">
+
+<style scoped lang="scss" rel="stylesheet/scss">
 
   @media (max-width: 1140px) {
     .header {
