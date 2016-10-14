@@ -242,10 +242,32 @@ export default {
 <style scoped lang="scss">
 
   @media (max-width: 768px) {
+    .watch-it-now {
+      padding: 12px 0;
+
+      .title {
+        font-size: 20.79px;
+        color: #FFFFFF;
+        letter-spacing: 1.68px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        color: #FFFFFF;
+        letter-spacing: 0.97px;
+      }
+    }
+
     .footer {
+
       .logos {
-        padding-top: 46px;
-        padding-bottom: 29px;
+        padding: 46px 30px 29px;
+
+        .dark-factory,
+        .itaca,
+        .little-luca {
+          margin-right: 5%;
+        }
       }
 
       .nav {
