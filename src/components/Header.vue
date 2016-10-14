@@ -35,7 +35,7 @@
     components: {
       CharactersComponent
     },
-    
+
     data: function () {
       return {
         karaoke: null,
@@ -43,14 +43,14 @@
         logo: null
       };
     },
-  
+
     mounted: function () {
       window.addEventListener('scroll', this.onScroll);
-    
+
       this.karaoke = document.querySelector('.header .smule');
       this.background = document.querySelector('.header .bg');
       this.logo = document.querySelector('.header .logo');
-    
+
       this.container = document.querySelector('.slider');
     },
 
@@ -58,7 +58,7 @@
       onClickScroll: function () {
         TweenLite.to(window, .5, {scrollTo: document.documentElement.clientHeight + 5});
       },
-  
+
       onScroll: function () {
         let dur = window.innerHeight;
         let progress = window.pageYOffset / dur;
@@ -182,5 +182,48 @@
     .arrow:hover
       filter: drop-shadow(0px 0px 2px #ffffff)
 
+</style>
+<style scoped lang="scss">
 
+  @media (max-width: 1140px) {
+    .header {
+      .smule {
+        top: 70px;
+        right: 30px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      .smule {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 688px) {
+    .header {
+      .logo {
+        width: 359px;
+        height: 207px;
+      }
+
+      .watch {
+        margin-top: -10px;
+        flex-flow: column nowrap;
+      }
+
+      .watch-button {
+        margin: 0;
+      }
+
+      .watch-trailer {
+        border: none;
+        background: none;
+        box-shadow: none;
+        margin-top: 20px;
+      }
+    }
+  }
 </style>

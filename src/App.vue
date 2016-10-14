@@ -180,7 +180,7 @@ export default {
     background: #1B252A
 
     .logos
-      padding: 52px 0 62px
+      padding: 52px 42px 62px
       display: flex
       flex-flow: row nowrap
       align-items: center
@@ -235,5 +235,49 @@ export default {
       color: #5B6D82
       letter-spacing: 0.81px
 
+
+</style>
+
+
+<style scoped lang="scss">
+
+  @media (max-width: 768px) {
+    .footer {
+      .logos {
+        padding-top: 46px;
+        padding-bottom: 29px;
+      }
+
+      .nav {
+        flex-flow: column nowrap;
+        padding-top: 0;
+        padding-bottom: 70px;
+
+        &-list {
+          font-size: 12px;
+          color: #7E8791;
+          letter-spacing: 0.97px;
+        }
+
+        &-copy {
+          margin-top: 10px;
+          font-size: 10px;
+          letter-spacing: 0.81px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 340px) {
+    .footer {
+      .nav {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .separate {
+        margin: 0 5px;
+      }
+    }
+  }
 
 </style>
