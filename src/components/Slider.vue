@@ -384,8 +384,11 @@
 <style lang="scss" scoped>
   @media (max-width: 768px) {
     .slider {
-      .person {
-        display: none;
+
+      .quote .person {
+        left: initial;
+        right: -20%;
+        bottom: 0;
       }
 
       .quotes {
@@ -413,11 +416,6 @@
       }
 
 
-      .arrows {
-        bottom: 20%;
-        right: 12%;
-      }
-
       .arrow-left {
         margin-right: 10px;
       }
@@ -436,6 +434,16 @@
 
   @media (max-width: 525px) {
     .slider {
+      .person {
+        display: none;
+      }
+
+      .arrows {
+        bottom: 20%;
+        left: initial;
+        right: 12%;
+      }
+
       .quote .content .title {
         font-size: 60px;
         span { display: block; }
