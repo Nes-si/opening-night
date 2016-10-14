@@ -61,13 +61,13 @@ export default {
     PreloaderComponent,
     PurchaseComponent
   },
-  
+
   data: function() {
     return {
       watchOpened: false
     }
   },
-  
+
   methods: {
     setWatch: function (open) {
       this.watchOpened = open;
@@ -183,9 +183,6 @@ export default {
 
 <style lang="sss" scoped rel="stylesheet/sass">
 
-  .watch-it-now-mobile
-    display: none
-
   .watch-it-now
     background-image: linear-gradient(-182deg, #f45232 0%, #e52816 100%)
     padding: 22px 0
@@ -193,6 +190,9 @@ export default {
     flex-flow: column nowrap
     align-items: center
     cursor: pointer
+
+    &-mobile
+      display: none
 
     .title
       font-weight: bold
