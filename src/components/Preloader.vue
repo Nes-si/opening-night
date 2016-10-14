@@ -1,14 +1,15 @@
 <template lang="pug">
-  .preloader(v-bind:class="{ 'preloader-hidden': this.load }")
-    .faces
-      .face-1
-      .face-2
-
-    .title
-      | THE SHOW GOES THE F*&K ON!
-
-    .loader
-      .loader-inner
+  transition
+    .preloader(v-if="!load")
+      .faces
+        .face-1
+        .face-2
+  
+      .title
+        | THE SHOW GOES THE F*&K ON!
+  
+      .loader
+        .loader-inner
 </template>
 
 <script>
@@ -94,5 +95,12 @@
       height: 40px;
       animation: spin 2s infinite linear;
     }
+  }
+
+  .v-enter-active, .v-leave-active {
+    transition: opacity .5s
+  }
+  .v-enter, .v-leave-active {
+    opacity: 0.01
   }
 </style>
