@@ -1,0 +1,224 @@
+<template lang="pug">
+  .download
+    .chasez
+    .one-hit
+      | #OneHitWonder
+
+    .download-item
+      .title
+        .title-image
+        .title-inner
+          | Go to the opening night of Opening Night! <span>*woah*</span>
+
+      .steps
+        .steps-item
+          .steps-point
+            | 1.
+          .steps-text
+            | Download the <span>Sing! Karaoke by Smule</span> App
+            .images
+              a.image-1(href="#")
+              a.image-2(href="#")
+
+        .steps-item
+          .steps-point
+            | 2.
+          .steps-text
+            | Record a Video with JC under the ‘Opening Night’ Section
+        .steps-item
+          .steps-point
+            | 3.
+          .steps-text
+            | Post to Facebook, Twitter or Instagram with the hashtag #OneHitWonder and <span>WIN</span>!
+</template>
+
+<script>
+  export default {
+    name: "DownloadComponent",
+
+    methods: {
+    }
+  }
+</script>
+
+<style lang="scss" scoped rel="stylesheet/scss">
+  .download {
+    background-image: linear-gradient(-180deg, #30E1FF 7%, #178DFD 100%);
+    padding: 60px 30px 0 50px;
+    position: relative;
+    overflow: hidden;
+    min-height: 561px;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+
+    .one-hit {
+      font-weight: bold;
+      font-size: 10vw;
+      color: #FFFFFF;
+      letter-spacing: 1.29px;
+      line-height: 24px;
+      z-index: 7;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 35px;
+    }
+
+    &-item {
+      flex: 0 0 560px;
+      z-index: 10;
+      padding: 0 3%;
+    }
+
+    .chasez {
+      background: url('~assets/images/chasez.png') no-repeat center bottom / contain;
+      width: 55vw;
+      height: 100%;
+      position: absolute;
+      left: 0;
+    }
+
+    .title {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+
+      &-image {
+        background: url('~assets/images/smule-logo.png') no-repeat center center / contain;
+        width: 76px;
+        height: 76px;
+        flex: 0 0 76px;
+        margin-right: 21px;
+      }
+
+      &-inner {
+        font-weight: bold;
+        font-size: 36px;
+        color: #FFFFFF;
+        letter-spacing: 1.01px;
+        line-height: 44px;
+
+        span { font-size: 22px; font-weight: 400; }
+      }
+    }
+
+    .steps {
+      padding: 0 3%;
+
+      .images {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        margin-top: 5px;
+
+        .image-1 {
+          background: url('~assets/images/app-store.png') no-repeat center center / contain;
+          width: 108px;
+          height: 38px;
+          margin-right: 18px;
+        }
+
+        .image-2 {
+          background: url('~assets/images/google-play.png') no-repeat center center / contain;
+          width: 107px;
+          height: 35px;
+        }
+      }
+
+      &-item {
+        margin-top: 15px;
+
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-start;
+      }
+
+      &-point {
+        margin-right: 10px;
+
+        font-weight: bold;
+        font-size: 24px;
+        color: #FFFFFF;
+        letter-spacing: -0.45px;
+      }
+
+      &-text {
+        margin-top: 2px;
+
+        font-family: 'Open Sans', sans-serif;
+        font-size: 16px;
+        color: #FFFFFF;
+        letter-spacing: 1px;
+        line-height: 24px;
+
+        span { font-weight: bold; }
+      }
+    }
+  }
+
+
+  @media (max-width: 920px) {
+    .download {
+      justify-content: flex-start;
+      height: 762px;
+
+      .chasez {
+        width: 450px;
+        left: initial;
+        right: 0;
+      }
+    }
+  }
+
+  @media (max-width: 580px) {
+    .download {
+      justify-content: center;
+      height: 762px;
+      padding-left: 30px;
+      padding-right: 30px;
+
+      &-item {
+        flex: 0 0 100%;
+        padding: 0;
+      }
+
+      .chasez {
+        width: 450px;
+        left: initial;
+        right: 0;
+      }
+
+      .title-inner {
+        font-size: 30px;
+        color: #FFFFFF;
+        letter-spacing: 0.28px;
+        line-height: 30px;
+
+        span { font-size: 20px; }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .download {
+      height: 500px;
+
+      padding-top: 20px;
+
+      .chasez {
+        display: none;
+      }
+
+      .title-inner {
+        font-size: 24px;
+        color: #FFFFFF;
+        letter-spacing: 0.28px;
+        line-height: 30px;
+
+        span { font-size: 16px; }
+      }
+    }
+  }
+</style>
