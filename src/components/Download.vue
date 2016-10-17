@@ -3,6 +3,10 @@
     .chasez
     .one-hit
       | #OneHitWonder
+      .socials
+        a.fb
+        a.twitter
+        a.ig
 
     .download-item
       .title
@@ -55,15 +59,20 @@
 
     .one-hit {
       font-weight: bold;
-      font-size: 10vw;
+      font-size: 7vw;
       color: #FFFFFF;
       letter-spacing: 1.29px;
       line-height: 24px;
+      width: 100%;
       z-index: 7;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
       bottom: 35px;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      align-items: flex-start;
     }
 
     &-item {
@@ -156,6 +165,35 @@
         span { font-weight: bold; }
       }
     }
+
+
+    .socials {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      align-items: center;
+      margin-left: 100px;
+
+      .fb {
+        background: url('~assets/images/fb-d.svg') no-repeat center center / contain;
+        height: 42px;
+        width: 20px;
+        margin-right: 33px;
+      }
+
+      .twitter {
+        background: url('~assets/images/twitter-2.svg') no-repeat center center / contain;
+        height: 37px;
+        width: 46px;
+        margin-right: 24px;
+      }
+
+      .ig {
+        background: url('~assets/images/instagram-2.svg') no-repeat center center / contain;
+        height: 42px;
+        width: 43px;
+      }
+    }
   }
 
 
@@ -198,6 +236,14 @@
 
         span { font-size: 20px; }
       }
+    }
+  }
+
+  @media (max-width: 512px) {
+    .download .socials {
+      margin-left: 0;
+      width: 100%;
+      margin-top: 20px;
     }
   }
 
