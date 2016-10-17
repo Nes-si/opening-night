@@ -14,23 +14,23 @@
 <script>
   export default {
     name: "MenuComponent",
-    
+
     data: function() {
       return {
         scrolled: false
       }
     },
-    
+
     methods: {
       handleScroll () {
         this.scrolled = window.scrollY > window.innerHeight;
       },
-  
+
       onClickWatch: function () {
         this.$emit('watch');
       }
     },
-    
+
     mounted: function() {
       let raf =
         window.requestAnimationFrame ||
@@ -38,9 +38,9 @@
         window.mozRequestAnimationFrame ||
         window.msRequestAnimationFrame ||
         window.oRequestAnimationFrame;
-  
+
       let lastScrollTop = window.scrollY;
-  
+
       let loop = () => {
         if (lastScrollTop != window.scrollY) {
           lastScrollTop = window.scrollY;
@@ -49,10 +49,10 @@
         }
         raf(loop);
       };
-  
+
       if (raf)
         loop();
-  
+
       // window.addEventListener('scroll', this.handleScroll);
     }
   }
