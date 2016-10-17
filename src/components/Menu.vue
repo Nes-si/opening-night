@@ -3,21 +3,34 @@
     a.menu-logo(href="#")
       img(src="~assets/images/logo-small.png")
     .menu-list
-      a.menu-item(href="#") Cast
-      a.menu-item.menu-active(href="#") Reviews
-      a.menu-item(href="#") Clips
-      a.menu-item(href="#") Contest
+      a.menu-item(href="#" v-bind:class="{'menu-active': currentSection == SECTION_CAST}") Cast
+      a.menu-item(href="#" v-bind:class="{'menu-active': currentSection == SECTION_REVIEWS}") Reviews
+      a.menu-item(href="#" v-bind:class="{'menu-active': currentSection == SECTION_CLIPS}") Clips
+      a.menu-item(href="#" v-bind:class="{'menu-active': currentSection == SECTION_CONTEST}") Contest
     .watch(@click="onClickWatch") Watch it now
     .burger
 </template>
 
 <script>
+  const SECTION_CAST = 0;
+  const SECTION_REVIEWS = 1;
+  const SECTION_CLIPS = 2;
+  const SECTION_CONTEST = 3;
+  
+  
   export default {
     name: "MenuComponent",
+    
+    props: ['currentSection'],
 
     data: function() {
       return {
-        scrolled: false
+        scrolled: false,
+        
+        "SECTION_CAST":     SECTION_CAST,
+        "SECTION_REVIEWS":  SECTION_REVIEWS,
+        "SECTION_CLIPS":    SECTION_CLIPS,
+        "SECTION_CONTEST":  SECTION_CONTEST
       }
     },
 

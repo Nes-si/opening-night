@@ -6,7 +6,7 @@
 
     purchase-component(v-on:close="setWatch(false)" v-if="watchOpened")
 
-    menu-component(v-on:watch="setWatch(true)")
+    menu-component(v-on:watch="setWatch(true)" v-bind:currentSection="currentSection")
 
     header-component(v-on:watch="setWatch(true)" v-on:showCharMobile="setCharMobile($event)")
 
@@ -58,6 +58,12 @@ import PurchaseComponent from 'components/Purchase';
 import DownloadComponent from 'components/Download';
 import CharactersPopupComponent from 'components/CharactersPopup';
 
+
+const SECTION_CAST = 0;
+const SECTION_REVIEWS = 1;
+const SECTION_CLIPS = 2;
+const SECTION_CONTEST = 3;
+
 export default {
   components: {
     HeaderComponent,
@@ -74,14 +80,43 @@ export default {
     return {
       watchOpened: false,
       charMobileOpened: false,
-      charMobileData: null
+      charMobileData: null,
+      
+      currentSection: SECTION_CAST,
+      
+      sectionReviews: 0,
+      sectionClips: 0,
+      sectionContest: 0
     }
   },
 
+  mounted: function () {
+    window.addEventListener('scroll', this.onScroll);
+    
+    this.sectionReviews = document.querySelector('.slider');
+    this.sectionClips = document.querySelector('.video');
+    this.sectionContest = document.querySelector('.download');
+  },
+  
   methods: {
+    onScroll: function () {
+      if (this.watchOpened || this.charMobileOpened)
+        return;
+      
+      if (window.pageYOffset > this.sectionContest.offsetTop - window.innerHeight)
+        this.currentSection = SECTION_CONTEST;
+      else if (window.pageYOffset > this.sectionClips.offsetTop - window.innerHeight)
+        this.currentSection = SECTION_CLIPS;
+      else if (window.pageYOffset > this.sectionReviews.offsetTop - window.innerHeight)
+        this.currentSection = SECTION_REVIEWS;
+      else
+        this.currentSection = SECTION_CAST;
+    },
+    
     setWatch: function (open) {
       this.watchOpened = open;
     },
+    
     setCharMobile: function (data) {
       this.charMobileOpened = !!data;
       this.charMobileData = data;
