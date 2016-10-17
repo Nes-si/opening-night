@@ -26,42 +26,42 @@
 
 <script>
   import YouTubePlayer from 'youtube-player';
-  
-  
+
+
   const TYPE_YOUTUBE = "TYPE_YOUTUBE";
   const TYPE_GIPHY = "TYPE_GIPHY";
-  
+
   export default {
     name: "CharactersPopupComponent",
-  
+
     props: ['charData'],
-    
+
     data: function() {
       return {
         "TYPE_YOUTUBE": TYPE_YOUTUBE,
         "TYPE_GIPHY": TYPE_GIPHY,
-        
+
         currentVideo: 0,
         player: null,
         playerActive: false
       }
     },
-    
+
     methods: {
       onClose: function () {
         this.$emit('close');
       },
-  
+
       setVideo: function () {
         let playerId = "popup-video";
         let playerElm = document.getElementById(playerId);
         let giphyElm = document.getElementById("popup-giphy");
-    
+
         let w = Math.round(window.innerWidth);
         let h = Math.round(w / 16 * 9);
-    
+
         let videoData = this.charData.videos[this.currentVideo];
-    
+
         if (videoData.type == TYPE_YOUTUBE) {
           if (this.player && this.playerActive) {
             this.player.loadVideoById(videoData.id);
@@ -74,25 +74,25 @@
             });
             this.playerActive = true;
           }
-      
+
           giphyElm.style.visibility = 'hidden';
           playerElm.style.visibility = 'visible';
-      
+
         } else if (videoData.type == TYPE_GIPHY) {
           if (this.playerActive)
             this.player.destroy();
           this.playerActive = false;
-      
+
           giphyElm.width = w;
           giphyElm.height = h;
           giphyElm.src = (document.location.protocol == "https:" ? "https://" : "http://") +
             `//media.giphy.com/media/${videoData.id}/giphy.mp4`;
-      
+
           giphyElm.style.visibility = 'visible';
           playerElm.style.visibility = 'hidden';
         }
       },
-  
+
       onClickPreview: function (num) {
         if (this.currentVideo != num) {
           this.currentVideo = num;
@@ -100,7 +100,7 @@
         }
       }
     },
-    
+
     mounted: function() {
       this.setVideo();
     }
@@ -154,9 +154,8 @@
     }
 
     .video {
-      img {
-        width: 100%;
-      }
+      width: 100%;
+      height: 185px;
     }
 
     .footer {
@@ -211,7 +210,9 @@
 
       .list-video {
         width: 25%;
-
+        height: 18vw;
+        overflow: hidden;
+        position: relative;
         border: 2px transparent solid;
 
         &:hover {
@@ -220,6 +221,10 @@
         }
 
         .img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
           width: 100%;
           height: 100px;
           background-size: cover;

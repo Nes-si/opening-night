@@ -16,7 +16,7 @@
           .char-socials
             | SHARE
             a.facebook(href="#")
-            a.twitter(href="#")
+            a.twitter(href="https://twitter.com/intent/tweet?text=Check%20this%20out!&amp;hashtags=OpeningNight&amp;url=https://www.youtube.com/watch?v=1qCpoH4VO9Y")
             a.instagram(href="#")
 
         .char-list
@@ -262,7 +262,7 @@
 
         playerActive: false,
         timeout: 0,
-        
+
         isMobile: false
       }
     },
@@ -328,7 +328,7 @@
       onEnterChar: function (i) {
         if (this.isMobile)
           return;
-        
+
         if (i != this.currentChar) {
           this.currentChar = i;
           this.currentVideo = 0;
@@ -349,11 +349,11 @@
         this.currentChar = -1;
         this.currentVideo = 0;
       },
-      
+
       onClickChar: function (char) {
         if (!this.isMobile)
           return;
-        
+
         this.$emit('showCharMobile', char);
       }
     }
