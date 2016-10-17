@@ -1,5 +1,5 @@
 <template lang="pug">
-  .app
+  #app
     preloader-component
 
     characters-popup-component(v-on:close="setCharMobile(false)" v-if="charMobileOpened" v-bind:charData="charMobileData")

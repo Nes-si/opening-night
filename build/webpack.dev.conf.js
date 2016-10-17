@@ -18,6 +18,12 @@ module.exports = merge(baseWebpackConfig, {
   },
   devtool: '#eval-source-map',
   plugins: [
+    new HtmlWebpackPlugin({
+      template: 'src/index.pug',
+      inject: true,
+      filename: 'index.html',
+      chunksSortMode: 'dependency'
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ]

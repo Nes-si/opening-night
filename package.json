@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "gsap": "^1.19.0",
+    "prerender-spa-plugin": "^1.1.0",
     "scrollmagic": "^2.0.5",
     "throttle-debounce": "^1.0.1",
     "vue": "^2.0.1",

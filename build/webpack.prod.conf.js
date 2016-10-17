@@ -1,7 +1,10 @@
 const path = require('path');
+var PrerenderSpaPlugin = require('prerender-spa-plugin')
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const utils = require('./utils');
 const baseWebpackConfig = require('./webpack.base.conf');
@@ -16,8 +19,7 @@ let webpackConfig = merge(baseWebpackConfig, {
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'js/[name].js',
-    chunkFilename: 'js/[id].js',
-    publicPath: '/opening-night/'
+    chunkFilename: 'js/[id].js'
   },
   vue: {
     loaders: utils.cssLoaders({
@@ -26,6 +28,31 @@ let webpackConfig = merge(baseWebpackConfig, {
     })
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: 'src/index.pug',
+      inject: true,
+      filename: 'index.html',
+      chunksSortMode: 'dependency',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      }
+    }),
+
+
+    new PrerenderSpaPlugin(
+     // (REQUIRED) Absolute path to static root
+     path.join(__dirname, '../dist'),
+     // (REQUIRED) List of routes to prerender
+     [ '/' ],
+     {
+        captureAfterTime: 5000,
+        maxAttempts: 10,
+        phantomOptions: '--disk-cache=true',
+        phantomPageSettings: { loadImages: true }
+    }
+   ),
     new webpack.optimize.UglifyJsPlugin({
       compress: {warnings: false}
     }),
