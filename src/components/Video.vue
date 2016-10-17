@@ -26,15 +26,17 @@
 
     .video-mobile
       .group-container
-        .item(
-          v-for="(item, index) of itemsMobile"
-          v-bind:key="item.url"
-          )
-          .img(:style="{ backgroundImage: 'url(' + item.preview + ')' }")
-          .text
-            | {{item.text}}
-          .bg
-          .play
+        transition-group.group(name="mobile" tag="div")
+          .item(
+            v-for="(item, index) of itemsMobile"
+            v-bind:key="item.id"
+            )
+            .item-inner
+              .img(:style="{ backgroundImage: 'url(' + item.preview + ')' }")
+              .text
+                | {{item.text}}
+              .bg
+              .play
 
     .more-clips(@click="onClickMore")
       | MORE CLIPS
@@ -49,6 +51,8 @@
 
   const TYPE_YOUTUBE = "TYPE_YOUTUBE";
   const TYPE_GIPHY = "TYPE_GIPHY";
+  
+  const MOBILE_ON_PAGE = 3;
 
   const items = [
     {
@@ -83,7 +87,7 @@
     },
     {
       type: TYPE_YOUTUBE,
-      id: "XVwqSlTFQq0",
+      id: "ElvLZMsYXlo",
       preview: "assets/images/video-4.png",
       text: "WORDS, SAY WORDS"
     }
@@ -96,7 +100,10 @@
       return {
         currentItem: items[0],
         items: items,
-        itemsMobile: items.slice(0, 3),
+        
+        itemsMobile: items.slice(0, MOBILE_ON_PAGE),
+        mobilePages: Math.ceil(items.length / MOBILE_ON_PAGE),
+        mobilePage: 0,
 
         itemGroup: null,
         itemElms: null,
@@ -217,7 +224,17 @@
       },
       
       onClickMore: function () {
-        this.itemsMobile = items;
+        if (this.mobilePage >= this.mobilePages - 1)
+          this.mobilePage = 0;
+        else
+          this.mobilePage++;
+        
+        this.itemsMobile.splice(0, this.itemsMobile.length);
+        for (let i = 0; i < MOBILE_ON_PAGE; i++) {
+          let ind = MOBILE_ON_PAGE * this.mobilePage + i;
+          if (ind < this.items.length)
+            this.itemsMobile.push(this.items[ind]);
+        }
       }
     }
   }
@@ -316,7 +333,7 @@
     .item
       cursor: pointer
       position: relative
-
+      
       .img
         width: 100%
         height: 100%
@@ -360,15 +377,40 @@
 
         .text
           opacity: 0
-
+      
+    .item-inner
+      position: relative
+      height: 100%
+      width: 100%
+  
+  
     .video-mobile
       padding: 0
+      position: relative
+      height: 100vh
 
       @media (min-width: 700px)
         display: none
 
       .item
+        position: absolute
+        top: 0
         height: 33.33333vh
+        width: 100%
+        
+      .item:nth-child(3n+2)
+        top: 33.33333vh
+      
+      .item:nth-child(3n)
+        top: 66.66666vh
+        
+  
+  .mobile-enter-active, .mobile-leave-active
+    transition: opacity 1s
+  
+  .mobile-enter, .mobile-leave-active
+    opacity: 0
+
 
 </style>
 
