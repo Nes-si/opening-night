@@ -2,13 +2,13 @@
   .menu(v-bind:class="{ 'showedMenu': this.scrolled }")
     a.menu-logo(href="#")
       img(src="~assets/images/logo-small.png")
-    .menu-list
+    .menu-list(v-bind:class="{ 'showedList': this.showMenu }")
       a.menu-item(href="#" v-bind:class="{'menu-active': currentSection == SECTION_CAST}") Cast
       a.menu-item(href="#" v-bind:class="{'menu-active': currentSection == SECTION_REVIEWS}") Reviews
       a.menu-item(href="#" v-bind:class="{'menu-active': currentSection == SECTION_CLIPS}") Clips
       a.menu-item(href="#" v-bind:class="{'menu-active': currentSection == SECTION_CONTEST}") Contest
     .watch(@click="onClickWatch") Watch it now
-    .burger
+    .burger(@click="onClickBurger")
 </template>
 
 <script>
@@ -16,17 +16,18 @@
   const SECTION_REVIEWS = 1;
   const SECTION_CLIPS = 2;
   const SECTION_CONTEST = 3;
-  
-  
+
+
   export default {
     name: "MenuComponent",
-    
+
     props: ['currentSection'],
 
     data: function() {
       return {
         scrolled: false,
-        
+        showMenu: false,
+
         "SECTION_CAST":     SECTION_CAST,
         "SECTION_REVIEWS":  SECTION_REVIEWS,
         "SECTION_CLIPS":    SECTION_CLIPS,
@@ -41,6 +42,10 @@
 
       onClickWatch: function () {
         this.$emit('watch');
+      },
+
+      onClickBurger: function () {
+        this.showMenu = !this.showMenu;
       }
     },
 
@@ -115,6 +120,9 @@
       align-items: center
       flex: 1
 
+      &.showedList
+        display: flex
+
     &-item
       display: block
       font-family: 'Open Sans', sans-serif
@@ -182,6 +190,8 @@
         top: 20px;
 
         z-index: 5;
+
+        cursor: pointer;
       }
 
       .watch,
