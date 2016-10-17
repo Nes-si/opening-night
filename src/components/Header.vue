@@ -17,7 +17,7 @@
           .play
           | Watch Trailer
 
-    characters-component
+    characters-component(v-on:showCharMobile="clickCharMobile")
     a.smule(href="/")
     .arrow(@click="onClickScroll")
 </template>
@@ -72,6 +72,10 @@
           TweenLite.to(this.karaoke, 0.2, {y: (progress * 50), z: '0.01', ease: Power0.easeInOut});
           TweenLite.to(this.logo, 0.2, {y: -(progress * 20), z: '0.01', ease: Power0.easeInOut});
         }
+      },
+  
+      clickCharMobile: function (char) {
+        this.$emit('showCharMobile', char);
       }
     }
   }

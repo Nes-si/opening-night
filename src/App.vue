@@ -2,13 +2,13 @@
   .app
     preloader-component
 
-    characters-popup-component
+    characters-popup-component(v-on:close="setCharMobile(false)" v-if="charMobileOpened" v-bind:charData="charMobileData")
 
     purchase-component(v-on:close="setWatch(false)" v-if="watchOpened")
 
     menu-component(v-on:watch="setWatch(true)")
 
-    header-component(v-on:watch="setWatch(true)")
+    header-component(v-on:watch="setWatch(true)" v-on:showCharMobile="setCharMobile($event)")
 
     slider-component
 
@@ -72,13 +72,19 @@ export default {
 
   data: function() {
     return {
-      watchOpened: false
+      watchOpened: false,
+      charMobileOpened: false,
+      charMobileData: null
     }
   },
 
   methods: {
     setWatch: function (open) {
       this.watchOpened = open;
+    },
+    setCharMobile: function (data) {
+      this.charMobileOpened = !!data;
+      this.charMobileData = data;
     }
   }
 }

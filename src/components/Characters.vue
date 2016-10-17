@@ -3,11 +3,11 @@
     .spacer
     .char-box(
       v-for="(char, index) of chars"
-      v-bind:class="[char.name]"
-      v-bind:key="char.name"
+      v-bind:class="[char.id]"
+      v-bind:key="char.id"
       @mouseenter="onEnterChar(index)"
       )
-      .char-inner
+      .char-inner(@touchend="onClickChar(char)")
         .char-bg
         .char-player
           .char-video(v-bind:id="'video-char-' + index")
@@ -37,7 +37,8 @@
 
   const chars = [
     {
-      name: 'rob',
+      id: 'rob',
+      name: 'Rob Riggle',
       videos: [
         {
           type: TYPE_YOUTUBE,
@@ -62,7 +63,8 @@
       ]
     },
     {
-      name: 'anne',
+      id: 'anne',
+      name: 'Anne Heche',
       videos: [
         {
           type: TYPE_YOUTUBE,
@@ -87,7 +89,8 @@
       ]
     },
     {
-      name: 'topher',
+      id: 'topher',
+      name: 'Topher Grace',
       videos: [
         {
           type: TYPE_YOUTUBE,
@@ -112,7 +115,8 @@
       ]
     },
     {
-      name: 'alona',
+      id: 'alona',
+      name: 'Alona Tal',
       videos: [
         {
           type: TYPE_YOUTUBE,
@@ -137,7 +141,8 @@
       ]
     },
     {
-      name: 'jc',
+      id: 'jc',
+      name: 'J. C. Chasez',
       videos: [
         {
           type: TYPE_YOUTUBE,
@@ -162,7 +167,8 @@
       ]
     },
     {
-      name: 'taye',
+      id: 'taye',
+      name: 'Taye Diggs',
       videos: [
         {
           type: TYPE_YOUTUBE,
@@ -187,7 +193,8 @@
       ]
     },
     {
-      name: 'paul',
+      id: 'paul',
+      name: 'Paul Scheer',
       videos: [
         {
           type: TYPE_YOUTUBE,
@@ -212,7 +219,8 @@
       ]
     },
     {
-      name: 'lesli',
+      id: 'lesli',
+      name: 'Lesli Margherita',
       videos: [
         {
           type: TYPE_YOUTUBE,
@@ -253,11 +261,14 @@
         players: [],
 
         playerActive: false,
-        timeout: 0
+        timeout: 0,
+        
+        isMobile: false
       }
     },
 
     mounted: function () {
+      this.isMobile = window.innerWidth < 700;
     },
 
     methods: {
@@ -315,6 +326,9 @@
       },
 
       onEnterChar: function (i) {
+        if (this.isMobile)
+          return;
+        
         if (i != this.currentChar) {
           this.currentChar = i;
           this.currentVideo = 0;
@@ -334,6 +348,13 @@
         this.playerActive = false;
         this.currentChar = -1;
         this.currentVideo = 0;
+      },
+      
+      onClickChar: function (char) {
+        if (!this.isMobile)
+          return;
+        
+        this.$emit('showCharMobile', char);
       }
     }
   }
@@ -632,7 +653,7 @@
           transform: skew(-18.5deg) scale(1.1) translate3D(-35vw,0,0)
 
 </style>
-<style lang="scss" scoped rel="stylesheet/sсss">
+<style lang="scss" scoped rel="stylesheet/scss">
   @media (max-width: 510px) {
     .characters {
       height: 73vw;
