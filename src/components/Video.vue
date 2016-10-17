@@ -30,13 +30,17 @@
           .item(
             v-for="(item, index) of itemsMobile"
             v-bind:key="item.id"
+            @click="onClickItemMobile(index)"
             )
             .item-inner
-              .img(:style="{ backgroundImage: 'url(' + item.preview + ')' }")
+              .img(:style="{ backgroundImage: 'url(' + item.preview + ')' }" v-show="currentItem != item")
               .text
                 | {{item.text}}
               .bg
               .play
+              .video-player
+                .youtube(v-bind:id="'mobile-video-' + index")
+                video.giphy(autoplay loop v-bind:id="'mobile-giphy-' + index" v-show="currentItem == item")
 
     .more-clips(@click="onClickMore")
       | MORE CLIPS
@@ -98,8 +102,10 @@
 
     data: function () {
       return {
-        currentItem: items[0],
+        currentItem: null,
         items: items,
+        
+        isMobile: false,
         
         itemsMobile: items.slice(0, MOBILE_ON_PAGE),
         mobilePages: Math.ceil(items.length / MOBILE_ON_PAGE),
@@ -114,15 +120,21 @@
     },
 
     mounted: function () {
-      window.addEventListener('resize', this.onResize);
-
-      this.itemGroup = document.querySelector('.video .video-list .group');
-      this.itemElms = document.querySelectorAll('.video .video-list .item');
-
-      this.giphyElm = document.querySelector(`.video .video-desktop .giphy`);
-
-      this.setVideo();
-      this.onResize();
+      if (window.innerWidth < 700) {
+        this.isMobile = true;
+      } else {
+        window.addEventListener('resize', this.onResize);
+        
+        this.currentItem = items[0];
+  
+        this.itemGroup = document.querySelector('.video .video-list .group');
+        this.itemElms = document.querySelectorAll('.video .video-list .item');
+  
+        this.giphyElm = document.querySelector(`.video .video-desktop .giphy`);
+  
+        this.setVideo();
+        this.onResize();
+      }
     },
 
     methods: {
@@ -234,6 +246,42 @@
           let ind = MOBILE_ON_PAGE * this.mobilePage + i;
           if (ind < this.items.length)
             this.itemsMobile.push(this.items[ind]);
+        }
+      },
+  
+      onClickItemMobile: function (index) {
+        this.currentItem = this.itemsMobile[index];
+  
+        let playerElmId = `mobile-video-${index}`;
+        let playerElm = document.getElementById(playerElmId);
+        let giphyElm = document.getElementById(`mobile-giphy-${index}`);
+        
+        if (this.player) {
+          this.player.destroy();
+          this.player = null;
+        }
+  
+        let h = Math.round(window.innerHeight / 3);
+        let w = Math.round(window.innerWidth);
+        
+        if (this.currentItem.type == TYPE_YOUTUBE) {
+          this.player = new YouTubePlayer(playerElmId, {
+            playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 0},
+            videoId: this.currentItem.id,
+            height: h.toString(),
+            width: w.toString()
+          });
+          this.player.playVideo();
+  
+          playerElm.style.visibility = 'visible';
+        } else if (this.currentItem.type == TYPE_GIPHY) {
+          giphyElm.src = (document.location.protocol == "https:" ? "https://" : "http://") +
+            `//media.giphy.com/media/${this.currentItem.id}/giphy.mp4`;
+  
+          giphyElm.width = w;
+          giphyElm.height = h;
+          
+          giphyElm.style.visibility = 'visible';
         }
       }
     }
@@ -370,6 +418,14 @@
         top: 50%
         transform: translate(-50%, -50%)
         pointer-events: none
+        
+      .video-player
+        width: 100%
+        height: 100%
+        top: 0
+        left: 0
+        position: absolute
+        
 
       &:hover
         .play
@@ -403,6 +459,9 @@
       
       .item:nth-child(3n)
         top: 66.66666vh
+        
+      .giphy, .youtube
+        visibility: hidden
         
   
   .mobile-enter-active, .mobile-leave-active
