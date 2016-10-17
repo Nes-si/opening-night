@@ -138,7 +138,9 @@
         } else if (this.currentItem.type == TYPE_GIPHY) {
           this.giphyElm.src = (document.location.protocol == "https:" ? "https://" : "http://") +
             `//media.giphy.com/media/${this.currentItem.id}/giphy.mp4`;
-
+  
+          if (this.player)
+            this.player.stopVideo();
           this.giphyElm.style.visibility = 'visible';
           playerElm.style.visibility = 'hidden';
         }
@@ -154,8 +156,8 @@
             this.player.setSize(dim * 16, dim * 9);
 
           let container = document.querySelector('.video .video-desktop .video-container');
-          this.giphyElm.height = container.clientHeight;
-          this.giphyElm.width = container.clientWidth;
+          this.giphyElm.height = dim * 9;
+          this.giphyElm.width = dim * 16;
         })();
       },
 
@@ -240,6 +242,10 @@
       .video-player, .giphy
         position: absolute
         left: 0
+        
+      .giphy
+        left: 50%
+        transform: translateX(-50%)
 
     .video-list
       margin-top: 15px
