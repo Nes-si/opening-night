@@ -13,7 +13,7 @@
       .socials
         | SHARE
         a.facebook(href="#")
-        a.twitter(href="#")
+        a.twitter(href="https://twitter.com/intent/tweet?text=Check%20this%20out!&amp;hashtags=OpeningNight&amp;url=https://www.youtube.com/watch?v=1qCpoH4VO9Y")
         a.instagram(href="#")
 
       .list-videos
