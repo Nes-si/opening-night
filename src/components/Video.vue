@@ -36,7 +36,7 @@
           .bg
           .play
 
-    .more-clips
+    .more-clips(@click="onClickMore")
       | MORE CLIPS
 </template>
 
@@ -212,6 +212,10 @@
 
         this.itemGroup.classList.remove('is-set');
         setTimeout(() => this.itemGroup.classList.add('is-set'), 50);
+      },
+      
+      onClickMore: function () {
+        this.itemsMobile = items;
       }
     }
   }
