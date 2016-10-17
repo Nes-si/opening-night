@@ -4,10 +4,10 @@
       .faces
         .face-1
         .face-2
-  
+
       .title
         | THE SHOW GOES THE F*&K ON!
-  
+
       .loader
         .loader-inner
 </template>
@@ -49,8 +49,22 @@
     justify-content: center;
     align-items: center;
 
+    will-change: transform;
+
     &-hidden {
       display: none;
+    }
+
+    @keyframes face-1 {
+      0% {transform:translateX(0px);}
+      50% {transform:translateX(65px);}
+      100% {transform: translateX(0px);}
+    }
+
+    @keyframes face-2 {
+      0% {transform:translateX(0px);}
+      50% {transform:translateX(-65px);}
+      100% {transform: translateX(0px);}
     }
 
     .faces {
@@ -59,18 +73,21 @@
       flex-flow: row nowrap;
       justify-content: center;
       align-items: center;
+      will-change: transform;
 
       .face-1 {
         background: url('~assets/images/face-1.png') no-repeat center center / contain;
         height: 70px;
         width: 44px;
         margin-right: 17px;
+        animation: face-1 1.1s infinite ease;
       }
 
       .face-2 {
         background: url('~assets/images/face-2.png') no-repeat center center / contain;
         height: 71px;
         width: 49px;
+        animation: face-2 1.1s infinite ease;
       }
     }
 
@@ -81,6 +98,7 @@
       color: #FFFFFF;
       letter-spacing: 1.97px;
       line-height: 34px;
+      will-change: transform;
     }
 
     @keyframes spin {
@@ -94,13 +112,32 @@
       width: 40px;
       height: 40px;
       animation: spin 2s infinite linear;
+      will-change: transform, opacity;
     }
   }
 
   .v-enter-active, .v-leave-active {
-    transition: opacity .5s
+    transition: transform 1s cubic-bezier(0.7,0,0.3,1);
+
+    .faces,
+    .title {
+      transition: transform 2s cubic-bezier(0.7,0,0.3,1);
+    }
+
+    .loader {
+      transition: opacity 1s cubic-bezier(0.7,0,0.3,1);
+    }
   }
   .v-enter, .v-leave-active {
-    opacity: 0.01
+    transform: translate3d(0,-100vh,0);
+
+    .faces,
+    .title {
+      transform: translate3d(0,-100%,0) scale3d(0.3,0.3,1)
+    }
+
+    .loader {
+      opacity: 0.01;
+    }
   }
 </style>
