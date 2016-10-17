@@ -2,6 +2,8 @@
   .app
     preloader-component
 
+    characters-popup-component
+
     purchase-component(v-on:close="setWatch(false)" v-if="watchOpened")
 
     menu-component(v-on:watch="setWatch(true)")
@@ -54,6 +56,7 @@ import MenuComponent from 'components/Menu';
 import PreloaderComponent from 'components/Preloader';
 import PurchaseComponent from 'components/Purchase';
 import DownloadComponent from 'components/Download';
+import CharactersPopupComponent from 'components/CharactersPopup';
 
 export default {
   components: {
@@ -63,7 +66,8 @@ export default {
     MenuComponent,
     PreloaderComponent,
     PurchaseComponent,
-    DownloadComponent
+    DownloadComponent,
+    CharactersPopupComponent
   },
 
   data: function() {

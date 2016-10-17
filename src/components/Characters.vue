@@ -637,9 +637,43 @@
     .characters {
       height: 73vw;
 
+      &:hover {
+        .rob {
+          transform: skew(-18.5deg);
+        }
+        .anne {
+          transform: skew(-18.5deg);
+        }
+        .topher {
+          transform: skew(-18.5deg);
+        }
+        .alona {
+          transform: skew(-18.5deg);
+        }
+        .jc {
+          transform: skew(-18.5deg);
+        }
+        .taye {
+          transform: skew(-18.5deg);
+        }
+        .paul {
+          transform: skew(-18.5deg);
+        }
+        .lesli {
+          transform: skew(-18.5deg);
+        }
+      }
+
       .char-box {
         height: 36.5vw;
         max-width: 24.6vw;
+
+
+        &:hover,
+        &:hover ~ * {
+          transform: skew(-18.5deg) !important;
+          z-index: 0;
+        }
 
         .char-bg,
         .char-list,
