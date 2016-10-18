@@ -6,7 +6,7 @@
 
     purchase-component(v-on:close="setWatch(false)" v-if="watchOpened")
 
-    menu-component(v-on:watch="setWatch(true)" v-bind:currentSection="currentSection")
+    menu-component(v-on:watch="setWatch(true)" v-on:nav="onScroll" v-bind:currentSection="currentSection")
 
     header-component(v-on:watch="setWatch(true)" v-on:showCharMobile="setCharMobile($event)")
 

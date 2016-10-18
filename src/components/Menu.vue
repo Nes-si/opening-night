@@ -49,7 +49,15 @@
       },
       
       onClickItem: function (item) {
-        TweenLite.to(window, .5, {scrollTo: document.documentElement.clientHeight + 5});
+        let pointTo = 0;
+        switch (item) {
+          case this.SECTION_CAST: pointTo = 0; break;
+          case this.SECTION_REVIEWS: pointTo = store().sectionReviews.offsetTop; break;
+          case this.SECTION_CLIPS: pointTo = store().sectionClips.offsetTop; break;
+          case this.SECTION_CONTEST: pointTo = store().sectionContest.offsetTop; break;
+        }
+        TweenLite.to(window, .5, {scrollTo: pointTo + 5});
+        this.$emit('nav');
       }
     },
 
