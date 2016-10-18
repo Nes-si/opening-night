@@ -94,11 +94,11 @@ export default {
       if (this.watchOpened || this.charMobileOpened)
         return;
       
-      if (window.pageYOffset > store().sectionContest.offsetTop - window.innerHeight)
+      if (window.pageYOffset > store().sectionContest.offsetTop - window.innerHeight/2)
         this.currentSection = store().SECTION_CONTEST;
-      else if (window.pageYOffset > store().sectionClips.offsetTop - window.innerHeight)
+      else if (window.pageYOffset > store().sectionClips.offsetTop - window.innerHeight/2)
         this.currentSection = store().SECTION_CLIPS;
-      else if (window.pageYOffset > store().sectionReviews.offsetTop - window.innerHeight)
+      else if (window.pageYOffset > store().sectionReviews.offsetTop - window.innerHeight/2)
         this.currentSection = store().SECTION_REVIEWS;
       else
         this.currentSection = store().SECTION_CAST;

@@ -56,7 +56,7 @@
           case this.SECTION_CLIPS: pointTo = store().sectionClips.offsetTop; break;
           case this.SECTION_CONTEST: pointTo = store().sectionContest.offsetTop; break;
         }
-        TweenLite.to(window, .5, {scrollTo: pointTo + 5});
+        TweenLite.to(window, .5, {scrollTo: pointTo});
         this.$emit('nav');
       }
     },
