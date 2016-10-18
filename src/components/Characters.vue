@@ -7,7 +7,7 @@
       v-bind:key="char.id"
       @mouseenter="onEnterChar(index)"
       )
-      .char-inner(v-on:click="onClickChar")
+      .char-inner(v-on:click="onClickChar(char)")
         .char-bg
         .char-player
           .char-video(v-bind:id="'video-char-' + index")
@@ -315,6 +315,9 @@
       },
 
       onClickPreview: function (num) {
+        if (store().isTablet)
+          return;
+        
         if (this.currentVideo != num) {
           this.currentVideo = num;
           this.setVideo();
