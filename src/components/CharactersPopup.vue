@@ -115,7 +115,7 @@
     width: 100%;
     height: 100%;
     background: #191919;
-    z-index: 125;
+    z-index: 99999;
 
     display: flex;
     flex-flow: column nowrap;
