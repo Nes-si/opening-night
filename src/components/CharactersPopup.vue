@@ -160,10 +160,16 @@
       display: flex;
       flex-flow: column nowrap;
       align-items: center;
+      position: relative;
+      overflow: hidden;
+      height: 55vw;
 
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
+      & > * {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
     }
 
     .footer {
