@@ -3,19 +3,19 @@
     a.menu-logo(href="#")
       img(src="~assets/images/logo-small.png")
     .menu-list(v-bind:class="{ 'showedList': this.showMenu }")
-      a.menu-item(href="#" v-bind:class="{'menu-active': currentSection == SECTION_CAST}") Cast
-      a.menu-item(href="#" v-bind:class="{'menu-active': currentSection == SECTION_REVIEWS}") Reviews
-      a.menu-item(href="#" v-bind:class="{'menu-active': currentSection == SECTION_CLIPS}") Clips
-      a.menu-item(href="#" v-bind:class="{'menu-active': currentSection == SECTION_CONTEST}") Contest
+      .menu-item(@click="onClickItem(SECTION_CAST)" v-bind:class="{'menu-active': currentSection == SECTION_CAST}") Cast
+      .menu-item(@click="onClickItem(SECTION_REVIEWS)" v-bind:class="{'menu-active': currentSection == SECTION_REVIEWS}") Reviews
+      .menu-item(@click="onClickItem(SECTION_CLIPS)" v-bind:class="{'menu-active': currentSection == SECTION_CLIPS}") Clips
+      .menu-item(@click="onClickItem(SECTION_CONTEST)" v-bind:class="{'menu-active': currentSection == SECTION_CONTEST}") Contest
     .watch(@click="onClickWatch") Watch it now
     .burger(@click="onClickBurger")
 </template>
 
 <script>
-  const SECTION_CAST = 0;
-  const SECTION_REVIEWS = 1;
-  const SECTION_CLIPS = 2;
-  const SECTION_CONTEST = 3;
+  import {TweenLite} from 'gsap';
+  import ScrollToPlugin from 'gsap/src/uncompressed/plugins/ScrollToPlugin';
+  
+  import store from 'store/Store';
 
 
   export default {
@@ -28,10 +28,10 @@
         scrolled: false,
         showMenu: false,
 
-        "SECTION_CAST":     SECTION_CAST,
-        "SECTION_REVIEWS":  SECTION_REVIEWS,
-        "SECTION_CLIPS":    SECTION_CLIPS,
-        "SECTION_CONTEST":  SECTION_CONTEST
+        "SECTION_CAST":     store().SECTION_CAST,
+        "SECTION_REVIEWS":  store().SECTION_REVIEWS,
+        "SECTION_CLIPS":    store().SECTION_CLIPS,
+        "SECTION_CONTEST":  store().SECTION_CONTEST
       }
     },
 
@@ -46,6 +46,10 @@
 
       onClickBurger: function () {
         this.showMenu = !this.showMenu;
+      },
+      
+      onClickItem: function (item) {
+        TweenLite.to(window, .5, {scrollTo: document.documentElement.clientHeight + 5});
       }
     },
 
@@ -130,6 +134,7 @@
       line-height: 60px
       text-transform: uppercase
       padding: 0 20px
+      cursor: pointer
 
     &-item.menu-active
       color: #FFFFFF

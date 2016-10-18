@@ -50,8 +50,6 @@
       this.karaoke = document.querySelector('.header .smule');
       this.background = document.querySelector('.header .bg');
       this.logo = document.querySelector('.header .logo');
-
-      this.container = document.querySelector('.slider');
     },
 
     methods: {

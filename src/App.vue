@@ -57,12 +57,8 @@ import PreloaderComponent from 'components/Preloader';
 import PurchaseComponent from 'components/Purchase';
 import DownloadComponent from 'components/Download';
 import CharactersPopupComponent from 'components/CharactersPopup';
+import store from 'store/Store';
 
-
-const SECTION_CAST = 0;
-const SECTION_REVIEWS = 1;
-const SECTION_CLIPS = 2;
-const SECTION_CONTEST = 3;
 
 export default {
   components: {
@@ -82,20 +78,15 @@ export default {
       charMobileOpened: false,
       charMobileData: null,
       
-      currentSection: SECTION_CAST,
-      
-      sectionReviews: 0,
-      sectionClips: 0,
-      sectionContest: 0
+      currentSection: null
     }
   },
 
   mounted: function () {
     window.addEventListener('scroll', this.onScroll);
-    
-    this.sectionReviews = document.querySelector('.slider');
-    this.sectionClips = document.querySelector('.video');
-    this.sectionContest = document.querySelector('.download');
+  
+    store().onReady();
+    this.currentSection = store().SECTION_CAST;
   },
   
   methods: {
@@ -103,14 +94,14 @@ export default {
       if (this.watchOpened || this.charMobileOpened)
         return;
       
-      if (window.pageYOffset > this.sectionContest.offsetTop - window.innerHeight)
-        this.currentSection = SECTION_CONTEST;
-      else if (window.pageYOffset > this.sectionClips.offsetTop - window.innerHeight)
-        this.currentSection = SECTION_CLIPS;
-      else if (window.pageYOffset > this.sectionReviews.offsetTop - window.innerHeight)
-        this.currentSection = SECTION_REVIEWS;
+      if (window.pageYOffset > store().sectionContest.offsetTop - window.innerHeight)
+        this.currentSection = store().SECTION_CONTEST;
+      else if (window.pageYOffset > store().sectionClips.offsetTop - window.innerHeight)
+        this.currentSection = store().SECTION_CLIPS;
+      else if (window.pageYOffset > store().sectionReviews.offsetTop - window.innerHeight)
+        this.currentSection = store().SECTION_REVIEWS;
       else
-        this.currentSection = SECTION_CAST;
+        this.currentSection = store().SECTION_CAST;
     },
     
     setWatch: function (open) {
