@@ -54,7 +54,7 @@
 
     methods: {
       onClickWatch: function () {
-        this.$emit('watch');
+        this.$emit('watchOpen');
       },
 
       onClickScroll: function () {

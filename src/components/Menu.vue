@@ -41,7 +41,7 @@
       },
 
       onClickWatch: function () {
-        this.$emit('watch');
+        this.$emit('watchOpen');
       },
 
       onClickBurger: function () {
