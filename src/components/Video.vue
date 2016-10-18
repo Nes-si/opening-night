@@ -51,6 +51,8 @@
   import 'gsap/src/uncompressed/plugins/ScrollToPlugin';
   import YouTubePlayer from 'youtube-player';
   import debounce from 'throttle-debounce/debounce';
+  
+  import store from 'store/Store';
 
 
   const TYPE_YOUTUBE = "TYPE_YOUTUBE";
@@ -105,8 +107,6 @@
         currentItem: null,
         items: items,
         
-        isMobile: false,
-        
         itemsMobile: items.slice(0, MOBILE_ON_PAGE),
         mobilePages: Math.ceil(items.length / MOBILE_ON_PAGE),
         mobilePage: 0,
@@ -120,9 +120,7 @@
     },
 
     mounted: function () {
-      if (window.innerWidth < 700) {
-        this.isMobile = true;
-      } else {
+      if (!store().isMobile) {
         window.addEventListener('resize', this.onResize);
         
         this.currentItem = items[0];

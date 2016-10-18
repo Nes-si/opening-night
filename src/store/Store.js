@@ -25,4 +25,7 @@ class Store {
     this.sectionClips = document.querySelector('.video');
     this.sectionContest = document.querySelector('.download');
   }
+  
+  get isMobile() {return window.innerWidth <= 510;}
+  get isTablet() {return window.innerWidth <= 768;}
 }

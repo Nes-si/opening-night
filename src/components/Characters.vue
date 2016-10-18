@@ -30,6 +30,8 @@
 
 <script>
   import YouTubePlayer from 'youtube-player';
+  
+  import store from 'store/Store';
 
 
   const TYPE_YOUTUBE = "TYPE_YOUTUBE";
@@ -261,14 +263,8 @@
         players: [],
 
         playerActive: false,
-        timeout: 0,
-
-        isMobile: false
+        timeout: 0
       }
-    },
-
-    mounted: function () {
-      this.isMobile = window.innerWidth < 700;
     },
 
     methods: {
@@ -326,7 +322,7 @@
       },
 
       onEnterChar: function (i) {
-        if (this.isMobile)
+        if (store().isMobile)
           return;
 
         if (i != this.currentChar) {
@@ -351,7 +347,7 @@
       },
 
       onClickChar: function (char) {
-        if (!this.isMobile)
+        if (!store().isMobile)
           return;
 
         this.$emit('showCharMobile', char);
