@@ -14,7 +14,7 @@
 <script>
   import {TweenLite} from 'gsap';
   import ScrollToPlugin from 'gsap/src/uncompressed/plugins/ScrollToPlugin';
-  
+
   import store from 'store/Store';
 
 
@@ -47,7 +47,7 @@
       onClickBurger: function () {
         this.showMenu = !this.showMenu;
       },
-      
+
       onClickItem: function (item) {
         let pointTo = 0;
         switch (item) {
@@ -192,6 +192,7 @@
     .menu {
       background: transparent;
       box-shadow: none;
+      transform: translate3d(0,0,0);
 
       .burger {
         background: url('~assets/images/burger.svg') no-repeat center center / contain;
