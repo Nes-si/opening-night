@@ -245,6 +245,8 @@
           if (ind < this.items.length)
             this.itemsMobile.push(this.items[ind]);
         }
+  
+        TweenLite.to(window, .5, {scrollTo: "#video-anchor"});
       },
   
       onClickItemMobile: function (index) {
