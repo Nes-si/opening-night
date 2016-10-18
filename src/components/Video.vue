@@ -162,7 +162,7 @@
           playerElm.style.visibility = 'hidden';
         }
       },
-
+  
       onResize: function () {
         debounce(300, () => {
           let dimH = Math.round(window.innerHeight / 9 * .8);
@@ -266,12 +266,14 @@
         
         if (this.currentItem.type == TYPE_YOUTUBE) {
           this.player = new YouTubePlayer(playerElmId, {
-            playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 0},
+            playerVars: { 'autoplay': 0, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 0},
             videoId: this.currentItem.id,
             height: h.toString(),
             width: w.toString()
           });
-          this.player.playVideo();
+          this.player.addEventListener('onStateChange', this.onVideoStop);
+          
+          setTimeout(() => this.player.playVideo(), 500);
   
           playerElm.style.visibility = 'visible';
         } else if (this.currentItem.type == TYPE_GIPHY) {
@@ -283,7 +285,14 @@
           
           giphyElm.style.visibility = 'visible';
         }
-      }
+      },
+  
+      onVideoStop: function (e) {
+        if (e.data == 0) {
+          let playerElm = document.getElementById(playerElmId);
+          playerElm.style.visibility = 'hidden';
+        }
+      },
     }
   }
 </script>
