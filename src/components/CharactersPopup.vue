@@ -117,6 +117,8 @@
     background: #191919;
     z-index: 99999;
 
+    overflow-y: scroll;
+
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
@@ -128,7 +130,7 @@
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
-
+      min-height: 45px;
       padding: 0 25px;
 
       .name {
@@ -155,7 +157,9 @@
 
     .video {
       width: 100%;
-      height: 185px;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
     }
 
     .footer {

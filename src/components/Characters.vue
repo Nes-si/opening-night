@@ -30,7 +30,7 @@
 
 <script>
   import YouTubePlayer from 'youtube-player';
-  
+
   import store from 'store/Store';
 
 
@@ -317,7 +317,7 @@
       onClickPreview: function (num) {
         if (store().isTablet)
           return;
-        
+
         if (this.currentVideo != num) {
           this.currentVideo = num;
           this.setVideo();
@@ -476,23 +476,6 @@
     box-sizing: content-box
     padding-top: 0.2vw
 
-    &:hover
-      .rob
-        transform: skew(-18.5deg) translate3D(-5vw,0,0)
-      .anne
-        transform: skew(-18.5deg) translate3D(-10vw,0,0)
-      .topher
-        transform: skew(-18.5deg) translate3D(-15vw,0,0)
-      .alona
-        transform: skew(-18.5deg) translate3D(-20vw,0,0)
-      .jc
-        transform: skew(-18.5deg) translate3D(-25vw,0,0)
-      .taye
-        transform: skew(-18.5deg) translate3D(-30vw,0,0)
-      .paul
-        transform: skew(-18.5deg) translate3D(-35vw,0,0)
-      .lesli
-        transform: skew(-18.5deg) translate3D(-40vw,0,0)
     .spacer
       position: absolute
       top: 0
@@ -515,17 +498,6 @@
       cursor: pointer
       z-index: 10
       transition: max-width .3s ease-in-out, transform .3s ease-in-out .3s, z-index 0s ease-in-out .3s
-      &:hover
-        max-width: 50vw
-        z-index: 100
-        transition: max-width .3s ease-in-out .3s, transform .3s ease-in-out .3s, z-index 0s ease-in-out 0s
-
-        box-shadow: 0px 2px 13px 0px rgba(0,0,0,0.80), inset 0px 51px 52px 0px #000000
-
-        .char-bg
-          opacity: 0
-          transform: translateX(-100%)
-          transition: opacity 0.3s ease 0.4s, transform 0s ease 0.7s
 
       .char-inner
         position: absolute
@@ -541,159 +513,183 @@
         left: -2vw
         .char-inner
           background-image: url("~assets/images/chars/rob.png")
-        &:hover
-          transform: skew(-18.5deg) scale(1.1) translate3D(0,0,0)
-          &~.anne
-            transform: skew(-18.5deg) translate3D(37vw,0,0)
-          &~.topher
-            transform: skew(-18.5deg) translate3D(32vw,0,0)
-          &~.alona
-            transform: skew(-18.5deg) translate3D(27vw,0,0)
-          &~.jc
-            transform: skew(-18.5deg) translate3D(22vw,0,0)
-          &~.taye
-            transform: skew(-18.5deg) translate3D(17vw,0,0)
-          &~.paul
-            transform: skew(-18.5deg) translate3D(12vw,0,0)
-          &~.lesli
-            transform: skew(-18.5deg) translate3D(7vw,0,0)
 
       &.anne
         left: 10.3vw
         .char-inner
           background-image: url("~assets/images/chars/anne.png")
-        &:hover
-          transform: skew(-18.5deg) scale(1.1) translate3D(-4.7vw,0,0)
-          &~.topher
-            transform: skew(-18.5deg) translate3D(32vw,0,0)
-          &~.alona
-            transform: skew(-18.5deg) translate3D(27vw,0,0)
-          &~.jc
-            transform: skew(-18.5deg) translate3D(22vw,0,0)
-          &~.taye
-            transform: skew(-18.5deg) translate3D(17vw,0,0)
-          &~.paul
-            transform: skew(-18.5deg) translate3D(12vw,0,0)
-          &~.lesli
-            transform: skew(-18.5deg) translate3D(7vw,0,0)
 
       &.topher
         left: 22.6vw
         .char-inner
           background-image: url("~assets/images/chars/topher.png")
-        &:hover
-          transform: skew(-18.5deg) scale(1.1) translate3D(-11vw,0,0)
-          &~.alona
-            transform: skew(-18.5deg) translate3D(25vw,0,0)
-          &~.jc
-            transform: skew(-18.5deg) translate3D(20vw,0,0)
-          &~.taye
-            transform: skew(-18.5deg) translate3D(15vw,0,0)
-          &~.paul
-            transform: skew(-18.5deg) translate3D(10vw,0,0)
-          &~.lesli
-            transform: skew(-18.5deg) translate3D(5vw,0,0)
-
 
       &.alona
         left: 34.9vw
         .char-inner
           background-image: url("~assets/images/chars/alona.png")
-        &:hover
-          transform: skew(-18.5deg) scale(1.1) translate3D(-18vw,0,0)
-          &~.jc
-            transform: skew(-18.5deg) translate3D(17vw,0,0)
-          &~.taye
-            transform: skew(-18.5deg) translate3D(12vw,0,0)
-          &~.paul
-            transform: skew(-18.5deg) translate3D(7vw,0,0)
-          &~.lesli
-            transform: skew(-18.5deg) translate3D(2vw,0,0)
 
       &.jc
         left: 47.2vw
         .char-inner
           background-image: url("~assets/images/chars/jc.png")
-        &:hover
-          transform: skew(-18.5deg) scale(1.1) translate3D(-23vw,0,0)
-          &~.taye
-            transform: skew(-18.5deg) translate3D(11vw,0,0)
-          &~.paul
-            transform: skew(-18.5deg) translate3D(7vw,0,0)
-          &~.lesli
-            transform: skew(-18.5deg) translate3D(3vw,0,0)
-
 
       &.taye
         left: 59.5vw
         .char-inner
           background-image: url("~assets/images/chars/taye.png")
-        &:hover
-          transform: skew(-18.5deg) scale(1.1) translate3D(-28vw,0,0)
-          &~.paul
-            transform: skew(-18.5deg) translate3D(6vw,0,0)
-          &~.lesli
-            transform: skew(-18.5deg) translate3D(2vw,0,0)
 
       &.paul
         left: 71.8vw
         .char-inner
           background-image: url("~assets/images/chars/paul.png")
-        &:hover
-          transform: skew(-18.5deg) scale(1.1) translate3D(-32vw,0,0)
-          &~.lesli
-            transform: skew(-18.5deg) translate3D(1vw,0,0)
 
       &.lesli
         left: 84.1vw
         .char-inner
           background-image: url("~assets/images/chars/lesli.png")
-        &:hover
-          transform: skew(-18.5deg) scale(1.1) translate3D(-35vw,0,0)
 
+</style>
+<style lang="sss" scoped>
+  @media (min-width: 769px)
+    .characters
+      &:hover
+        .rob
+          transform: skew(-18.5deg) translate3D(-5vw,0,0)
+        .anne
+          transform: skew(-18.5deg) translate3D(-10vw,0,0)
+        .topher
+          transform: skew(-18.5deg) translate3D(-15vw,0,0)
+        .alona
+          transform: skew(-18.5deg) translate3D(-20vw,0,0)
+        .jc
+          transform: skew(-18.5deg) translate3D(-25vw,0,0)
+        .taye
+          transform: skew(-18.5deg) translate3D(-30vw,0,0)
+        .paul
+          transform: skew(-18.5deg) translate3D(-35vw,0,0)
+        .lesli
+          transform: skew(-18.5deg) translate3D(-40vw,0,0)
+
+      .char-box
+        &:hover
+          max-width: 50vw
+          z-index: 100
+          transition: max-width .3s ease-in-out .3s, transform .3s ease-in-out .3s, z-index 0s ease-in-out 0s
+
+          box-shadow: 0px 2px 13px 0px rgba(0,0,0,0.80), inset 0px 51px 52px 0px #000000
+
+          .char-bg
+            opacity: 0
+            transform: translateX(-100%)
+            transition: opacity 0.3s ease 0.4s, transform 0s ease 0.7s
+
+        &.rob
+          left: -2vw
+          &:hover
+            transform: skew(-18.5deg) scale(1.1) translate3D(0,0,0)
+            &~.anne
+              transform: skew(-18.5deg) translate3D(37vw,0,0)
+            &~.topher
+              transform: skew(-18.5deg) translate3D(32vw,0,0)
+            &~.alona
+              transform: skew(-18.5deg) translate3D(27vw,0,0)
+            &~.jc
+              transform: skew(-18.5deg) translate3D(22vw,0,0)
+            &~.taye
+              transform: skew(-18.5deg) translate3D(17vw,0,0)
+            &~.paul
+              transform: skew(-18.5deg) translate3D(12vw,0,0)
+            &~.lesli
+              transform: skew(-18.5deg) translate3D(7vw,0,0)
+
+        &.anne
+          left: 10.3vw
+          &:hover
+            transform: skew(-18.5deg) scale(1.1) translate3D(-4.7vw,0,0)
+            &~.topher
+              transform: skew(-18.5deg) translate3D(32vw,0,0)
+            &~.alona
+              transform: skew(-18.5deg) translate3D(27vw,0,0)
+            &~.jc
+              transform: skew(-18.5deg) translate3D(22vw,0,0)
+            &~.taye
+              transform: skew(-18.5deg) translate3D(17vw,0,0)
+            &~.paul
+              transform: skew(-18.5deg) translate3D(12vw,0,0)
+            &~.lesli
+              transform: skew(-18.5deg) translate3D(7vw,0,0)
+
+        &.topher
+          left: 22.6vw
+          &:hover
+            transform: skew(-18.5deg) scale(1.1) translate3D(-11vw,0,0)
+            &~.alona
+              transform: skew(-18.5deg) translate3D(25vw,0,0)
+            &~.jc
+              transform: skew(-18.5deg) translate3D(20vw,0,0)
+            &~.taye
+              transform: skew(-18.5deg) translate3D(15vw,0,0)
+            &~.paul
+              transform: skew(-18.5deg) translate3D(10vw,0,0)
+            &~.lesli
+              transform: skew(-18.5deg) translate3D(5vw,0,0)
+
+
+        &.alona
+          left: 34.9vw
+          &:hover
+            transform: skew(-18.5deg) scale(1.1) translate3D(-18vw,0,0)
+            &~.jc
+              transform: skew(-18.5deg) translate3D(17vw,0,0)
+            &~.taye
+              transform: skew(-18.5deg) translate3D(12vw,0,0)
+            &~.paul
+              transform: skew(-18.5deg) translate3D(7vw,0,0)
+            &~.lesli
+              transform: skew(-18.5deg) translate3D(2vw,0,0)
+
+        &.jc
+          left: 47.2vw
+          &:hover
+            transform: skew(-18.5deg) scale(1.1) translate3D(-23vw,0,0)
+            &~.taye
+              transform: skew(-18.5deg) translate3D(11vw,0,0)
+            &~.paul
+              transform: skew(-18.5deg) translate3D(7vw,0,0)
+            &~.lesli
+              transform: skew(-18.5deg) translate3D(3vw,0,0)
+
+
+        &.taye
+          left: 59.5vw
+          &:hover
+            transform: skew(-18.5deg) scale(1.1) translate3D(-28vw,0,0)
+            &~.paul
+              transform: skew(-18.5deg) translate3D(6vw,0,0)
+            &~.lesli
+              transform: skew(-18.5deg) translate3D(2vw,0,0)
+
+        &.paul
+          left: 71.8vw
+          &:hover
+            transform: skew(-18.5deg) scale(1.1) translate3D(-32vw,0,0)
+            &~.lesli
+              transform: skew(-18.5deg) translate3D(1vw,0,0)
+
+        &.lesli
+          left: 84.1vw
+          &:hover
+            transform: skew(-18.5deg) scale(1.1) translate3D(-35vw,0,0)
 </style>
 <style lang="scss" scoped rel="stylesheet/scss">
   @media (max-width: 768px) {
     .characters {
       height: 73vw;
 
-      &:hover {
-        .rob {
-          transform: skew(-18.5deg);
-        }
-        .anne {
-          transform: skew(-18.5deg);
-        }
-        .topher {
-          transform: skew(-18.5deg);
-        }
-        .alona {
-          transform: skew(-18.5deg);
-        }
-        .jc {
-          transform: skew(-18.5deg);
-        }
-        .taye {
-          transform: skew(-18.5deg);
-        }
-        .paul {
-          transform: skew(-18.5deg);
-        }
-        .lesli {
-          transform: skew(-18.5deg);
-        }
-      }
-
       .char-box {
         height: 36.5vw;
         max-width: 24.6vw;
-
-
-        &:hover,
-        &:hover ~ * {
-          transform: skew(-18.5deg) !important;
-          z-index: 0;
-        }
 
         .char-bg,
         .char-list,
