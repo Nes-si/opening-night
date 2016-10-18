@@ -71,7 +71,7 @@
           TweenLite.to(this.logo, 0.2, {y: -(progress * 20), z: '0.01', ease: Power0.easeInOut});
         }
       },
-  
+
       clickCharMobile: function (char) {
         this.$emit('showCharMobile', char);
       }
@@ -202,7 +202,7 @@
 
   @media (max-width: 768px) {
     .header {
-      height: 830px;
+      height: 1030px;
       .smule {
         display: none;
       }

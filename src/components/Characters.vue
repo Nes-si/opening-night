@@ -650,7 +650,7 @@
 
 </style>
 <style lang="scss" scoped rel="stylesheet/scss">
-  @media (max-width: 510px) {
+  @media (max-width: 768px) {
     .characters {
       height: 73vw;
 
