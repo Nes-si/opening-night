@@ -7,7 +7,7 @@
       v-bind:key="char.id"
       @mouseenter="onEnterChar(index)"
       )
-      .char-inner(@touchend="onClickChar(char)")
+      .char-inner(v-on:click="onClickChar")
         .char-bg
         .char-player
           .char-video(v-bind:id="'video-char-' + index")
@@ -322,7 +322,7 @@
       },
 
       onEnterChar: function (i) {
-        if (store().isMobile)
+        if (store().isTablet)
           return;
 
         if (i != this.currentChar) {
@@ -347,7 +347,7 @@
       },
 
       onClickChar: function (char) {
-        if (!store().isMobile)
+        if (!store().isTablet)
           return;
 
         this.$emit('showCharMobile', char);
