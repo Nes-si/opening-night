@@ -234,7 +234,18 @@
     .header {
       height: 1030px;
       .smule {
-        display: none;
+        background: url("~assets/images/smule-tablet.png") no-repeat center center / contain;
+        height: 63px;
+        width: 269px;
+
+        top: 5px;
+        right: initial;
+        left: 18px;
+      }
+
+
+      .logo {
+        margin-top: 70px;
       }
     }
   }
@@ -267,6 +278,12 @@
   @media (max-width: 425px) {
     .header {
       height: 740px;
+
+      .smule {
+        height: 50px;
+        width: 214px;
+        top: 10px;
+      }
     }
   }
 </style>

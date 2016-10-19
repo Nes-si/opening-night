@@ -166,29 +166,8 @@
 </style>
 
 <style scoped lang="scss">
+
   @media (max-width: 768px) {
-    .menu {
-      &-list {
-        padding: 0 8%;
-        flex: 1;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      &-item {
-        padding: 0;
-      }
-
-      .watch {
-        margin-left: 0;
-        font-size: 16px;
-      }
-    }
-  }
-
-  @media (max-width: 688px) {
     .menu {
       background: transparent;
       box-shadow: none;

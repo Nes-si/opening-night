@@ -390,7 +390,11 @@
         margin-top: 1vw
         position: relative
 
+        iframe
+          width: 23vw !important
+
         .video-player, .giphy
+          padding-bottom: 56.25%
           position: absolute
           top: 0
           left: 0
