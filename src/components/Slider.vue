@@ -94,7 +94,9 @@
         content: null,
         quotes: null,
 
-        entering: false
+        entering: false,
+        
+        timer: 0
       };
     },
 
@@ -112,7 +114,8 @@
 
     methods: {
       autoChange: function () {
-        setInterval(this.onClickRight, 5000)
+        clearInterval(this.timer);
+        this.timer = setInterval(this.onTimer, 5000);
       },
 
       onScroll: function () {
@@ -141,6 +144,7 @@
       },
 
       onClickLeft: function () {
+        this.autoChange();
         this.entering = true;
         if (this.slideNum > 1)
           this.slideNum--;
@@ -148,6 +152,15 @@
           this.slideNum = SLIDES;
       },
       onClickRight: function () {
+        this.autoChange();
+        this.entering = true;
+        if (this.slideNum < SLIDES)
+          this.slideNum++;
+        else
+          this.slideNum = 1;
+      },
+      
+      onTimer: function () {
         this.entering = true;
         if (this.slideNum < SLIDES)
           this.slideNum++;
