@@ -107,11 +107,11 @@
 
       this.container = document.querySelector('.slider');
 
-      this.interval();
+      this.autoChange();
     },
 
     methods: {
-      interval: function () {
+      autoChange: function () {
         setInterval(this.onClickRight, 5000)
       },
 
