@@ -8,7 +8,10 @@
       .watch
         .watch-button
           .watch-now(@click="onClickWatch")
-            | Watch It Now
+            .bg-1
+            .bg-2
+            .text
+              | Watch It Now
           .watch-starting
             | starting at
             span $2.99
@@ -45,7 +48,7 @@
         karaoke: null,
         background: null,
         logo: null,
-        
+
         arrowVisible: true
       };
     },
@@ -70,7 +73,7 @@
       onClickScroll: function () {
         TweenLite.to(window, .5, {scrollTo: store().sectionReviews.offsetTop});
       },
-  
+
       onClickSmule: function () {
         TweenLite.to(window, 1, {scrollTo: store().sectionContest.offsetTop});
       },
@@ -132,7 +135,6 @@
           margin-right: 0
 
       &-now
-        background: linear-gradient(-182deg, #f45232 0%, #e52816 100%)
         box-shadow: 0px 3px 10px 0px rgba(79, 24, 91, 0.68)
         padding: 0 59px
         border-radius: 120px
@@ -144,8 +146,32 @@
         line-height: 55px
         cursor: pointer
 
-        &:hover
+        position: relative
+        overflow: hidden
+
+        .text
+          position: relative
+          z-index: 4
+
+        .bg-1,
+        .bg-2
+          position: absolute
+          top: 0
+          left: 0
+          width: 100%
+          height: 100%
+          border-radius: 100px
+          background: linear-gradient(-182deg, #f45232 0%, #e52816 100%)
+
+        .bg-2
           background: linear-gradient(-182deg, #FF7340 0%, #F9412F 100%)
+          opacity: 0.01
+          transition: opacity 0.1s ease
+          will-change: opacity
+
+        &:hover .bg-2
+          opacity: 0.99
+
 
       &-starting
         margin-top: 10px
@@ -196,7 +222,7 @@
       height: 211px
       width: 215px
       cursor: pointer
-      
+
     .smule:hover
       filter: drop-shadow(0px 0px 5px rgba(255, 200, 220, .5))
 
@@ -213,13 +239,13 @@
 
     .arrow:hover
       filter: drop-shadow(0px 0px 2px #ffffff)
-  
+
   .arrow-enter-active, .arrow-leave-active
     transition: opacity .5s
-  
+
   .arrow-enter, .arrow-leave-active
     opacity: 0.01
-  
+
 
 </style>
 

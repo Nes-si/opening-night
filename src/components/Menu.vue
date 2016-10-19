@@ -7,7 +7,11 @@
       .menu-item(@click="onClickItem(SECTION_REVIEWS)" v-bind:class="{'menu-active': currentSection == SECTION_REVIEWS}") Reviews
       .menu-item(@click="onClickItem(SECTION_CLIPS)" v-bind:class="{'menu-active': currentSection == SECTION_CLIPS}") Clips
       .menu-item(@click="onClickItem(SECTION_CONTEST)" v-bind:class="{'menu-active': currentSection == SECTION_CONTEST}") Contest
-    .watch(@click="onClickWatch") Watch it now
+    .watch(@click="onClickWatch")
+      .bg-1
+      .bg-2
+      .text
+        | Watch it now
     .burger(@click="onClickBurger")
 </template>
 
@@ -163,6 +167,32 @@
       text-align: center
       line-height: 35px
       cursor: pointer
+
+      position: relative
+      overflow: hidden
+
+      .text
+        position: relative
+        z-index: 4
+
+      .bg-1,
+      .bg-2
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        border-radius: 100px
+        background: linear-gradient(-182deg, #f45232 0%, #e52816 100%)
+
+      .bg-2
+        background: linear-gradient(-182deg, #FF7340 0%, #F9412F 100%)
+        opacity: 0.01
+        transition: opacity 0.1s ease
+        will-change: opacity
+
+      &:hover .bg-2
+        opacity: 0.99
 </style>
 
 <style scoped lang="scss">
