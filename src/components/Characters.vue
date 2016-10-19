@@ -275,7 +275,7 @@
         let giphyElm = document.querySelector(`#video-char-${this.currentChar} .giphy`);
 
         let h = Math.round(window.innerWidth / 100 * 10.2);
-        let w = Math.round(h * 16 / 9);
+        let w = Math.round(window.innerWidth / 100 * 25);
 
         let videoData = this.chars[this.currentChar].videos[this.currentVideo];
 
@@ -549,9 +549,9 @@
         left: 84.1vw
         .char-inner
           background-image: url("~assets/images/chars/lesli.png")
-
 </style>
-<style lang="sss" scoped>
+
+<style lang="sss" scoped rel="stylesheet/sass">
   @media (min-width: 769px)
     .characters
       &:hover
