@@ -16,6 +16,8 @@
     slider-component
 
     .watch-it-now.watch-it-now-mobile(@click="setWatch(true)")
+      .bg-1
+      .bg-2
       .title
         | Watch It Now
       .subtitle
@@ -28,6 +30,8 @@
     ul.juicer-feed(data-feed-id="blah-blah-blah")
 
     .watch-it-now(@click="setWatch(true)")
+      .bg-1
+      .bg-2
       .title
         | Watch It Now
       .subtitle
@@ -226,6 +230,10 @@ export default {
 <style lang="sss" rel="stylesheet/sass">
   .juicer-feed
     background: #25182A
+
+    h1.referral
+      display: none !important
+
   .container
     display: flex
     flex-flow: column nowrap
@@ -277,21 +285,43 @@ export default {
 <style lang="sss" scoped rel="stylesheet/sass">
 
   .watch-it-now
-    background-image: linear-gradient(-182deg, #f45232 0%, #e52816 100%)
     padding: 22px 0
     display: flex
     flex-flow: column nowrap
     align-items: center
     cursor: pointer
 
+    position: relative
+    overflow: hidden
+
     &-mobile
       display: none
+
+    .bg-1,
+    .bg-2
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      background: linear-gradient(-182deg, #f45232 0%, #e52816 100%)
+
+    .bg-2
+      background: linear-gradient(-182deg, #FF7340 0%, #F9412F 100%)
+      opacity: 0.01
+      transition: opacity 0.1s ease
+      will-change: opacity
+
+    &:hover .bg-2
+      opacity: 0.99
 
     .title
       font-weight: bold
       font-size: 20.79px
       color: #FFFFFF
       letter-spacing: 1.68px
+      position: relative
+      z-index: 4
 
     .subtitle
       margin-top: 1px
@@ -299,6 +329,8 @@ export default {
       font-size: 16px
       color: #FFFFFF
       letter-spacing: 1.29px
+      position: relative
+      z-index: 4
 
   .footer
     background: #1B252A
