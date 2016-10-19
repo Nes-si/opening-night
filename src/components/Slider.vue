@@ -73,7 +73,6 @@
       .arrow.arrow-right(@click="onClickRight")
 
 </template>
-
 <script>
   import {TweenLite, Power0} from 'gsap';
 
@@ -107,9 +106,15 @@
       this.quotes = document.querySelector('.slider .quote .quotes');
 
       this.container = document.querySelector('.slider');
+
+      this.interval();
     },
 
     methods: {
+      interval: function () {
+        setInterval(this.onClickRight, 5000)
+      },
+
       onScroll: function () {
         if (this.entering)
           return;
