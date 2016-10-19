@@ -15,7 +15,7 @@
             | on Amazon Demand
 
         .watch-button
-          .watch-trailer
+          .watch-trailer(@click="onClickWatchTrailer")
             .play
             | Watch Trailer
 
@@ -61,6 +61,10 @@
     methods: {
       onClickWatch: function () {
         this.$emit('watchOpen');
+      },
+  
+      onClickWatchTrailer: function () {
+        this.$emit('watchTrailer');
       },
 
       onClickScroll: function () {

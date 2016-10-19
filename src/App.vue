@@ -5,10 +5,13 @@
     characters-popup-component(v-on:close="setCharMobile(false)" v-if="charMobileOpened" v-bind:charData="charMobileData")
 
     purchase-component(v-on:close="setWatch(false)" v-if="watchOpened")
+  
+    .trailer-video(v-show="trailerActive")
+      .video-player#trailer-video
 
     menu-component(v-on:watchOpen="setWatch(true)" v-on:nav="onScroll" v-bind:currentSection="currentSection")
 
-    header-component(v-on:watchOpen="setWatch(true)" v-on:showCharMobile="setCharMobile($event)")
+    header-component(v-on:watchOpen="setWatch(true)" v-on:watchTrailer="watchTrailer" v-on:showCharMobile="setCharMobile($event)")
 
     slider-component
 
@@ -51,6 +54,8 @@
 </template>
 
 <script>
+import YouTubePlayer from 'youtube-player';
+  
 import HeaderComponent from 'components/Header';
 import SliderComponent from 'components/Slider';
 import VideoComponent from 'components/Video';
@@ -61,6 +66,8 @@ import DownloadComponent from 'components/Download';
 import CharactersPopupComponent from 'components/CharactersPopup';
 import store from 'store/Store';
 
+
+const trailerVideo = "BJwKK08_cPg";
 
 export default {
   components: {
@@ -80,15 +87,29 @@ export default {
       charMobileOpened: false,
       charMobileData: null,
 
-      currentSection: null
+      currentSection: null,
+  
+      player: null,
+      playerElm: null,
+      trailerActive: false
     }
   },
 
   mounted: function () {
     window.addEventListener('scroll', this.onScroll);
+    
+    document.addEventListener('fullscreenchange', this.onFSChange);
+    document.addEventListener('webkitfullscreenchange', this.onFSChange);
+    document.addEventListener('mozfullscreenchange', this.onFSChange);
+    document.addEventListener('msfullscreenchange', this.onFSChange);
 
     store().onReady();
     this.currentSection = store().SECTION_CAST;
+  
+    this.player = new YouTubePlayer('trailer-video', {
+      playerVars: {'autoplay': 0, 'controls': 1, 'showinfo': 1, 'rel': 0, 'modestbranding': 1, 'disablekb': 0},
+      videoId: trailerVideo
+    });
   },
 
   methods: {
@@ -113,6 +134,34 @@ export default {
     setCharMobile: function (data) {
       this.charMobileOpened = !!data;
       this.charMobileData = data;
+    },
+  
+    watchTrailer: function () {
+      this.trailerActive = true;
+  
+      this.player.playVideo();
+      this.playerElm = document.getElementById('trailer-video');
+      let requestFullScreen =
+        this.playerElm.requestFullscreen ||
+        this.playerElm.webkitRequestFullscreen ||
+        this.playerElm.mozRequestFullScreen ||
+        this.playerElm.msRequestFullscreen;
+      if (requestFullScreen)
+        requestFullScreen.bind(this.playerElm)();
+    },
+  
+    onFSChange: function () {
+      setTimeout(() => {
+        let inFS =
+          document.fullscreenElement ||
+          document.webkitFullscreenElement ||
+          document.mozFullScreenElement ||
+          document.msFullscreenElement;
+        if (!inFS) {
+          this.player.stopVideo();
+          this.trailerActive = false;
+        }
+      }, 10);
     }
   }
 }
@@ -310,11 +359,15 @@ export default {
       color: #5B6D82
       letter-spacing: 0.81px
 
-
+  .trailer-video
+    position: absolute
+    width: 100%
+    height: 100%
+    z-index: 20000
 </style>
 
 
-<style scoped lang="scss">
+<style scoped lang="scss" rel="stylesheet/scss">
   @media (max-width: 699px) {
     .watch-it-now-mobile {
       display: flex;
