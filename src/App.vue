@@ -22,6 +22,8 @@
 
     download-component
 
+    ul.juicer-feed(data-feed-id="blah-blah-blah")
+
     .watch-it-now(@click="setWatch(true)")
       .title
         | Watch It Now
@@ -77,23 +79,23 @@ export default {
       watchOpened: false,
       charMobileOpened: false,
       charMobileData: null,
-      
+
       currentSection: null
     }
   },
 
   mounted: function () {
     window.addEventListener('scroll', this.onScroll);
-  
+
     store().onReady();
     this.currentSection = store().SECTION_CAST;
   },
-  
+
   methods: {
     onScroll: function () {
       if (this.watchOpened || this.charMobileOpened)
         return;
-      
+
       if (window.pageYOffset > store().sectionContest.offsetTop - window.innerHeight/2)
         this.currentSection = store().SECTION_CONTEST;
       else if (window.pageYOffset > store().sectionClips.offsetTop - window.innerHeight/2)
@@ -103,11 +105,11 @@ export default {
       else
         this.currentSection = store().SECTION_CAST;
     },
-    
+
     setWatch: function (open) {
       this.watchOpened = open;
     },
-    
+
     setCharMobile: function (data) {
       this.charMobileOpened = !!data;
       this.charMobileData = data;
@@ -173,6 +175,8 @@ export default {
 </style>
 
 <style lang="sss" rel="stylesheet/sass">
+  .juicer-feed
+    background: #25182A
   .container
     display: flex
     flex-flow: column nowrap

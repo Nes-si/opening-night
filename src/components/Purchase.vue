@@ -1,20 +1,21 @@
 <template lang="pug">
-  .modal
-    .modal-inner
-      .modal-close(@click="onClose")
-      .title
-        | SELECT A SOURCE TO START WATCHING
-      .buttons
-        a.button-1(href="/")
-          .button-inner
-        a.button-2(href="/")
-          .button-inner
+  transition
+    .modal
+      .modal-inner
+        .modal-close(@click="onClose")
+        .title
+          | SELECT A SOURCE TO START WATCHING
+        .buttons
+          a.button-1(href="/")
+            .button-inner
+          a.button-2(href="/")
+            .button-inner
 </template>
 
 <script>
   export default {
     name: "PurchaseComponent",
-    
+
     methods: {
       onClose: function () {
         this.$emit('close');
@@ -24,6 +25,21 @@
 </script>
 
 <style lang="scss" scoped rel="stylesheet/scss">
+  .v-enter-active, .v-leave-active {
+    transition: opacity 0.3s ease;
+
+    .modal-inner {
+      transition: transform 0.3s ease;
+    }
+  }
+  .v-enter, .v-leave-active {
+    opacity: 0.01;
+
+    .modal-inner {
+      transform: translate3d(0,-100%,0);
+    }
+  }
+
   .modal {
     background: rgba(0,0,0,0.4);
 
@@ -96,6 +112,13 @@
       flex-flow: column nowrap;
       justify-content: center;
       align-items: center;
+
+      transition: box-shadow 0.1s ease;
+      will-change: box-shadow;
+
+      &:hover {
+        box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.50);
+      }
     }
 
     .button-2 {

@@ -1,10 +1,10 @@
 <template lang="pug">
   .header
     .bg
-  
+
     .logo-w-btn
       .logo
-  
+
       .watch
         .watch-button
           .watch-now(@click="onClickWatch")
@@ -13,7 +13,7 @@
             | starting at
             span $2.99
             | on Amazon Demand
-  
+
         .watch-button
           .watch-trailer
             .play
@@ -119,7 +119,7 @@
           margin-right: 0
 
       &-now
-        background-image: linear-gradient(-182deg, #f45232 0%, #e52816 100%)
+        background: linear-gradient(-182deg, #f45232 0%, #e52816 100%)
         box-shadow: 0px 3px 10px 0px rgba(79, 24, 91, 0.68)
         padding: 0 59px
         border-radius: 120px
@@ -130,6 +130,9 @@
         text-align: center
         line-height: 55px
         cursor: pointer
+
+        &:hover
+          background: linear-gradient(-182deg, #FF7340 0%, #F9412F 100%)
 
       &-starting
         margin-top: 10px
@@ -160,6 +163,11 @@
         display: flex
         flex-flow: row nowrap
         align-items: center
+
+        transition: background 0.1s ease
+
+        &:hover
+          background: hsla(0,0%,100%,.3)
 
       &-trailer .play
         background: url("~assets/images/play.svg") no-repeat center center / contain
