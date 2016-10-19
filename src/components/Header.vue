@@ -21,7 +21,8 @@
 
     characters-component(v-on:showCharMobile="clickCharMobile")
     a.smule(href="/")
-    .arrow(@click="onClickScroll")
+    transition(name="arrow")
+      .arrow(@click="onClickScroll" v-if="arrowVisible")
 </template>
 
 <script>
@@ -42,7 +43,9 @@
       return {
         karaoke: null,
         background: null,
-        logo: null
+        logo: null,
+        
+        arrowVisible: true
       };
     },
 
@@ -64,6 +67,7 @@
       },
 
       onScroll: function () {
+        this.arrowVisible = window.pageYOffset == 0;
         let dur = window.innerHeight;
         let progress = window.pageYOffset / dur;
         if (progress >= 0 && progress <= 1) {
@@ -196,6 +200,13 @@
 
     .arrow:hover
       filter: drop-shadow(0px 0px 2px #ffffff)
+  
+  .arrow-enter-active, .arrow-leave-active
+    transition: opacity .5s
+  
+  .arrow-enter, .arrow-leave-active
+    opacity: 0.01
+  
 
 </style>
 
