@@ -63,39 +63,51 @@
   const items = [
     {
       type: TYPE_YOUTUBE,
-      id: "jh-hzbG5FzI",
+      id: "jjKZt5_dVTA",
       preview: "assets/images/video-1.png",
-      text: "CHOPSTICKS"
+      text: "BUST A MOVE"
     },
     {
-      type: TYPE_GIPHY,
-      id: "l41YktuUJjzzOshri",
+      type: TYPE_YOUTUBE,
+      id: "gPEv9s3ZiPE",
       preview: "assets/images/video-2.png",
-      text: "WELCOME TO WONDERLAND"
+      text: "RUFIED A STAR!"
     },
     {
       type: TYPE_YOUTUBE,
-      id: "d9TpRfDdyU0",
+      id: "MkWN1u4t_ys",
       preview: "assets/images/video-3.png",
-      text: "WORDS, SAY WORDS"
+      text: "CALM THE F*$K DOWN"
     },
     {
       type: TYPE_YOUTUBE,
-      id: "XVwqSlTFQq0",
+      id: "HN3xlrJlT1Y",
       preview: "assets/images/video-4.png",
-      text: "CHOPSTICKS"
+      text: "ZIP CODE RATINGS"
     },
     {
       type: TYPE_YOUTUBE,
-      id: "I3W3mRs4ULQ",
+      id: "RKh0gELr3ok",
       preview: "assets/images/video-3.png",
-      text: "WELCOME TO WONDERLAND"
+      text: "NO DRUGS NEEDED"
     },
     {
       type: TYPE_YOUTUBE,
-      id: "ElvLZMsYXlo",
+      id: "yDAn6EcKMwM",
       preview: "assets/images/video-4.png",
-      text: "WORDS, SAY WORDS"
+      text: "THE BATTLE IS ON"
+    },
+    {
+      type: TYPE_YOUTUBE,
+      id: "BtWAz-tROHg",
+      preview: "assets/images/video-3.png",
+      text: "MAMBO #5"
+    },
+    {
+      type: TYPE_YOUTUBE,
+      id: "Tlm3Zeylt4c",
+      preview: "assets/images/video-4.png",
+      text: "DANCE OFF"
     }
   ];
 
