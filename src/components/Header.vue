@@ -20,7 +20,7 @@
             | Watch Trailer
 
     characters-component(v-on:showCharMobile="clickCharMobile")
-    a.smule(href="/")
+    .smule(@click="onClickSmule")
     transition(name="arrow")
       .arrow(@click="onClickScroll" v-if="arrowVisible")
 </template>
@@ -30,6 +30,7 @@
   import ScrollToPlugin from 'gsap/src/uncompressed/plugins/ScrollToPlugin';
 
   import CharactersComponent from 'components/Characters';
+  import store from 'store/Store';
 
 
   export default {
@@ -63,7 +64,11 @@
       },
 
       onClickScroll: function () {
-        TweenLite.to(window, .5, {scrollTo: document.documentElement.clientHeight + 5});
+        TweenLite.to(window, .5, {scrollTo: store().sectionReviews.offsetTop});
+      },
+  
+      onClickSmule: function () {
+        TweenLite.to(window, 1, {scrollTo: store().sectionContest.offsetTop});
       },
 
       onScroll: function () {
@@ -186,6 +191,10 @@
       background: url("~assets/images/smule.png") no-repeat center center / contain
       height: 211px
       width: 215px
+      cursor: pointer
+      
+    .smule:hover
+      filter: drop-shadow(0px 0px 5px rgba(255, 200, 220, .5))
 
     .arrow
       position: absolute
