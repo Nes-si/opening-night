@@ -1,6 +1,6 @@
 <template lang="pug">
   transition
-    .preloader(v-if="!load")
+    .preloader(v-if="!load" style="position: fixed; top: 0; left:0;width: 100%;height:100%; z-index: 10000;background-image: linear-gradient(-182deg, #F45232 0%, #E52816 100%);" )
       .faces
         .face-1
         .face-2

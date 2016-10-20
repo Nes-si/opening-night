@@ -1,11 +1,11 @@
 <template lang="pug">
-  #app
+  #app(class="loading")
     preloader-component
 
     characters-popup-component(v-on:close="setCharMobile(false)" v-if="charMobileOpened" v-bind:charData="charMobileData")
 
     purchase-component(v-on:close="setWatch(false)" v-if="watchOpened")
-  
+
     .trailer-video(v-show="trailerActive")
       .video-player#trailer-video
 
@@ -59,7 +59,7 @@
 
 <script>
 import YouTubePlayer from 'youtube-player';
-  
+
 import HeaderComponent from 'components/Header';
 import SliderComponent from 'components/Slider';
 import VideoComponent from 'components/Video';
@@ -92,7 +92,7 @@ export default {
       charMobileData: null,
 
       currentSection: null,
-  
+      load: false,
       player: null,
       playerElm: null,
       trailerActive: false
@@ -100,8 +100,12 @@ export default {
   },
 
   mounted: function () {
+    if (document.readyState != 'loading'){
+      this.handleLoad();
+    } else {
+      document.addEventListener('DOMContentLoaded', this.handleLoad);
+    }
     window.addEventListener('scroll', this.onScroll);
-    
     document.addEventListener('fullscreenchange', this.onFSChange);
     document.addEventListener('webkitfullscreenchange', this.onFSChange);
     document.addEventListener('mozfullscreenchange', this.onFSChange);
@@ -109,14 +113,18 @@ export default {
 
     store().onReady();
     this.currentSection = store().SECTION_CAST;
-  
+
     this.player = new YouTubePlayer('trailer-video', {
       playerVars: {'autoplay': 0, 'controls': 1, 'showinfo': 1, 'rel': 0, 'modestbranding': 1, 'disablekb': 0},
       videoId: trailerVideo
     });
   },
 
+
   methods: {
+    handleLoad: function () {
+      document.querySelector('#app').className = ''
+    },
     onScroll: function () {
       if (this.watchOpened || this.charMobileOpened)
         return;
@@ -139,10 +147,10 @@ export default {
       this.charMobileOpened = !!data;
       this.charMobileData = data;
     },
-  
+
     watchTrailer: function () {
       this.trailerActive = true;
-  
+
       this.player.playVideo();
       this.playerElm = document.getElementById('trailer-video');
       let requestFullScreen =
@@ -153,7 +161,6 @@ export default {
       if (requestFullScreen)
         requestFullScreen.bind(this.playerElm)();
     },
-  
     onFSChange: function () {
       setTimeout(() => {
         let inFS =
@@ -231,6 +238,15 @@ export default {
 </style>
 
 <style lang="sss" rel="stylesheet/sass">
+
+  #app.loading > *
+    opacity: 0
+
+
+  #app.loading > .preloader
+    opacity: 1
+
+
   .juicer-feed
     background: #25182A
 
