@@ -55,72 +55,22 @@
   import store from 'store/Store';
 
 
-  const TYPE_YOUTUBE = "TYPE_YOUTUBE";
-  const TYPE_GIPHY = "TYPE_GIPHY";
-  
   const MOBILE_ON_PAGE = 3;
 
-  const items = [
-    {
-      type: TYPE_YOUTUBE,
-      id: "jjKZt5_dVTA",
-      preview: "assets/images/video-1.png",
-      text: "BUST A MOVE"
-    },
-    {
-      type: TYPE_YOUTUBE,
-      id: "gPEv9s3ZiPE",
-      preview: "assets/images/video-2.png",
-      text: "RUFIED A STAR!"
-    },
-    {
-      type: TYPE_YOUTUBE,
-      id: "MkWN1u4t_ys",
-      preview: "assets/images/video-3.png",
-      text: "CALM THE F*$K DOWN"
-    },
-    {
-      type: TYPE_YOUTUBE,
-      id: "HN3xlrJlT1Y",
-      preview: "assets/images/video-4.png",
-      text: "ZIP CODE RATINGS"
-    },
-    {
-      type: TYPE_YOUTUBE,
-      id: "RKh0gELr3ok",
-      preview: "assets/images/video-3.png",
-      text: "NO DRUGS NEEDED"
-    },
-    {
-      type: TYPE_YOUTUBE,
-      id: "yDAn6EcKMwM",
-      preview: "assets/images/video-4.png",
-      text: "THE BATTLE IS ON"
-    },
-    {
-      type: TYPE_YOUTUBE,
-      id: "BtWAz-tROHg",
-      preview: "assets/images/video-3.png",
-      text: "MAMBO #5"
-    },
-    {
-      type: TYPE_YOUTUBE,
-      id: "Tlm3Zeylt4c",
-      preview: "assets/images/video-4.png",
-      text: "DANCE OFF"
-    }
-  ];
 
   export default {
     name: "VideoComponent",
 
     data: function () {
       return {
-        currentItem: null,
-        items: items,
+        "TYPE_YOUTUBE": store().TYPE_YOUTUBE,
+        "TYPE_GIPHY": store().TYPE_GIPHY,
+        items: store().mainVideos,
         
-        itemsMobile: items.slice(0, MOBILE_ON_PAGE),
-        mobilePages: Math.ceil(items.length / MOBILE_ON_PAGE),
+        currentItem: null,
+        
+        itemsMobile: store().mainVideos.slice(0, MOBILE_ON_PAGE),
+        mobilePages: Math.ceil(store().mainVideos.length / MOBILE_ON_PAGE),
         mobilePage: 0,
 
         itemGroup: null,
@@ -135,7 +85,7 @@
       if (!store().isMobile) {
         window.addEventListener('resize', this.onResize);
         
-        this.currentItem = items[0];
+        this.currentItem = this.items[0];
   
         this.itemGroup = document.querySelector('.video .video-list .group');
         this.itemElms = document.querySelectorAll('.video .video-list .item');
@@ -151,7 +101,7 @@
       setVideo: function () {
         let playerElm = document.getElementById('main-video');
 
-        if (this.currentItem.type == TYPE_YOUTUBE) {
+        if (this.currentItem.type == this.TYPE_YOUTUBE) {
           if (this.player) {
             this.player.loadVideoById(this.currentItem.id);
           } else {
@@ -164,7 +114,7 @@
           this.giphyElm.style.visibility = 'hidden';
           playerElm.style.visibility = 'visible';
 
-        } else if (this.currentItem.type == TYPE_GIPHY) {
+        } else if (this.currentItem.type == this.TYPE_GIPHY) {
           this.giphyElm.src = (document.location.protocol == "https:" ? "https://" : "http://") +
             `//media.giphy.com/media/${this.currentItem.id}/giphy.mp4`;
   
@@ -197,7 +147,7 @@
       },
 
       next: function (num) {
-        if (num < items.length - 1)
+        if (num < this.items.length - 1)
           return num + 1;
         else
           return 0;
@@ -207,7 +157,7 @@
         if (num > 0)
           return num - 1;
         else
-          return items.length - 1;
+          return this.items.length - 1;
       },
 
       search: function (elm) {
@@ -276,7 +226,7 @@
         let h = Math.round(window.innerHeight / 3);
         let w = Math.round(window.innerWidth);
         
-        if (this.currentItem.type == TYPE_YOUTUBE) {
+        if (this.currentItem.type == this.TYPE_YOUTUBE) {
           this.player = new YouTubePlayer(playerElmId, {
             playerVars: { 'autoplay': 0, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 0},
             videoId: this.currentItem.id,
@@ -288,7 +238,7 @@
           setTimeout(() => this.player.playVideo(), 500);
   
           playerElm.style.visibility = 'visible';
-        } else if (this.currentItem.type == TYPE_GIPHY) {
+        } else if (this.currentItem.type == this.TYPE_GIPHY) {
           giphyElm.src = (document.location.protocol == "https:" ? "https://" : "http://") +
             `//media.giphy.com/media/${this.currentItem.id}/giphy.mp4`;
   

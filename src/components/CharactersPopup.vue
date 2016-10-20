@@ -12,8 +12,8 @@
     .footer
       .socials
         | SHARE
-        a.facebook(href="https://www.facebook.com/sharer/sharer.php?u=https://www.youtube.com/watch?v=1qCpoH4VO9Y")
-        a.twitter(href="https://twitter.com/intent/tweet?text=Check%20this%20out!&amp;hashtags=OpeningNight&amp;url=https://www.youtube.com/watch?v=1qCpoH4VO9Y")
+        a.facebook(v-bind:href="FBVideoPost")
+        a.twitter(v-bind:href="TWVideoPost")
       .list-videos
         .list-video(
           v-for="n in 4" @click="onClickPreview(n - 1)"
@@ -25,9 +25,8 @@
 <script>
   import YouTubePlayer from 'youtube-player';
 
+  import store from 'store/Store';
 
-  const TYPE_YOUTUBE = "TYPE_YOUTUBE";
-  const TYPE_GIPHY = "TYPE_GIPHY";
 
   export default {
     name: "CharactersPopupComponent",
@@ -36,12 +35,21 @@
 
     data: function() {
       return {
-        "TYPE_YOUTUBE": TYPE_YOUTUBE,
-        "TYPE_GIPHY": TYPE_GIPHY,
+        "TYPE_YOUTUBE": store().TYPE_YOUTUBE,
+        "TYPE_GIPHY": store().TYPE_GIPHY,
 
         currentVideo: 0,
         player: null,
         playerActive: false
+      }
+    },
+  
+    computed: {
+      FBVideoPost: function () {
+        return store().getFBVideoPost(this.charData.videos[this.currentVideo]);
+      },
+      TWVideoPost: function () {
+        return store().getTWVideoPost(this.charData.videos[this.currentVideo]);
       }
     },
 
@@ -60,7 +68,7 @@
 
         let videoData = this.charData.videos[this.currentVideo];
 
-        if (videoData.type == TYPE_YOUTUBE) {
+        if (videoData.type == this.TYPE_YOUTUBE) {
           if (this.player && this.playerActive) {
             this.player.loadVideoById(videoData.id);
           } else {
@@ -76,7 +84,7 @@
           giphyElm.style.opacity = '0.01';
           playerElm.style.opacity = '0.99';
 
-        } else if (videoData.type == TYPE_GIPHY) {
+        } else if (videoData.type == this.TYPE_GIPHY) {
           if (this.playerActive)
             this.player.destroy();
           this.playerActive = false;

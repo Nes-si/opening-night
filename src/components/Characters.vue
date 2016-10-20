@@ -15,8 +15,8 @@
             video.giphy(autoplay loop)
           .char-socials
             | SHARE
-            a.facebook(href="https://www.facebook.com/sharer/sharer.php?u=https://www.youtube.com/watch?v=1qCpoH4VO9Y")
-            a.twitter(href="https://twitter.com/intent/tweet?text=Check%20this%20out!&amp;hashtags=OpeningNight&amp;url=https://www.youtube.com/watch?v=1qCpoH4VO9Y")
+            a.facebook(v-bind:href="FBVideoPost")
+            a.twitter(v-bind:href="TWVideoPost")
 
         .char-list
           .char-video(
@@ -33,228 +33,14 @@
   import store from 'store/Store';
 
 
-  const TYPE_YOUTUBE = "TYPE_YOUTUBE";
-  const TYPE_GIPHY = "TYPE_GIPHY";
-
-  const chars = [
-    {
-      id: 'rob',
-      name: 'Rob Riggle',
-      videos: [
-        {
-          type: TYPE_YOUTUBE,
-          id: "ADPk5PpkjMg",
-          preview: "assets/images/video-1.png"
-        },
-        {
-          type: TYPE_GIPHY,
-          id: "feqkVgjJpYtjy",
-          preview: "assets/images/video-2.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "I3W3mRs4ULQ",
-          preview: "assets/images/video-3.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "XVwqSlTFQq0",
-          preview: "assets/images/video-4.png"
-        }
-      ]
-    },
-    {
-      id: 'anne',
-      name: 'Anne Heche',
-      videos: [
-        {
-          type: TYPE_YOUTUBE,
-          id: "ADPk5PpkjMg",
-          preview: "assets/images/video-1.png"
-        },
-        {
-          type: TYPE_GIPHY,
-          id: "3oz8xYi5tmDZYPIrza",
-          preview: "assets/images/video-2.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "I3W3mRs4ULQ",
-          preview: "assets/images/video-3.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "XVwqSlTFQq0",
-          preview: "assets/images/video-4.png"
-        }
-      ]
-    },
-    {
-      id: 'topher',
-      name: 'Topher Grace',
-      videos: [
-        {
-          type: TYPE_YOUTUBE,
-          id: "ADPk5PpkjMg",
-          preview: "assets/images/video-1.png"
-        },
-        {
-          type: TYPE_GIPHY,
-          id: "feqkVgjJpYtjy",
-          preview: "assets/images/video-2.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "I3W3mRs4ULQ",
-          preview: "assets/images/video-3.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "XVwqSlTFQq0",
-          preview: "assets/images/video-4.png"
-        }
-      ]
-    },
-    {
-      id: 'alona',
-      name: 'Alona Tal',
-      videos: [
-        {
-          type: TYPE_YOUTUBE,
-          id: "ADPk5PpkjMg",
-          preview: "assets/images/video-1.png"
-        },
-        {
-          type: TYPE_GIPHY,
-          id: "feqkVgjJpYtjy",
-          preview: "assets/images/video-2.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "I3W3mRs4ULQ",
-          preview: "assets/images/video-3.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "XVwqSlTFQq0",
-          preview: "assets/images/video-4.png"
-        }
-      ]
-    },
-    {
-      id: 'jc',
-      name: 'J. C. Chasez',
-      videos: [
-        {
-          type: TYPE_YOUTUBE,
-          id: "ADPk5PpkjMg",
-          preview: "assets/images/video-1.png"
-        },
-        {
-          type: TYPE_GIPHY,
-          id: "feqkVgjJpYtjy",
-          preview: "assets/images/video-2.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "I3W3mRs4ULQ",
-          preview: "assets/images/video-3.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "XVwqSlTFQq0",
-          preview: "assets/images/video-4.png"
-        }
-      ]
-    },
-    {
-      id: 'taye',
-      name: 'Taye Diggs',
-      videos: [
-        {
-          type: TYPE_YOUTUBE,
-          id: "ADPk5PpkjMg",
-          preview: "assets/images/video-1.png"
-        },
-        {
-          type: TYPE_GIPHY,
-          id: "feqkVgjJpYtjy",
-          preview: "assets/images/video-2.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "I3W3mRs4ULQ",
-          preview: "assets/images/video-3.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "XVwqSlTFQq0",
-          preview: "assets/images/video-4.png"
-        }
-      ]
-    },
-    {
-      id: 'paul',
-      name: 'Paul Scheer',
-      videos: [
-        {
-          type: TYPE_YOUTUBE,
-          id: "ADPk5PpkjMg",
-          preview: "assets/images/video-1.png"
-        },
-        {
-          type: TYPE_GIPHY,
-          id: "feqkVgjJpYtjy",
-          preview: "assets/images/video-2.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "I3W3mRs4ULQ",
-          preview: "assets/images/video-3.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "XVwqSlTFQq0",
-          preview: "assets/images/video-4.png"
-        }
-      ]
-    },
-    {
-      id: 'lesli',
-      name: 'Lesli Margherita',
-      videos: [
-        {
-          type: TYPE_YOUTUBE,
-          id: "ADPk5PpkjMg",
-          preview: "assets/images/video-1.png"
-        },
-        {
-          type: TYPE_GIPHY,
-          id: "feqkVgjJpYtjy",
-          preview: "assets/images/video-2.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "I3W3mRs4ULQ",
-          preview: "assets/images/video-3.png"
-        },
-        {
-          type: TYPE_YOUTUBE,
-          id: "XVwqSlTFQq0",
-          preview: "assets/images/video-4.png"
-        }
-      ]
-    }
-  ];
-
   export default {
     name: "CharactersComponent",
 
     data: function () {
       return {
-        chars,
-        "TYPE_YOUTUBE": TYPE_YOUTUBE,
-        "TYPE_GIPHY": TYPE_GIPHY,
+        chars: store().charVideos,
+        "TYPE_YOUTUBE": store().TYPE_YOUTUBE,
+        "TYPE_GIPHY": store().TYPE_GIPHY,
 
         currentChar: -1,
         currentVideo: 0,
@@ -263,6 +49,21 @@
 
         playerActive: false,
         timeout: 0
+      }
+    },
+  
+    computed: {
+      FBVideoPost: function () {
+        let char = this.chars[this.currentChar];
+        if (!char)
+          return '';
+        return store().getFBVideoPost(char.videos[this.currentVideo]);
+      },
+      TWVideoPost: function () {
+        let char = this.chars[this.currentChar];
+        if (!char)
+          return '';
+        return store().getTWVideoPost(char.videos[this.currentVideo]);
       }
     },
 
@@ -278,7 +79,7 @@
 
         let videoData = this.chars[this.currentChar].videos[this.currentVideo];
 
-        if (videoData.type == TYPE_YOUTUBE) {
+        if (videoData.type == this.TYPE_YOUTUBE) {
           if (this.player && this.playerActive) {
             this.player.loadVideoById(videoData.id);
           } else {
@@ -298,7 +99,7 @@
           giphyElm.style.visibility = 'hidden';
           playerElm.style.visibility = 'visible';
 
-        } else if (videoData.type == TYPE_GIPHY) {
+        } else if (videoData.type == this.TYPE_GIPHY) {
           if (this.playerActive)
             this.player.destroy();
           this.playerActive = false;
