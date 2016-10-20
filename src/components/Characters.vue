@@ -15,9 +15,8 @@
             video.giphy(autoplay loop)
           .char-socials
             | SHARE
-            a.facebook(href="#")
+            a.facebook(href="https://www.facebook.com/sharer/sharer.php?u=https://www.youtube.com/watch?v=1qCpoH4VO9Y")
             a.twitter(href="https://twitter.com/intent/tweet?text=Check%20this%20out!&amp;hashtags=OpeningNight&amp;url=https://www.youtube.com/watch?v=1qCpoH4VO9Y")
-            a.instagram(href="#")
 
         .char-list
           .char-video(
