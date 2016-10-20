@@ -53,6 +53,9 @@
       },
 
       onClickItem: function (item) {
+        if (store().isTablet)
+          this.showMenu = false;
+        
         let pointTo = 0;
         switch (item) {
           case this.SECTION_CAST: pointTo = 0; break;
@@ -195,7 +198,7 @@
         opacity: 0.99
 </style>
 
-<style scoped lang="scss">
+<style scoped lang="scss" rel="stylesheet/scss">
 
   @media (max-width: 768px) {
     .menu {
