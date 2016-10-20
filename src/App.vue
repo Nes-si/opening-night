@@ -105,7 +105,7 @@ export default {
     document.addEventListener('fullscreenchange', this.onFSChange);
     document.addEventListener('webkitfullscreenchange', this.onFSChange);
     document.addEventListener('mozfullscreenchange', this.onFSChange);
-    document.addEventListener('msfullscreenchange', this.onFSChange);
+    document.addEventListener('MSFullscreenChange', this.onFSChange);
 
     store().onReady();
     this.currentSection = store().SECTION_CAST;
@@ -161,7 +161,10 @@ export default {
           document.webkitFullscreenElement ||
           document.mozFullScreenElement ||
           document.msFullscreenElement;
-        if (!inFS) {
+        if (inFS) {
+          this.playerElm.width = screen.width;
+          this.playerElm.height = screen.height;
+        } else {
           this.player.stopVideo();
           this.trailerActive = false;
         }
