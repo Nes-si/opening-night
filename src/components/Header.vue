@@ -65,7 +65,7 @@
       onClickWatch: function () {
         this.$emit('watchOpen');
       },
-  
+
       onClickWatchTrailer: function () {
         this.$emit('watchTrailer');
       },
@@ -100,6 +100,7 @@
 <style lang="sss" scoped rel="stylesheet/sass">
   .header
     height: 100vh
+    min-height: 670px
     overflow: hidden
     display: flex
     flex-flow: column nowrap
@@ -117,7 +118,6 @@
 
     .logo
       background: url("~assets/images/logo.png") no-repeat center center / contain
-      width: 474px
       height: 274px
       margin-top: 46px
 
