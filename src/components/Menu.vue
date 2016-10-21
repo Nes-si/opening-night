@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import {TweenLite} from 'gsap';
+  import {TweenMax} from 'gsap';
   import ScrollToPlugin from 'gsap/src/uncompressed/plugins/ScrollToPlugin';
 
   import store from 'store/Store';
@@ -58,16 +58,20 @@
 
       onClickItem: function (item) {
         if (store().isMobile || store().isTablet)
-          this.showMenu = false;
+          this.onClickBurger();
 
         let pointTo = 0;
         switch (item) {
-          case this.SECTION_CAST: pointTo = 0; break;
-          case this.SECTION_REVIEWS: pointTo = store().sectionReviews.offsetTop; break;
-          case this.SECTION_CLIPS: pointTo = store().sectionClips.offsetTop; break;
-          case this.SECTION_CONTEST: pointTo = store().sectionContest.offsetTop; break;
+          case this.SECTION_CAST:     pointTo = 0; break;
+          case this.SECTION_REVIEWS:  pointTo = store().sectionReviews.offsetTop; break;
+          case this.SECTION_CLIPS:    pointTo = store().sectionClips.offsetTop; break;
+          case this.SECTION_CONTEST:  pointTo = store().sectionContest.offsetTop; break;
         }
-        TweenLite.to(window, .5, {scrollTo: pointTo});
+  
+        if (store().isMobile || store().isTablet)
+          window.scrollTo(0, pointTo);
+        else
+          TweenMax.to(window, .5, {scrollTo: pointTo});
         this.$emit('nav');
       }
     },
