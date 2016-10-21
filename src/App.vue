@@ -55,6 +55,14 @@
 
         .nav-copy
           | ©2016 BENITO FILMS, LLC ALL RIGHTS RESERVED.
+
+    .watch-it-now.watch-it-now-mobile.watch-it-now-fixed(@click="setWatch(true)")
+      .bg-1
+      .bg-2
+      .title
+        | Watch It Now
+      .subtitle
+        | starting at $2.99 on Amazon Demand
 </template>
 
 <script>
@@ -105,7 +113,7 @@ export default {
       this.handleLoad();
     else
       document.addEventListener('DOMContentLoaded', this.handleLoad);
-    
+
     window.addEventListener('scroll', this.onScroll);
     /*
     document.addEventListener('fullscreenchange', this.onFSChange);
@@ -128,12 +136,12 @@ export default {
     handleLoad: function () {
       document.querySelector('#app').className = '';
     },
-    
+
     onScroll: function () {
       debounce(100, () => {
         if (this.watchOpened || this.charMobileOpened)
           return;
-        
+
         if (window.pageYOffset > store().sectionContest.offsetTop - window.innerHeight / 2)
           this.currentSection = store().SECTION_CONTEST;
         else if (window.pageYOffset > store().sectionClips.offsetTop - window.innerHeight / 2)
@@ -158,11 +166,11 @@ export default {
       this.trailerActive = true;
       window.scrollTo(0, 0);
       this.player.playVideo();
-      
+
       this.playerElm = document.getElementById('trailer-video');
       this.playerElm.width = document.documentElement.clientWidth;
       this.playerElm.height = document.documentElement.clientHeight;
-      
+
       /*
       let requestFullScreen =
         this.playerElm.requestFullscreen ||
@@ -172,11 +180,11 @@ export default {
       if (requestFullScreen)
         requestFullScreen.bind(this.playerElm)();
       */
-      
+
       if (store().isIPhone)
         setTimeout(() => this.trailerActive = false, 100);
     },
-  
+
     onFSChange: function () {
       setTimeout(() => {
         let inFS =
@@ -188,13 +196,13 @@ export default {
           this.trailerRemove();
       }, 10);
     },
-    
+
     trailerStateChange: function (e) {
       //on stop or end video
       if (!store().isIPhone && (e.data == 0 || e.data == 2))
         this.trailerRemove();
     },
-    
+
     trailerRemove: function () {
       this.player.stopVideo();
       this.trailerActive = false;
@@ -444,6 +452,13 @@ export default {
   @media (max-width: 699px) {
     .watch-it-now-mobile {
       display: flex;
+    }
+
+    .watch-it-now-fixed {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 9998;
     }
   }
 
