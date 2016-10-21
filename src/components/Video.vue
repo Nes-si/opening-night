@@ -42,7 +42,7 @@
                 .youtube(v-bind:id="'mobile-video-' + index")
                 video.giphy(autoplay loop v-bind:id="'mobile-giphy-' + index" v-show="currentItem == item")
 
-    .more-clips(@click="onClickMore")
+    .more-clips(@click="onClickMore" v-if="moreBtnVisible")
       | MORE CLIPS
 </template>
 
@@ -57,7 +57,6 @@
 
   const MOBILE_ON_PAGE = 3;
 
-
   export default {
     name: "VideoComponent",
 
@@ -70,8 +69,7 @@
         currentItem: null,
         
         itemsMobile: store().mainVideos.slice(0, MOBILE_ON_PAGE),
-        mobilePages: Math.ceil(store().mainVideos.length / MOBILE_ON_PAGE),
-        mobilePage: 0,
+        moreBtnVisible: true,
 
         itemGroup: null,
         itemElms: null,
@@ -196,19 +194,8 @@
       },
       
       onClickMore: function () {
-        if (this.mobilePage >= this.mobilePages - 1)
-          this.mobilePage = 0;
-        else
-          this.mobilePage++;
-        
-        this.itemsMobile.splice(0, this.itemsMobile.length);
-        for (let i = 0; i < MOBILE_ON_PAGE; i++) {
-          let ind = MOBILE_ON_PAGE * this.mobilePage + i;
-          if (ind < this.items.length)
-            this.itemsMobile.push(this.items[ind]);
-        }
-  
-        TweenLite.to(window, .5, {scrollTo: "#video-anchor"});
+        this.itemsMobile = this.items;
+        this.moreBtnVisible = false;
       },
   
       onClickItemMobile: function (index) {
@@ -414,22 +401,12 @@
     .video-mobile
       padding: 0
       position: relative
-      height: 100vh
 
       @media (min-width: 700px)
         display: none
 
       .item
-        position: absolute
-        top: 0
         height: 33.33333vh
-        width: 100%
-        
-      .item:nth-child(3n+2)
-        top: 33.33333vh
-      
-      .item:nth-child(3n)
-        top: 66.66666vh
         
       .giphy, .youtube
         visibility: hidden
