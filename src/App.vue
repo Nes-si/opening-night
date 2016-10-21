@@ -106,10 +106,12 @@ export default {
       document.addEventListener('DOMContentLoaded', this.handleLoad);
     }
     window.addEventListener('scroll', this.onScroll);
+    /*
     document.addEventListener('fullscreenchange', this.onFSChange);
     document.addEventListener('webkitfullscreenchange', this.onFSChange);
     document.addEventListener('mozfullscreenchange', this.onFSChange);
     document.addEventListener('MSFullscreenChange', this.onFSChange);
+    */
 
     store().onReady();
     this.currentSection = store().SECTION_CAST;
@@ -154,9 +156,10 @@ export default {
       this.player.playVideo();
       
       this.playerElm = document.getElementById('trailer-video');
-      this.playerElm.width = window.innerWidth;
-      this.playerElm.height = window.innerHeight;
+      this.playerElm.width = document.documentElement.clientWidth;
+      this.playerElm.height = document.documentElement.clientHeight;
       
+      /*
       let requestFullScreen =
         this.playerElm.requestFullscreen ||
         this.playerElm.webkitRequestFullscreen ||
@@ -164,6 +167,7 @@ export default {
         this.playerElm.msRequestFullscreen;
       if (requestFullScreen)
         requestFullScreen.bind(this.playerElm)();
+      */
       
       if (store().isIPhone)
         setTimeout(() => this.trailerActive = false, 100);
@@ -183,7 +187,7 @@ export default {
     
     trailerStateChange: function (e) {
       //on stop or end video
-      if (store().isIPad && (e.data == 0 || e.data == 2))
+      if (!store().isIPhone && (e.data == 0 || e.data == 2))
         this.trailerRemove();
     },
     
