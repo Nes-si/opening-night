@@ -15,7 +15,7 @@
 
     slider-component
 
-    .watch-it-now.watch-it-now-mobile(@click="setWatch(true)")
+    .watch-it-now.watch-it-now-mobile(@click="setWatch(true)" v-if="false")
       .bg-1
       .bg-2
       .title
@@ -29,7 +29,7 @@
 
     ul.juicer-feed(data-feed-id="blah-blah-blah")
 
-    .watch-it-now(@click="setWatch(true)")
+    .watch-it-now(@click="setWatch(true)" v-bind:class="{ 'watch-it-now-show': this.showWatchIt }")
       .bg-1
       .bg-2
       .title
@@ -37,7 +37,7 @@
       .subtitle
         | starting at $2.99 on Amazon Demand
 
-    .footer
+    .footer(v-bind:class="{ 'footer-watch-it': this.showWatchIt }")
       .logos
         .dark-factory
         .itaca
@@ -56,13 +56,6 @@
         .nav-copy
           | ©2016 BENITO FILMS, LLC ALL RIGHTS RESERVED.
 
-    .watch-it-now.watch-it-now-mobile.watch-it-now-fixed(@click="setWatch(true)")
-      .bg-1
-      .bg-2
-      .title
-        | Watch It Now
-      .subtitle
-        | starting at $2.99 on Amazon Demand
 </template>
 
 <script>
@@ -104,7 +97,16 @@ export default {
       load: false,
       player: null,
       playerElm: null,
-      trailerActive: false
+      trailerActive: false,
+  
+      showWatchItByScroll: false,
+      showWatchItByOpening: true
+    }
+  },
+  
+  computed: {
+    showWatchIt: function () {
+      return this.showWatchItByScroll && this.showWatchItByOpening;
     }
   },
 
@@ -150,10 +152,13 @@ export default {
           this.currentSection = store().SECTION_REVIEWS;
         else
           this.currentSection = store().SECTION_CAST;
+  
+        this.showWatchItByScroll = window.scrollY > window.innerHeight;
       })();
     },
 
     setWatch: function (open) {
+      this.showWatchItByOpening = false;
       this.watchOpened = open;
     },
 
@@ -340,8 +345,19 @@ export default {
     align-items: center
     cursor: pointer
 
-    position: relative
+    position: fixed
+    bottom: 0
+    width: 100%
     overflow: hidden
+    
+    z-index: 999
+  
+    transform: translateY(120%)
+    transition: transform 0.3s ease
+    will-change: transform
+  
+    &.watch-it-now-show
+      transform: translateY(0)
 
     &-mobile
       display: none
@@ -439,6 +455,9 @@ export default {
       font-size: 10px
       color: #5B6D82
       letter-spacing: 0.81px
+      
+  .footer-watch-it
+    padding-bottom: 100px
 
   .trailer-video
     position: absolute
@@ -452,13 +471,6 @@ export default {
   @media (max-width: 699px) {
     .watch-it-now-mobile {
       display: flex;
-    }
-
-    .watch-it-now-fixed {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      z-index: 9998;
     }
   }
 
