@@ -50,6 +50,10 @@
 
       onClickBurger: function () {
         this.showMenu = !this.showMenu;
+        if (this.showMenu)
+          document.body.style.overflowY = 'hidden';
+        else
+          document.body.style.overflowY = 'scroll';
       },
 
       onClickItem: function (item) {
