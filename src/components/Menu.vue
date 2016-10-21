@@ -1,5 +1,5 @@
 <template lang="pug">
-  .menu(v-bind:class="{ 'showedMenu': this.scrolled }")
+  .menu(v-bind:class="{ 'showedMenu': this.scrolled || this.showMenu }")
     a.menu-logo(href="#")
       img(src="~assets/images/logo-small.png")
     .menu-list(v-bind:class="{ 'showedList': this.showMenu }")
@@ -55,7 +55,7 @@
       onClickItem: function (item) {
         if (store().isMobile || store().isTablet)
           this.showMenu = false;
-        
+
         let pointTo = 0;
         switch (item) {
           case this.SECTION_CAST: pointTo = 0; break;
@@ -102,7 +102,7 @@
     top: 0
     left: 0
 
-    z-index: 999
+    z-index: 9999
 
     background: rgba(10,10,10,0.90)
     box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50)
@@ -121,6 +121,9 @@
 
     &.showedMenu
       transform: translateY(0)
+
+    &.showedMenu
+      width: 100%
 
     &-logo
       position: relative
@@ -202,6 +205,9 @@
 
   @media (max-width: 768px) {
     .menu {
+      width: 0;
+      left: initial;
+      right: 0;
       background: transparent;
       box-shadow: none;
       transform: translate3d(0,0,0);
