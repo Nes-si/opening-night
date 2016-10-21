@@ -59,6 +59,7 @@
 
 <script>
 import YouTubePlayer from 'youtube-player';
+import debounce from 'throttle-debounce/debounce';
 
 import HeaderComponent from 'components/Header';
 import SliderComponent from 'components/Slider';
@@ -100,11 +101,11 @@ export default {
   },
 
   mounted: function () {
-    if (document.readyState != 'loading'){
+    if (document.readyState != 'loading')
       this.handleLoad();
-    } else {
+    else
       document.addEventListener('DOMContentLoaded', this.handleLoad);
-    }
+    
     window.addEventListener('scroll', this.onScroll);
     /*
     document.addEventListener('fullscreenchange', this.onFSChange);
@@ -125,20 +126,23 @@ export default {
 
   methods: {
     handleLoad: function () {
-      document.querySelector('#app').className = ''
+      document.querySelector('#app').className = '';
     },
+    
     onScroll: function () {
-      if (this.watchOpened || this.charMobileOpened)
-        return;
-
-      if (window.pageYOffset > store().sectionContest.offsetTop - window.innerHeight/2)
-        this.currentSection = store().SECTION_CONTEST;
-      else if (window.pageYOffset > store().sectionClips.offsetTop - window.innerHeight/2)
-        this.currentSection = store().SECTION_CLIPS;
-      else if (window.pageYOffset > store().sectionReviews.offsetTop - window.innerHeight/2)
-        this.currentSection = store().SECTION_REVIEWS;
-      else
-        this.currentSection = store().SECTION_CAST;
+      debounce(100, () => {
+        if (this.watchOpened || this.charMobileOpened)
+          return;
+        
+        if (window.pageYOffset > store().sectionContest.offsetTop - window.innerHeight / 2)
+          this.currentSection = store().SECTION_CONTEST;
+        else if (window.pageYOffset > store().sectionClips.offsetTop - window.innerHeight / 2)
+          this.currentSection = store().SECTION_CLIPS;
+        else if (window.pageYOffset > store().sectionReviews.offsetTop - window.innerHeight / 2)
+          this.currentSection = store().SECTION_REVIEWS;
+        else
+          this.currentSection = store().SECTION_CAST;
+      })();
     },
 
     setWatch: function (open) {

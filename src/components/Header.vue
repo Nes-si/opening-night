@@ -31,6 +31,7 @@
 <script>
   import {TweenLite} from 'gsap';
   import ScrollToPlugin from 'gsap/src/uncompressed/plugins/ScrollToPlugin';
+  import debounce from 'throttle-debounce/debounce';
 
   import CharactersComponent from 'components/Characters';
   import store from 'store/Store';
@@ -79,15 +80,17 @@
       },
 
       onScroll: function () {
-        this.arrowVisible = window.pageYOffset == 0;
-        let dur = window.innerHeight;
-        let progress = window.pageYOffset / dur;
-        if (progress >= 0 && progress <= 1) {
-          progress *= window.innerHeight / 100;
-          TweenLite.to(this.background, 0.1, {y: (progress * 10), z: '0.01', ease: Power0.easeInOut});
-          TweenLite.to(this.karaoke, 0.1, {y: (progress * 30), z: '0.01', ease: Power0.easeInOut});
-          TweenLite.to(this.logo, 0.1, {y: -(progress * 20), z: '0.01', ease: Power0.easeInOut});
-        }
+        debounce(100, () => {
+          this.arrowVisible = window.pageYOffset == 0;
+          let dur = window.innerHeight;
+          let progress = window.pageYOffset / dur;
+          if (progress >= 0 && progress <= 1) {
+            progress *= window.innerHeight / 100;
+            TweenLite.to(this.background, 0.1, {y: (progress * 10), z: '0.01', ease: Power0.easeInOut});
+            TweenLite.to(this.karaoke, 0.1, {y: (progress * 30), z: '0.01', ease: Power0.easeInOut});
+            TweenLite.to(this.logo, 0.1, {y: -(progress * 20), z: '0.01', ease: Power0.easeInOut});
+          }
+        })();
       },
 
       clickCharMobile: function (char) {

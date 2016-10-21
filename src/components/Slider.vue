@@ -75,7 +75,8 @@
 </template>
 <script>
   import {TweenLite, Power0} from 'gsap';
-
+  import debounce from 'throttle-debounce/debounce';
+  
   const SLIDES = 3;
 
   export default {
@@ -121,18 +122,20 @@
       onScroll: function () {
         if (this.entering)
           return;
-
-        let ch = this.content.clientHeight;
-
-        let wh = window.innerHeight;
-        let dur = 2 * wh;
-        let offset = 1 * wh;
-        let progress = (window.pageYOffset + offset - this.container.offsetTop) / dur;
-        if (progress >= 0 && progress <= 1) {
-          TweenLite.to(this.person,   0.1,  {y: (progress * wh / 5),     z: '0.01', ease: Power0.easeInOut});
-          TweenLite.to(this.content,  0.1,  {y: - (progress * (wh - ch)), z: '0.01', ease: Power0.easeInOut});
-          TweenLite.to(this.quotes,   0.1,  {y: - (progress * wh / 5),   z: '0.01', ease: Power0.easeInOut});
-        }
+  
+        debounce(100, () => {
+          let ch = this.content.clientHeight;
+  
+          let wh = window.innerHeight;
+          let dur = 2 * wh;
+          let offset = 1 * wh;
+          let progress = (window.pageYOffset + offset - this.container.offsetTop) / dur;
+          if (progress >= 0 && progress <= 1) {
+            TweenLite.to(this.person, 0.1, {y: (progress * wh / 5), z: '0.01', ease: Power0.easeInOut});
+            TweenLite.to(this.content, 0.1, {y: -(progress * (wh - ch)), z: '0.01', ease: Power0.easeInOut});
+            TweenLite.to(this.quotes, 0.1, {y: -(progress * wh / 5), z: '0.01', ease: Power0.easeInOut});
+          }
+        })();
       },
 
       enter: function () {
