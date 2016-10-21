@@ -53,7 +53,7 @@
       },
 
       onClickItem: function (item) {
-        if (store().isTablet)
+        if (store().isMobile || store().isTablet)
           this.showMenu = false;
         
         let pointTo = 0;

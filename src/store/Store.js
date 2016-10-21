@@ -29,7 +29,9 @@ class Store {
   //========sizes===========
   
   get isMobile() {return window.innerWidth <= 510;}
-  get isTablet() {return window.innerWidth <= 768;}
+  get isTablet() {return window.innerWidth <= 768 && !this.isMobile;}
+  get isIPad() {return navigator.userAgent.match(/iPad/i) != null;}
+  get isIPhone() {return navigator.platform.match(/i(Phone|Pod)/i);}
   
   
   

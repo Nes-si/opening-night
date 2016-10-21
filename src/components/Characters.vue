@@ -115,7 +115,7 @@
       },
 
       onClickPreview: function (num) {
-        if (store().isTablet)
+        if (store().isMobile || store().isTablet)
           return;
 
         if (this.currentVideo != num) {
@@ -125,7 +125,7 @@
       },
 
       onEnterChar: function (i) {
-        if (store().isTablet)
+        if (store().isMobile || store().isTablet)
           return;
 
         if (i != this.currentChar) {
@@ -150,7 +150,7 @@
       },
 
       onClickChar: function (char) {
-        if (!store().isTablet)
+        if (!store().isMobile && !store().isTablet)
           return;
 
         this.$emit('showCharMobile', char);
