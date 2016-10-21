@@ -1,5 +1,5 @@
 <template lang="pug">
-  .menu(v-bind:class="{ 'showedMenu': this.scrolled || this.showMenu }")
+  .menu(v-bind:class="{ 'showedMenu': this.scrolled, 'showMenu': this.showMenu }")
     a.menu-logo(href="#")
       img(src="~assets/images/logo-small.png")
     .menu-list(v-bind:class="{ 'showedList': this.showMenu }")
@@ -122,7 +122,7 @@
     &.showedMenu
       transform: translateY(0)
 
-    &.showedMenu
+    &.showMenu
       width: 100%
 
     &-logo
