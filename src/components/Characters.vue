@@ -15,8 +15,8 @@
             video.giphy(autoplay loop)
           .char-socials
             | SHARE
-            a.facebook(v-bind:href="FBVideoPost")
-            a.twitter(v-bind:href="TWVideoPost")
+            .facebook(@click="openFBVideoPost")
+            .twitter(@click="openTWVideoPost")
 
         .char-list
           .char-video(
@@ -52,22 +52,19 @@
       }
     },
   
-    computed: {
-      FBVideoPost: function () {
-        let char = this.chars[this.currentChar];
-        if (!char)
-          return '';
-        return store().getFBVideoPost(char.videos[this.currentVideo]);
-      },
-      TWVideoPost: function () {
-        let char = this.chars[this.currentChar];
-        if (!char)
-          return '';
-        return store().getTWVideoPost(char.videos[this.currentVideo]);
-      }
-    },
-
     methods: {
+      openFBVideoPost: function () {
+        let char = this.chars[this.currentChar];
+        let url = store().getFBVideoPost(char.videos[this.currentVideo]);
+        store().openSocialPopup(url, 'Facebook share');
+      },
+      
+      openTWVideoPost: function () {
+        let char = this.chars[this.currentChar];
+        let url = store().getTWVideoPost(char.videos[this.currentVideo]);
+        store().openSocialPopup(url, 'Twitter share');
+      },
+      
       setVideo: function () {
         let playerId = `video-player-char-${this.currentChar}`;
         let playerElm = document.getElementById(playerId);
@@ -222,6 +219,7 @@
           margin-top: 0.5vw
           border-radius: 100px
           background: #000 no-repeat center center / contain
+          cursor: pointer
 
         .facebook
           background-image: url('~assets/images/facebook.svg')

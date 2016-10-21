@@ -12,8 +12,8 @@
     .footer
       .socials
         | SHARE
-        a.facebook(v-bind:href="FBVideoPost")
-        a.twitter(v-bind:href="TWVideoPost")
+        .facebook(@click="openFBVideoPost")
+        .twitter(@click="openTWVideoPost")
       .list-videos
         .list-video(
           v-for="n in 4" @click="onClickPreview(n - 1)"
@@ -44,16 +44,16 @@
       }
     },
   
-    computed: {
-      FBVideoPost: function () {
-        return store().getFBVideoPost(this.charData.videos[this.currentVideo]);
-      },
-      TWVideoPost: function () {
-        return store().getTWVideoPost(this.charData.videos[this.currentVideo]);
-      }
-    },
-
     methods: {
+      openFBVideoPost: function () {
+        let url = store().getFBVideoPost(this.charData.videos[this.currentVideo]);
+        store().openSocialPopup(url, 'Facebook share');
+      },
+      openTWVideoPost: function () {
+        let url = store().getTWVideoPost(this.charData.videos[this.currentVideo]);
+        store().openSocialPopup(url, 'Twitter share');
+      },
+      
       onClose: function () {
         this.$emit('close');
       },
@@ -202,6 +202,7 @@
           border-radius: 100px;
           background: #000 no-repeat center center / contain;
           margin-right: 10px;
+          cursor: pointer;
         }
 
         .facebook {

@@ -319,4 +319,11 @@ class Store {
     return `https://twitter.com/intent/tweet?text=Check%20this%20out!&amp;hashtags=OpeningNight&amp;url=${videoURL}`;
   }
   
+  openSocialPopup(url, title = 'Social Share') {
+    let intWidth = '560';
+    let intHeight = '430';
+  
+    let strParam = `width=${intWidth},height=${intHeight},resizable=yes`;
+    window.open(url, title, strParam).focus();
+  }
 }
