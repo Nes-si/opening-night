@@ -11,7 +11,7 @@
 
     menu-component(v-on:watchOpen="setWatch(true)" v-on:nav="onScroll" v-bind:currentSection="currentSection")
 
-    header-component(v-on:watchOpen="setWatch(true)" v-on:watchTrailer="watchTrailer" v-on:showCharMobile="setCharMobile($event)")
+    header-component(v-on:watchOpen="setWatch(true)" v-on:watchTrailer="trailerWatch" v-on:showCharMobile="setCharMobile($event)")
 
     slider-component
 
@@ -118,8 +118,8 @@ export default {
       playerVars: {'autoplay': 0, 'controls': 1, 'showinfo': 1, 'rel': 0, 'modestbranding': 1, 'disablekb': 0},
       videoId: trailerVideo
     });
+    this.player.addEventListener('onStateChange', this.trailerStateChange);
   },
-
 
   methods: {
     handleLoad: function () {
@@ -148,11 +148,15 @@ export default {
       this.charMobileData = data;
     },
 
-    watchTrailer: function () {
+    trailerWatch: function () {
       this.trailerActive = true;
-
+      window.scrollTo(0, 0);
       this.player.playVideo();
+      
       this.playerElm = document.getElementById('trailer-video');
+      this.playerElm.width = window.innerWidth;
+      this.playerElm.height = window.innerHeight;
+      
       let requestFullScreen =
         this.playerElm.requestFullscreen ||
         this.playerElm.webkitRequestFullscreen ||
@@ -160,7 +164,11 @@ export default {
         this.playerElm.msRequestFullscreen;
       if (requestFullScreen)
         requestFullScreen.bind(this.playerElm)();
+      
+      if (store().isIPhone)
+        setTimeout(() => this.trailerActive = false, 100);
     },
+  
     onFSChange: function () {
       setTimeout(() => {
         let inFS =
@@ -168,14 +176,20 @@ export default {
           document.webkitFullscreenElement ||
           document.mozFullScreenElement ||
           document.msFullscreenElement;
-        if (inFS) {
-          this.playerElm.width = screen.width;
-          this.playerElm.height = screen.height;
-        } else {
-          this.player.stopVideo();
-          this.trailerActive = false;
-        }
+        if (!inFS)
+          this.trailerRemove();
       }, 10);
+    },
+    
+    trailerStateChange: function (e) {
+      //on stop or end video
+      if (store().isIPad && (e.data == 0 || e.data == 2))
+        this.trailerRemove();
+    },
+    
+    trailerRemove: function () {
+      this.player.stopVideo();
+      this.trailerActive = false;
     }
   }
 }
