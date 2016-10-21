@@ -21,8 +21,8 @@
           .steps-text
             | Download the <span>Sing! Karaoke by Smule</span> App
             .images
-              a.image-1(href="#")
-              a.image-2(href="#")
+              a.image-1(href="https://itunes.apple.com/us/app/sing!-karaoke-by-smule/id509993510?mt=8")
+              a.image-2(href="https://play.google.com/store/apps/details?id=com.smule.singandroid")
 
         .steps-item
           .steps-point
