@@ -222,6 +222,7 @@
       height: 211px
       width: 215px
       cursor: pointer
+      z-index: 1000
 
     .smule:hover
       filter: drop-shadow(0px 0px 5px rgba(255, 200, 220, .5))
