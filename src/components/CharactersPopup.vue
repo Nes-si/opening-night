@@ -63,12 +63,13 @@
             this.player.loadVideoById(videoData.id);
           } else {
             this.player = new YouTubePlayer(playerId, {
-              playerVars: {'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 1},
+              playerVars: {'autoplay': 0, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 1},
               height: h.toString(),
               width: w.toString(),
               videoId: videoData.id
             });
             this.playerActive = true;
+            this.player.playVideo();
           }
           giphyElm.style.opacity = '0.01';
           playerElm.style.opacity = '0.99';
@@ -159,6 +160,10 @@
         top: 0;
         width: 100%;
         height: 100%;
+      }
+  
+      .giphy {
+        pointer-events: none;
       }
     }
 
