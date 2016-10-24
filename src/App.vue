@@ -174,7 +174,7 @@ export default {
 
       this.playerElm = document.getElementById('trailer-video');
       this.playerElm.width = document.documentElement.clientWidth;
-      this.playerElm.height = document.documentElement.clientHeight;
+      this.playerElm.height = window.innerHeight;
 
       /*
       let requestFullScreen =
