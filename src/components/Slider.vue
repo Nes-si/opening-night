@@ -410,40 +410,39 @@
 <style lang="scss" scoped rel="stylesheet/scss">
   @media (max-width: 768px) {
     .slider {
-
-      .quote .person {
-        left: initial;
-        right: -20%;
-        bottom: 0;
-      }
-
-      .quotes {
-        display: none;
-      }
-
       .quote {
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
+        transition: transform .5s ease;
+  
+        .quotes {
+          display: none;
+        }
+  
+        .person {
+          left: initial;
+          right: -20%;
+          bottom: 0;
+        }
+  
+        .content {
+          width: 100%;
+          left: 0;
+          padding: 0 6%;
+          /*//position: static;*/
+          bottom: 1vh;
+  
+          .title {
+            width: 100%;
+            font-size: 70px;
+            color: #FFFFFF;
+            letter-spacing: 1.89px;
+            line-height: 67.66px;
+          }
+        }
       }
-
-      .quote .content {
-        width: 100%;
-        left: 0;
-        padding: 0 6%;
-        /*//position: static;*/
-        bottom: 1vh;
-      }
-
-      .quote .content .title {
-        width: 100%;
-        font-size: 70px;
-        color: #FFFFFF;
-        letter-spacing: 1.89px;
-        line-height: 67.66px;
-      }
-
 
       .arrow-left {
         margin-right: 10px;
