@@ -67,12 +67,6 @@ class Store {
     },
     {
       type: this.TYPE_YOUTUBE,
-      id: "RKh0gELr3ok",
-      preview: "assets/images/video-3.png",
-      text: "NO DRUGS NEEDED"
-    },
-    {
-      type: this.TYPE_YOUTUBE,
       id: "gPEv9s3ZiPE",
       preview: "assets/images/Rufied_a_Star.png",
       text: "RUFIED A STAR!"
