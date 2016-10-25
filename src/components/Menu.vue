@@ -67,7 +67,7 @@
           case this.SECTION_CLIPS:    pointTo = store().sectionClips.offsetTop; break;
           case this.SECTION_CONTEST:  pointTo = store().sectionContest.offsetTop; break;
         }
-  
+
         if (store().isMobile || store().isTablet)
           window.scrollTo(0, pointTo);
         else
@@ -245,7 +245,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 100vh;
+        height: calc(100vh + 1px);
         background: #000;
         flex-flow: column nowrap;
         justify-content: center;
