@@ -181,7 +181,7 @@ class Store {
         {
           type: this.TYPE_YOUTUBE,
           id: "RGIu7LwleMc",
-          preview: "assets/images/Alona_23.png"
+          preview: "assets/images/Alona_3.png"
         },
         {
           type: this.TYPE_YOUTUBE,
