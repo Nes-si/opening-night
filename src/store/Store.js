@@ -102,7 +102,7 @@ class Store {
         },
         {
           type: this.TYPE_GIPHY,
-          id: "rob-riggle-opening-night-the-movie-qwpaw2s7cxTq0",
+          id: "qwpaw2s7cxTq0",
           preview: "assets/images/Rob_3.png"
         },
         {
