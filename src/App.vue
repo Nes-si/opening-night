@@ -6,7 +6,7 @@
 
     purchase-component(v-on:close="setWatch(false)" v-if="watchOpened")
 
-    .trailer-video(v-show="trailerActive")
+    .trailer-video(v-bind:class="{ 'trailer-video-active': this.trailerActive }")
       .video-player#trailer-video
 
     menu-component(v-on:watchOpen="setWatch(true)" v-on:nav="onScroll" v-bind:currentSection="currentSection")
@@ -126,12 +126,6 @@ export default {
 
     store().onReady();
     this.currentSection = store().SECTION_CAST;
-
-    this.player = new YouTubePlayer('trailer-video', {
-      playerVars: {'autoplay': 0, 'controls': 1, 'showinfo': 1, 'rel': 0, 'modestbranding': 1, 'disablekb': 0},
-      videoId: trailerVideo
-    });
-    this.player.addEventListener('onStateChange', this.trailerStateChange);
   },
 
   methods: {
@@ -143,6 +137,9 @@ export default {
       debounce(100, () => {
         if (this.watchOpened || this.charMobileOpened)
           return;
+        
+        if (this.trailerActive)
+          this.trailerRemove();
 
         if (window.pageYOffset > store().sectionContest.offsetTop - window.innerHeight / 2)
           this.currentSection = store().SECTION_CONTEST;
@@ -168,48 +165,29 @@ export default {
     },
 
     trailerWatch: function () {
-      this.trailerActive = true;
-      window.scrollTo(0, 0);
-      this.player.playVideo();
-
-      this.playerElm = document.getElementById('trailer-video');
-      this.playerElm.width = document.documentElement.clientWidth;
-      this.playerElm.height = window.innerHeight;
-
-      /*
-      let requestFullScreen =
-        this.playerElm.requestFullscreen ||
-        this.playerElm.webkitRequestFullscreen ||
-        this.playerElm.mozRequestFullScreen ||
-        this.playerElm.msRequestFullscreen;
-      if (requestFullScreen)
-        requestFullScreen.bind(this.playerElm)();
-      */
-
-      if (store().isIPhone)
-        setTimeout(() => this.trailerActive = false, 100);
-    },
-
-    onFSChange: function () {
-      setTimeout(() => {
-        let inFS =
-          document.fullscreenElement ||
-          document.webkitFullscreenElement ||
-          document.mozFullScreenElement ||
-          document.msFullscreenElement;
-        if (!inFS)
-          this.trailerRemove();
-      }, 10);
-    },
-
-    trailerStateChange: function (e) {
-      //on stop or end video
-      if (!store().isIPhone && (e.data == 0 || e.data == 2))
-        this.trailerRemove();
+      this.player = new YouTubePlayer('trailer-video', {
+        playerVars: {'autoplay': 0, 'controls': 1, 'showinfo': 1, 'rel': 0, 'modestbranding': 1, 'disablekb': 0}
+      });
+  
+      this.player.loadVideoById(trailerVideo)
+        .then(() => {
+          this.playerElm = document.getElementById('trailer-video');
+          this.playerElm.width = document.documentElement.clientWidth;
+          this.playerElm.height = window.innerHeight;
+        });
+  
+      this.player.playVideo()
+        .then(() => {
+          window.scrollTo(0, 0);
+          this.trailerActive = true;
+          
+          if (store().isIPhone)
+            setTimeout(() => this.trailerActive = false, 100);
+        });
     },
 
     trailerRemove: function () {
-      this.player.stopVideo();
+      this.player.destroy();
       this.trailerActive = false;
     }
   }
@@ -464,6 +442,12 @@ export default {
     width: 100%
     height: 100%
     z-index: 20000
+    opacity: .01
+    pointer-events: none
+  
+  .trailer-video-active
+    opacity: 1
+    pointer-events: auto
 </style>
 
 
