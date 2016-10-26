@@ -98,12 +98,12 @@ export default {
       player: null,
       playerElm: null,
       trailerActive: false,
-  
+
       showWatchItByScroll: false,
       showWatchItByOpening: true
     }
   },
-  
+
   computed: {
     showWatchIt: function () {
       return this.showWatchItByScroll && this.showWatchItByOpening;
@@ -137,7 +137,7 @@ export default {
       debounce(100, () => {
         if (this.watchOpened || this.charMobileOpened)
           return;
-        
+
         if (this.trailerActive)
           this.trailerRemove();
 
@@ -149,7 +149,7 @@ export default {
           this.currentSection = store().SECTION_REVIEWS;
         else
           this.currentSection = store().SECTION_CAST;
-  
+
         this.showWatchItByScroll = window.scrollY > window.innerHeight;
       })();
     },
@@ -168,19 +168,19 @@ export default {
       this.player = new YouTubePlayer('trailer-video', {
         playerVars: {'autoplay': 0, 'controls': 1, 'showinfo': 1, 'rel': 0, 'modestbranding': 1, 'disablekb': 0}
       });
-  
+
       this.player.loadVideoById(trailerVideo)
         .then(() => {
           this.playerElm = document.getElementById('trailer-video');
           this.playerElm.width = document.documentElement.clientWidth;
           this.playerElm.height = window.innerHeight;
         });
-  
+
       this.player.playVideo()
         .then(() => {
           window.scrollTo(0, 0);
           this.trailerActive = true;
-          
+
           if (store().isIPhone)
             setTimeout(() => this.trailerActive = false, 100);
         });
@@ -327,13 +327,13 @@ export default {
     bottom: 0
     width: 100%
     overflow: hidden
-    
+
     z-index: 999
-  
+
     transform: translateY(120%)
     transition: transform 0.3s ease
     will-change: transform
-  
+
     &.watch-it-now-show
       transform: translateY(0)
 
@@ -433,7 +433,7 @@ export default {
       font-size: 10px
       color: #5B6D82
       letter-spacing: 0.81px
-      
+
   .footer-watch-it
     padding-bottom: 100px
 
@@ -444,7 +444,7 @@ export default {
     z-index: 20000
     opacity: .01
     pointer-events: none
-  
+
   .trailer-video-active
     opacity: 1
     pointer-events: auto
