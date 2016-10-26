@@ -22,10 +22,6 @@
           .title
             | “THE SHOW GOES THE F*CK ON”
 
-          a.twitter(href="http://twitter.com")
-            .icon
-            | via Twitter
-
       .quote.alona(v-if="slideNum == 2" key="2" data="2")
         .bg
         .quotes
@@ -42,10 +38,6 @@
 
           .title
             | “FUNNIEST MOVIE TO OPEN THIS YEAR!”
-
-          a.twitter(href="http://twitter.com")
-            .icon
-            | via Twitter
 
       .quote.topher(v-if="slideNum == 3" key="3" data="3")
         .bg
@@ -64,10 +56,6 @@
           .title
             | “NEVER ENDING WRECK OF <span>HILARIOUS</span><span>NESS”</span>
 
-
-          a.twitter(href="http://twitter.com")
-            .icon
-            | via Twitter
 
     .arrows
       .arrow.arrow-left(@click="onClickLeft")

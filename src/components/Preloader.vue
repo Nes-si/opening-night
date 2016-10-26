@@ -42,7 +42,7 @@
     methods: {
       autoChange: function () {
         clearInterval(this.timer);
-        this.timer = setInterval(this.onTimer, 1200);
+        this.timer = setInterval(this.onTimer, 1500);
       },
 
       handleLoad: function () {
@@ -115,6 +115,7 @@
       color: #FFFFFF;
       letter-spacing: 1.65px;
       line-height: 34px;
+      text-align: center;
     }
 
     .site {
@@ -168,6 +169,21 @@
 
     .loader {
       opacity: 0.01;
+    }
+  }
+
+
+  @media (max-width: 768px) {
+    .preloader {
+      .title {
+        font-size: 16px;
+      }
+
+      .site {
+        font-size: 14px;
+        margin-top: 0;
+        line-height: 20px;
+      }
     }
   }
 </style>
