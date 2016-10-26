@@ -425,6 +425,8 @@ export default {
       align-items: center
       cursor: pointer
 
+      display: none
+
       .separate
         margin: 0 10px
 

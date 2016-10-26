@@ -10,8 +10,14 @@
             .button-inner
           a.button-2(href="/")
             .button-inner
-</template>
+          a.button-3(href="/")
+            .button-inner
+          a.button-4(href="/")
+            .button-inner
 
+        .available
+          | Also available on <span> Playstation & XBox </span>
+</template>
 <script>
   export default {
     name: "PurchaseComponent",
@@ -102,7 +108,9 @@
     }
 
     .button-1,
-    .button-2 {
+    .button-2,
+    .button-3,
+    .button-4 {
       background: #000000;
       padding: 0 52px;
       height: 68px;
@@ -121,7 +129,9 @@
       }
     }
 
-    .button-2 {
+    .button-2,
+    .button-3,
+    .button-4 {
       margin-top: 17px;
     }
 
@@ -135,6 +145,37 @@
       background: url('~assets/images/itunes.png') no-repeat center center / contain;
       height: 45px;
       width: 151px;
+    }
+
+    .button-3 .button-inner {
+      background: url('~assets/images/googlePlay.png') no-repeat center center / contain;
+      height: 54px;
+      width: 155px;
+    }
+
+    .button-4 .button-inner {
+      background: url('~assets/images/vudu.png') no-repeat center center / contain;
+      height: 31px;
+      width: 64px;
+    }
+
+    .available {
+      margin-top: 13px;
+
+      font-family: 'Open Sans', sans-serif;
+      font-size: 12px;
+      color: #000000;
+      letter-spacing: 0.75px;
+      line-height: 18px;
+      text-align: center;
+
+      span {
+        display: block;
+        font-weight: bold;
+        font-size: 14px;
+        color: #000000;
+        letter-spacing: 0.87px;
+      }
     }
   }
 
