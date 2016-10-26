@@ -77,7 +77,9 @@
         player: null,
         giphyElm: null,
   
-        currentType: store().TYPE_YOUTUBE
+        currentType: store().TYPE_YOUTUBE,
+        
+        isMobileView: false
       }
     },
     
@@ -88,13 +90,16 @@
 
     methods: {
       onResize: function () {
-        if (this.player)
+        if (this.player && this.isMobileView != window.innerWidth <= 700) {
           this.player.destroy();
-        this.player = null;
+          this.player = null;
+        }
         debounce(300, () => {
           if (window.innerWidth <= 700) {
+            this.isMobileView = true;
             this.currentItem = null;
           } else {
+            this.isMobileView = false;
             this.currentItem = this.items[0];
         
             this.itemGroup = document.querySelector('.video .video-list .group');
