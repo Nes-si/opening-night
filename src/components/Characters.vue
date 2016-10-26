@@ -11,8 +11,8 @@
         .char-bg
         .char-player
           .char-video(v-bind:id="'video-char-' + index")
-            .video-player(v-bind:id="'video-player-char-' + index")
-            video.giphy(autoplay loop)
+            .video-player(v-bind:id="'video-player-char-' + index" v-show='currentType == TYPE_YOUTUBE')
+            video.giphy(autoplay loop v-show='currentType == TYPE_GIPHY')
           .char-socials
             | SHARE
             .facebook(@click="openFBVideoPost")
@@ -44,6 +44,7 @@
 
         currentChar: -1,
         currentVideo: 0,
+        currentType: store().TYPE_YOUTUBE,
         player: null,
         players: [],
 
@@ -66,9 +67,6 @@
       },
 
       setVideo: function () {
-        let playerId = `video-player-char-${this.currentChar}`;
-        let playerElm = document.getElementById(playerId);
-
         let giphyElm = document.querySelector(`#video-char-${this.currentChar} .giphy`);
 
         let h = Math.round(window.innerWidth / 100 * 10.2);
@@ -83,18 +81,17 @@
             if (this.timeout)
               clearTimeout(this.timeout);
             this.timeout = setTimeout(() => {
-              this.player = new YouTubePlayer(playerId, {
-                playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 1},
+              this.player = new YouTubePlayer(`video-player-char-${this.currentChar}`, {
+                playerVars: { 'autoplay': 0, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 1},
                 height: h.toString(),
                 width: w.toString(),
                 videoId: videoData.id
               });
               this.playerActive = true;
+              if (!store().isIPhone && !store().isIPad)
+                this.player.playVideo();
             }, 400);
           }
-
-          giphyElm.style.visibility = 'hidden';
-          playerElm.style.visibility = 'visible';
 
         } else if (videoData.type == this.TYPE_GIPHY) {
           if (this.playerActive)
@@ -105,10 +102,9 @@
           giphyElm.height = h;
           giphyElm.src = (document.location.protocol == "https:" ? "https://" : "http://") +
             `//media.giphy.com/media/${videoData.id}/giphy.mp4`;
-
-          giphyElm.style.visibility = 'visible';
-          playerElm.style.visibility = 'hidden';
         }
+        
+        this.currentType = videoData.type;
       },
 
       onClickPreview: function (num) {

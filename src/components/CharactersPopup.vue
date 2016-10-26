@@ -6,8 +6,8 @@
       .cross(@click="onClose")
 
     .video
-      .video-player(id="popup-video")
-      video.giphy(id="popup-giphy" autoplay loop)
+      .video-player(id="popup-video" v-show="currentType == TYPE_YOUTUBE")
+      video.giphy(id="popup-giphy" autoplay loop v-show="currentType == TYPE_GIPHY")
 
     .footer
       .socials
@@ -25,16 +25,21 @@
 <script>
   import YouTubePlayer from 'youtube-player';
   import store from 'store/Store';
+  
+  
   export default {
     name: "CharactersPopupComponent",
+    
     props: ['charData'],
+    
     data: function() {
       return {
         "TYPE_YOUTUBE": store().TYPE_YOUTUBE,
         "TYPE_GIPHY": store().TYPE_GIPHY,
         currentVideo: 0,
         player: null,
-        playerActive: false
+        playerActive: false,
+        currentType: store().TYPE_YOUTUBE
       }
     },
 
@@ -43,6 +48,7 @@
         let url = store().getFBVideoPost(this.charData.videos[this.currentVideo]);
         store().openSocialPopup(url, 'Facebook share');
       },
+      
       openTWVideoPost: function () {
         let url = store().getTWVideoPost(this.charData.videos[this.currentVideo], this.charData.twName);
         store().openSocialPopup(url, 'Twitter share');
@@ -51,40 +57,42 @@
       onClose: function () {
         this.$emit('close');
       },
+      
       setVideo: function () {
-        let playerId = "popup-video";
-        let playerElm = document.getElementById(playerId);
         let giphyElm = document.getElementById("popup-giphy");
         let w = Math.round(window.innerWidth);
         let h = Math.round(w / 16 * 9);
         let videoData = this.charData.videos[this.currentVideo];
+        
         if (videoData.type == this.TYPE_YOUTUBE) {
           if (this.player && this.playerActive) {
             this.player.loadVideoById(videoData.id);
           } else {
-            this.player = new YouTubePlayer(playerId, {
+            this.player = new YouTubePlayer("popup-video", {
               playerVars: {'autoplay': 0, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 1},
               height: h.toString(),
               width: w.toString(),
               videoId: videoData.id
             });
             this.playerActive = true;
-            this.player.playVideo();
+            if (!store().isIPhone && !store().isIPad)
+              this.player.playVideo();
           }
-          giphyElm.style.opacity = '0.01';
-          playerElm.style.opacity = '0.99';
+          
         } else if (videoData.type == this.TYPE_GIPHY) {
           if (this.playerActive)
             this.player.destroy();
           this.playerActive = false;
+          
           giphyElm.width = w;
           giphyElm.height = h;
           giphyElm.src = (document.location.protocol == "https:" ? "https://" : "http://") +
             `//media.giphy.com/media/${videoData.id}/giphy.mp4`;
-          giphyElm.style.opacity = '0.99';
-          playerElm.style.opacity = '0.01';
         }
+        
+        this.currentType = videoData.type;
       },
+      
       onClickPreview: function (num) {
         if (this.currentVideo != num) {
           this.currentVideo = num;
@@ -92,6 +100,7 @@
         }
       }
     },
+    
     mounted: function() {
       this.setVideo();
     }
