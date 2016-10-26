@@ -2,8 +2,8 @@
   .video#video-anchor
     .video-desktop
       .video-container
-        .video-player#main-video
-        video.giphy(autoplay loop)
+        .video-player#main-video(v-show="currentType == TYPE_YOUTUBE")
+        video.giphy(autoplay loop v-show="currentType == TYPE_GIPHY")
 
       .video-list
         .arrow.arrow-hover.arrow-left(@click="onClickArrow(true)")
@@ -38,9 +38,9 @@
                 | {{item.text}}
               .bg
               .play
-              .video-player
-                .youtube(v-bind:id="'mobile-video-' + index")
-                video.giphy(autoplay loop v-bind:id="'mobile-giphy-' + index" v-show="currentItem == item")
+              .video-player(v-show="currentItem == item")
+                .youtube(v-bind:id="'mobile-video-' + index" v-show="item.type == TYPE_YOUTUBE")
+                video.giphy(autoplay loop v-bind:id="'mobile-giphy-' + index" v-show="item.type == TYPE_GIPHY")
 
     .more-clips(@click="onClickMore" v-if="moreBtnVisible")
       | MORE CLIPS
@@ -75,31 +75,51 @@
         itemElms: null,
 
         player: null,
-        giphyElm: null
+        giphyElm: null,
+  
+        currentType: store().TYPE_YOUTUBE
       }
     },
-
+    
     mounted: function () {
-      //if (!store().isMobile) {
-      if (window.innerWidth > 700) {
-        window.addEventListener('resize', this.onResize);
-        
-        this.currentItem = this.items[0];
-  
-        this.itemGroup = document.querySelector('.video .video-list .group');
-        this.itemElms = document.querySelectorAll('.video .video-list .item');
-  
-        this.giphyElm = document.querySelector(`.video .video-desktop .giphy`);
-  
-        this.setVideo();
-        this.onResize();
-      }
+      window.addEventListener('resize', this.onResize);
+      this.onResize();
     },
 
     methods: {
+      onResize: function () {
+        if (this.player)
+          this.player.destroy();
+        this.player = null;
+        debounce(300, () => {
+          if (window.innerWidth <= 700) {
+            this.currentItem = null;
+          } else {
+            this.currentItem = this.items[0];
+        
+            this.itemGroup = document.querySelector('.video .video-list .group');
+            this.itemElms = document.querySelectorAll('.video .video-list .item');
+        
+            this.giphyElm = document.querySelector(`.video .video-desktop .giphy`);
+        
+            this.setVideo();
+        
+            let dimH = Math.round(window.innerHeight / 9 * .8);
+            let dimW = Math.round(window.innerWidth / 16 * .8);
+            let dim = Math.min(dimH, dimW);
+        
+            if (this.player)
+              this.player.setSize(dim * 16, dim * 9);
+        
+            let container = document.querySelector('.video .video-desktop .video-container');
+            this.giphyElm.height = dim * 9;
+            this.giphyElm.width = dim * 16;
+          }
+        })();
+      },
+      
       setVideo: function () {
-        let playerElm = document.getElementById('main-video');
-
+        this.currentType = this.currentItem.type;
         if (this.currentItem.type == this.TYPE_YOUTUBE) {
           if (this.player) {
             this.player.loadVideoById(this.currentItem.id);
@@ -110,39 +130,24 @@
             });
           }
 
-          this.giphyElm.style.visibility = 'hidden';
-          playerElm.style.visibility = 'visible';
-
         } else if (this.currentItem.type == this.TYPE_GIPHY) {
           this.giphyElm.src = (document.location.protocol == "https:" ? "https://" : "http://") +
             `//media.giphy.com/media/${this.currentItem.id}/giphy.mp4`;
-  
-          if (this.player)
-            this.player.stopVideo();
-          this.giphyElm.style.visibility = 'visible';
-          playerElm.style.visibility = 'hidden';
         }
+  
+        if (this.player)
+          this.player.stopVideo();
       },
   
-      onResize: function () {
-        debounce(300, () => {
-          let dimH = Math.round(window.innerHeight / 9 * .8);
-          let dimW = Math.round(window.innerWidth / 16 * .8);
-          let dim = Math.min(dimH, dimW);
-
-          if (this.player)
-            this.player.setSize(dim * 16, dim * 9);
-
-          let container = document.querySelector('.video .video-desktop .video-container');
-          this.giphyElm.height = dim * 9;
-          this.giphyElm.width = dim * 16;
-        })();
-      },
-
       onClickItem: function (item) {
+        if (this.currentItem == item)
+          return;
         this.currentItem = item;
+        
         TweenLite.to(window, .5, {scrollTo: "#video-anchor"});
         this.setVideo();
+        if (this.player && this.currentType == this.TYPE_YOUTUBE)
+          this.player.playVideo();
       },
 
       next: function (num) {
@@ -200,12 +205,10 @@
       },
   
       onClickItemMobile: function (index) {
+        if (this.currentItem == this.itemsMobile[index])
+          return;
         this.currentItem = this.itemsMobile[index];
   
-        let playerElmId = `mobile-video-${index}`;
-        let playerElm = document.getElementById(playerElmId);
-        let giphyElm = document.getElementById(`mobile-giphy-${index}`);
-        
         if (this.player) {
           this.player.destroy();
           this.player = null;
@@ -215,34 +218,22 @@
         let w = Math.round(window.innerWidth);
         
         if (this.currentItem.type == this.TYPE_YOUTUBE) {
-          this.player = new YouTubePlayer(playerElmId, {
+          this.player = new YouTubePlayer(`mobile-video-${index}`, {
             playerVars: { 'autoplay': 0, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 0},
             videoId: this.currentItem.id,
             height: h.toString(),
             width: w.toString()
           });
-          this.player.addEventListener('onStateChange', this.onVideoStop);
-          
           setTimeout(() => this.player.playVideo(), 500);
-  
-          playerElm.style.visibility = 'visible';
+          
         } else if (this.currentItem.type == this.TYPE_GIPHY) {
+          let giphyElm = document.getElementById(`mobile-giphy-${index}`);
           giphyElm.src = (document.location.protocol == "https:" ? "https://" : "http://") +
             `//media.giphy.com/media/${this.currentItem.id}/giphy.mp4`;
-  
           giphyElm.width = w;
           giphyElm.height = h;
-          
-          giphyElm.style.visibility = 'visible';
         }
-      },
-  
-      onVideoStop: function (e) {
-        if (e.data == 0) {
-          let playerElm = document.getElementById(playerElmId);
-          playerElm.style.visibility = 'hidden';
-        }
-      },
+      }
     }
   }
 </script>
@@ -408,9 +399,6 @@
 
       .item
         height: 33.33333vh
-        
-      .giphy, .youtube
-        visibility: hidden
         
   
   .mobile-enter-active, .mobile-leave-active
