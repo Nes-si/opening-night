@@ -31,7 +31,7 @@
 <script>
   import {TweenLite} from 'gsap';
   import ScrollToPlugin from 'gsap/src/uncompressed/plugins/ScrollToPlugin';
-  import debounce from 'throttle-debounce/debounce';
+  import throttle from 'throttle-debounce/debounce';
 
   import CharactersComponent from 'components/Characters';
   import store from 'store/Store';
@@ -80,7 +80,7 @@
       },
 
       onScroll: function () {
-        debounce(100, () => {
+        throttle(100, () => {
           this.arrowVisible = window.pageYOffset == 0;
           let dur = window.innerHeight;
           let progress = window.pageYOffset / dur;
