@@ -8,6 +8,7 @@
 
     .trailer(v-bind:class="{ 'trailer-active': this.trailerActive }")
       .trailer-close
+        .trailer-closeIcon
       .trailer-video
         .video-player#trailer-video
 
@@ -455,16 +456,22 @@ export default {
     opacity: .01
 
     &-close
-      background: url('~assets/images/cancel.svg') no-repeat center center / contain
-      height: 25px
-      width: 25px
-
       position: absolute
-      left: 50%
-      transform: translateX(-50%)
-      top: 15px
-
+      background: #000
       z-index: 99999
+      left: 0
+      top: 0
+      height: 50px
+      width: 100%
+
+      &Icon
+        background: url('~assets/images/cancel.svg') no-repeat center center / contain
+        height: 25px
+        width: 25px
+
+        position: absolute
+        right: 15px
+        top: 20px
 
     &-video
       position: absolute
