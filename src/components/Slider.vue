@@ -20,7 +20,8 @@
             | “worth a standing ovation”
           .in-touch
             //- .icon
-            | - Cinemacy.com
+            a(href="http://Cinemacy.com" target="_blank")
+              | - Cinemacy.com
 
       .quote.alona(v-if="slideNum == 2" key="2" data="2")
         .bg
@@ -37,7 +38,8 @@
             | “Clever, funny and upbeat”
           .in-touch
             //- .icon
-            | - BlogCritics.org
+            a(href="http://BlogCritics.org" target="_blank")
+              | - BlogCritics.org
 
       .quote.topher(v-if="slideNum == 3" key="3" data="3")
         .bg
@@ -54,7 +56,8 @@
             | “Will make you laugh long after the credits roll”
           .in-touch
             //- .icon
-            | - AwardsCircuit.com
+            a(href="http://AwardsCircuit.com" target="_blank")
+              | - AwardsCircuit.com
 
 
     .arrows
@@ -265,6 +268,9 @@
           flex-flow: row nowrap
           align-items: center
           margin-top: 31px
+
+          a
+            color: #fff
 
           //- .icon
           //-   background: url("~assets/images/in-touch.png") no-repeat center center / contain
