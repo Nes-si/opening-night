@@ -44,7 +44,7 @@
         store().openSocialPopup(url, 'Facebook share');
       },
       openTWVideoPost: function () {
-        let url = store().getTWVideoPost(this.charData.videos[this.currentVideo]);
+        let url = store().getTWVideoPost(this.charData.videos[this.currentVideo], this.charData.twName);
         store().openSocialPopup(url, 'Twitter share');
       },
 

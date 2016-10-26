@@ -83,6 +83,8 @@ class Store {
     {
       id: 'rob',
       name: 'Rob Riggle',
+      fbName: '@RobRiggle',
+      twName: '@RobRiggle',
       videos: [
         {
           type: this.TYPE_GIPHY,
@@ -109,6 +111,8 @@ class Store {
     {
       id: 'anne',
       name: 'Anne Heche',
+      fbName: 'Anne Heche',
+      twName: '@AnneHeche',
       videos: [
         {
           type: this.TYPE_GIPHY,
@@ -135,6 +139,8 @@ class Store {
     {
       id: 'topher',
       name: 'Topher Grace',
+      fbName: '@TopherGrace',
+      twName: '@TopherGrace',
       videos: [
         {
           type: this.TYPE_YOUTUBE,
@@ -161,6 +167,8 @@ class Store {
     {
       id: 'alona',
       name: 'Alona Tal',
+      fbName: 'Alona Tal',
+      twName: '@talalona',
       videos: [
         {
           type: this.TYPE_YOUTUBE,
@@ -187,6 +195,8 @@ class Store {
     {
       id: 'jc',
       name: 'JC Chasez',
+      fbName: '@jcchasezofficial',
+      twName: '@JCChasez',
       videos: [
         {
           type: this.TYPE_YOUTUBE,
@@ -213,6 +223,8 @@ class Store {
     {
       id: 'taye',
       name: 'Taye Diggs',
+      fbName: '@TayeDiggs',
+      twName: '@TayeDiggs',
       videos: [
         {
           type: this.TYPE_YOUTUBE,
@@ -239,6 +251,8 @@ class Store {
     {
       id: 'paul',
       name: 'Paul Scheer',
+      fbName: '@thepaulsheer',
+      twName: '@paulsheer',
       videos: [
         {
           type: this.TYPE_YOUTUBE,
@@ -265,6 +279,8 @@ class Store {
     {
       id: 'lesli',
       name: 'Lesli Margherita',
+      fbName: 'Lesli Margherita',
+      twName: '@QueenLesli',
       videos: [
         {
           type: this.TYPE_YOUTUBE,
@@ -302,9 +318,13 @@ class Store {
     return `https://www.facebook.com/sharer/sharer.php?u=${videoURL}`;
   }
 
-  getTWVideoPost(video) {
+  getTWVideoPost(video, twName) {
     let videoURL = this.getVideoURL(video);
-    return `https://twitter.com/intent/tweet?text=Check%20this%20out!&amp;hashtags=OpeningNight&amp;url=${videoURL}`;
+    twName = encodeURIComponent(twName);
+    return `https://twitter.com/intent/tweet?` +
+      `text=Check%20out%20this%20hilarious%20clip%20with%20${twName}%20from%20the%20new%20movie%20Opening%20Night%20www.openingnightthemovie.com` +
+      `&amp;hashtags=1HitWonder` +
+      `&amp;url=${videoURL}`;
   }
 
   openSocialPopup(url, title = 'Social Share') {

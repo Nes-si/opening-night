@@ -61,7 +61,7 @@
 
       openTWVideoPost: function () {
         let char = this.chars[this.currentChar];
-        let url = store().getTWVideoPost(char.videos[this.currentVideo]);
+        let url = store().getTWVideoPost(char.videos[this.currentVideo], char.twName);
         store().openSocialPopup(url, 'Twitter share');
       },
 
