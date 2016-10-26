@@ -8,7 +8,7 @@
 
     .trailer(v-bind:class="{ 'trailer-active': this.trailerActive }")
       .trailer-close
-        .trailer-closeIcon
+        .trailer-closeIcon(@click="trailerRemove")
       .trailer-video
         .video-player#trailer-video
 
@@ -120,15 +120,23 @@ export default {
       document.addEventListener('DOMContentLoaded', this.handleLoad);
 
     window.addEventListener('scroll', this.onScroll);
-    /*
-    document.addEventListener('fullscreenchange', this.onFSChange);
-    document.addEventListener('webkitfullscreenchange', this.onFSChange);
-    document.addEventListener('mozfullscreenchange', this.onFSChange);
-    document.addEventListener('MSFullscreenChange', this.onFSChange);
-    */
+    window.addEventListener('resize', this.onResize);
 
     store().onReady();
     this.currentSection = store().SECTION_CAST;
+    
+    if (store().isIPad || store().isIPhone) {
+      this.player = new YouTubePlayer('trailer-video', {
+        playerVars: {'autoplay': 1, 'controls': 1, 'showinfo': 1, 'rel': 0, 'modestbranding': 1, 'disablekb': 0}
+      });
+  
+      this.player.loadVideoById(trailerVideo)
+        .then(() => {
+          this.playerElm = document.getElementById('trailer-video');
+          this.playerElm.width = document.documentElement.clientWidth;
+          this.playerElm.height = window.innerHeight;
+        });
+    }
   },
 
   methods: {
@@ -141,9 +149,6 @@ export default {
         if (this.watchOpened || this.charMobileOpened)
           return;
 
-        if (this.trailerActive)
-          this.trailerRemove();
-
         if (window.pageYOffset > store().sectionContest.offsetTop - window.innerHeight / 2)
           this.currentSection = store().SECTION_CONTEST;
         else if (window.pageYOffset > store().sectionClips.offsetTop - window.innerHeight / 2)
@@ -154,6 +159,14 @@ export default {
           this.currentSection = store().SECTION_CAST;
 
         this.showWatchItByScroll = window.scrollY > window.innerHeight;
+      })();
+    },
+    
+    onResize: function () {
+      debounce(100, () => {
+        this.playerElm = document.getElementById('trailer-video');
+        this.playerElm.width = document.documentElement.clientWidth;
+        this.playerElm.height = window.innerHeight;
       })();
     },
 
@@ -168,29 +181,32 @@ export default {
     },
 
     trailerWatch: function () {
-      this.player = new YouTubePlayer('trailer-video', {
-        playerVars: {'autoplay': 0, 'controls': 1, 'showinfo': 1, 'rel': 0, 'modestbranding': 1, 'disablekb': 0}
-      });
-
-      this.player.loadVideoById(trailerVideo)
-        .then(() => {
-          this.playerElm = document.getElementById('trailer-video');
-          this.playerElm.width = document.documentElement.clientWidth;
-          this.playerElm.height = window.innerHeight;
+      if (!store().isIPad && !store().isIPhone) {
+        this.player = new YouTubePlayer('trailer-video', {
+          playerVars: {'autoplay': 0, 'controls': 1, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 0, 'frameborder': 0}
         });
-
+  
+        this.player.loadVideoById(trailerVideo)
+          .then(() => {
+            this.playerElm = document.getElementById('trailer-video');
+            this.playerElm.width = document.documentElement.clientWidth;
+            this.playerElm.height = window.innerHeight;
+          });
+      }
+      
       this.player.playVideo()
         .then(() => {
           window.scrollTo(0, 0);
-          this.trailerActive = true;
-
-          if (store().isIPhone)
-            setTimeout(() => this.trailerActive = false, 100);
+          if (!store().isIPhone)
+            this.trailerActive = true;
         });
     },
 
     trailerRemove: function () {
-      this.player.destroy();
+      if (!store().isIPad && !store().isIPhone)
+        this.player.destroy();
+      else
+        this.player.stopVideo();
       this.trailerActive = false;
     }
   }
@@ -472,6 +488,11 @@ export default {
         position: absolute
         right: 15px
         top: 20px
+        
+        cursor: pointer
+        
+      &Icon:hover
+        filter: drop-shadow(0px 0px 2px #ffffff)
 
     &-video
       position: absolute
