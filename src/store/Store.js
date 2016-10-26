@@ -113,12 +113,12 @@ class Store {
         {
           type: this.TYPE_GIPHY,
           id: "OSXrxGfHH0FSU",
-          preview: "assets/images/Anne_1.png"
+          preview: "assets/images/Anne_2.png"
         },
         {
           type: this.TYPE_GIPHY,
           id: "OQzy9a55nFG6s",
-          preview: "assets/images/Anne_2.png"
+          preview: "assets/images/Anne_1.png"
         },
         {
           type: this.TYPE_YOUTUBE,
@@ -138,7 +138,7 @@ class Store {
       videos: [
         {
           type: this.TYPE_YOUTUBE,
-          id: "MlnmQJPXESo",
+          id: "QN8vYpZwkMo",
           preview: "assets/images/Topher_1.png"
         },
         {
@@ -186,7 +186,7 @@ class Store {
     },
     {
       id: 'jc',
-      name: 'J. C. Chasez',
+      name: 'JC Chasez',
       videos: [
         {
           type: this.TYPE_YOUTUBE,
@@ -216,7 +216,7 @@ class Store {
       videos: [
         {
           type: this.TYPE_YOUTUBE,
-          id: "DEuM8R3v1Pw",
+          id: "JMvG2k_In4Q",
           preview: "assets/images/Taye_1.png"
         },
         {
