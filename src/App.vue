@@ -427,6 +427,8 @@ export default {
 
       display: none
 
+      text-align: center
+
       .separate
         margin: 0 10px
 
@@ -435,6 +437,8 @@ export default {
       font-size: 10px
       color: #5B6D82
       letter-spacing: 0.81px
+      text-align: center
+      flex: 1
 
   .footer-watch-it
     padding-bottom: 100px
@@ -492,7 +496,7 @@ export default {
       .nav {
         flex-flow: column nowrap;
         padding-top: 0;
-        padding-bottom: 70px;
+        //- padding-bottom: 70px;
 
         &-list {
           font-size: 12px;
