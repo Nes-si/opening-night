@@ -202,7 +202,8 @@
         transition: background 0.1s ease
 
         &:hover
-          background: hsla(0,0%,100%,.3)
+          @media (min-width: 769px)
+            background: hsla(0,0%, 100%, .3)
 
       &-trailer .play
         background: url("~assets/images/play.svg") no-repeat center center / contain
