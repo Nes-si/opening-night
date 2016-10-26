@@ -37,7 +37,6 @@
               .text
                 | {{item.text}}
               .bg
-              .play
               .video-player(v-show="currentItem == item")
                 .youtube(v-bind:id="'mobile-video-' + index" v-show="item.type == TYPE_YOUTUBE")
                 video.giphy(autoplay loop v-bind:id="'mobile-giphy-' + index" v-show="item.type == TYPE_GIPHY")
@@ -384,10 +383,12 @@
 
       &:hover
         .play
-          opacity: 1
+          @media (min-width: 769px)
+            opacity: 1
 
         .text
-          opacity: 0
+          @media (min-width: 769px)
+            opacity: 0
       
     .item-inner
       position: relative
