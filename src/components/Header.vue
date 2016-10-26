@@ -24,8 +24,6 @@
 
     characters-component(v-on:showCharMobile="clickCharMobile")
     .smule(@click="onClickSmule")
-    transition(name="arrow")
-      .arrow(@click="onClickScroll" v-if="arrowVisible")
 </template>
 
 <script>
@@ -49,8 +47,6 @@
         karaoke: null,
         background: null,
         logo: null,
-
-        arrowVisible: true
       };
     },
 
@@ -71,17 +67,12 @@
         this.$emit('watchTrailer');
       },
 
-      onClickScroll: function () {
-        TweenLite.to(window, .5, {scrollTo: store().sectionReviews.offsetTop});
-      },
-
       onClickSmule: function () {
         TweenLite.to(window, 1, {scrollTo: store().sectionContest.offsetTop});
       },
 
       onScroll: function () {
         throttle(100, () => {
-          this.arrowVisible = window.pageYOffset == 0;
           let dur = window.innerHeight;
           let progress = window.pageYOffset / dur;
           if (progress >= 0 && progress <= 1) {
@@ -109,6 +100,7 @@
     flex-flow: column nowrap
     align-items: center
     position: relative
+    
     .bg
       position: absolute
       top: 0
@@ -231,26 +223,6 @@
     .smule:hover
       filter: drop-shadow(0px 0px 5px rgba(255, 200, 220, .5))
 
-    .arrow
-      position: absolute
-      bottom: 24px
-      left: 50%
-      transform: translateX(-50%)
-      background: url("~assets/images/arrow.svg") no-repeat center center / contain
-      height: 29px
-      width: 29px
-      cursor: pointer
-      z-index: 105
-
-    .arrow:hover
-      filter: drop-shadow(0px 0px 2px #ffffff)
-
-  .arrow-enter-active, .arrow-leave-active
-    transition: opacity .5s
-
-  .arrow-enter, .arrow-leave-active
-    opacity: 0.01
-
 
 </style>
 
@@ -268,6 +240,7 @@
   @media (max-width: 768px) {
     .header {
       height: 1030px;
+      
       .smule {
         background: url("~assets/images/smule-tablet.png") no-repeat center center / contain;
         height: 63px;
@@ -277,7 +250,6 @@
         right: initial;
         left: 18px;
       }
-
 
       .logo {
         margin-top: 70px;
