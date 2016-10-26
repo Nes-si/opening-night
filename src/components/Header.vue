@@ -205,6 +205,7 @@
         display: flex
         flex-flow: row nowrap
         align-items: center
+        outline: none
 
         transition: background 0.1s ease
 

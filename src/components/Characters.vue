@@ -51,20 +51,20 @@
         timeout: 0
       }
     },
-  
+
     methods: {
       openFBVideoPost: function () {
         let char = this.chars[this.currentChar];
         let url = store().getFBVideoPost(char.videos[this.currentVideo]);
         store().openSocialPopup(url, 'Facebook share');
       },
-      
+
       openTWVideoPost: function () {
         let char = this.chars[this.currentChar];
         let url = store().getTWVideoPost(char.videos[this.currentVideo]);
         store().openSocialPopup(url, 'Twitter share');
       },
-      
+
       setVideo: function () {
         let playerId = `video-player-char-${this.currentChar}`;
         let playerElm = document.getElementById(playerId);
@@ -242,8 +242,8 @@
 
       .char-video
         display: inline-block
-        width: 5.5vw
-        height: 3vw
+        width: 5.7vw
+        height: 3.1vw
         margin-right: 1vw
         overflow: hidden
         outline: 2px transparent solid
