@@ -1,32 +1,64 @@
 <template lang="pug">
   transition
     .preloader(v-if="!load" style="position: fixed; top: 0; left:0;width: 100%;height:100%; z-index: 10000;background-image: linear-gradient(-182deg, #F45232 0%, #E52816 100%);" )
-      .faces
-        .face-1
-        .face-2
+      .logo
+      transition(name="fade" mode="out-in")
+        .text(v-if="slideNum == 1" key="1" data="1")
+          .title
+            | “...comedy’s most talented actors”
+          .site
+            | -
+            a(href="http://cinemacasdasdy.com") Cinemacasdasdy.com
 
-      .title
-        | THE SHOW GOES THE F*&K ON!
+        .text(v-if="slideNum == 2" key="2" data="2")
+          .title
+            | “Clever, funny and upbeat”
+          .site
+            | -
+            a(href="http://blogCritics.org") BlogCritics.org
 
+        .text(v-if="slideNum == 3" key="3" data="3")
+          .title
+            | “Worth a standing ovation!”
+          .site
+            | -
+            a(href="http://cinemacy.com") Cinemacy.com
       .loader
         .loader-inner
 </template>
 
 <script>
+  const SLIDES = 3;
+
   export default {
     name: "PreloaderComponent",
     data: function() {
       return {
-        load: false
+        load: false,
+        slideNum: 1,
+        timer: 0
       }
     },
     methods: {
+      autoChange: function () {
+        clearInterval(this.timer);
+        this.timer = setInterval(this.onTimer, 1200);
+      },
+
       handleLoad: function () {
         this.load = true;
+      },
+
+      onTimer: function () {
+        if (this.slideNum < SLIDES)
+          this.slideNum++;
+        else
+          this.slideNum = 1;
       }
     },
     mounted: function() {
       window.addEventListener('load', this.handleLoad);
+      this.autoChange();
     }
   }
 </script>
@@ -51,54 +83,52 @@
 
     will-change: transform;
 
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s ease;
+    }
+
+    .fade-enter, .fade-leave-active {
+      opacity: 0;
+    }
+
     &-hidden {
       display: none;
     }
 
-    @keyframes face-1 {
-      0% {transform:translateX(0px);}
-      50% {transform:translateX(65px);}
-      100% {transform: translateX(0px);}
+    .logo {
+      background: url('~assets/images/logo-no-shadow.png') no-repeat center center / contain;
+      width: 174px;
+      height: 101px;
     }
 
-    @keyframes face-2 {
-      0% {transform:translateX(0px);}
-      50% {transform:translateX(-65px);}
-      100% {transform: translateX(0px);}
-    }
-
-    .faces {
-      margin-top: 70px;
+    .text {
       display: flex;
-      flex-flow: row nowrap;
-      justify-content: center;
+      flex-flow: column nowrap;
       align-items: center;
-      will-change: transform;
-
-      .face-1 {
-        background: url('~assets/images/face-1.png') no-repeat center center / contain;
-        height: 70px;
-        width: 44px;
-        margin-right: 17px;
-        animation: face-1 1.1s infinite ease;
-      }
-
-      .face-2 {
-        background: url('~assets/images/face-2.png') no-repeat center center / contain;
-        height: 71px;
-        width: 49px;
-        animation: face-2 1.1s infinite ease;
-      }
+      justify-content: center;
     }
 
     .title {
-      margin-top: 17px;
+      margin-top: 10px;
       font-weight: bold;
+      font-size: 24px;
+      color: #FFFFFF;
+      letter-spacing: 1.65px;
+      line-height: 34px;
+    }
+
+    .site {
+      margin-top: 5px;
+      font-family: 'Open Sans', sans-serif;
       font-size: 16px;
       color: #FFFFFF;
       letter-spacing: 1.97px;
       line-height: 34px;
-      will-change: transform;
+
+      a {
+        color: #fff;
+        margin-left: 5px;
+      }
     }
 
     @keyframes spin {
