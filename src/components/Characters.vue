@@ -15,7 +15,7 @@
             video.giphy(autoplay loop v-show='currentType == TYPE_GIPHY')
           .char-socials
             | SHARE
-            .facebook(@click="openFBVideoPost")
+            a.facebook(href="https://www.facebook.com/sharer/sharer.php?u=http://openingnightthemovie.com")
             .twitter(@click="openTWVideoPost")
 
         .char-list
@@ -270,6 +270,8 @@
     height: 18.25vw
     box-sizing: content-box
     padding-top: 0.2vw
+
+    box-shadow: 0 -30px 120px 0 rgba(25,0,30,1);
 
     .spacer
       position: absolute

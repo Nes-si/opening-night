@@ -12,7 +12,7 @@
     .footer
       .socials
         | SHARE
-        .facebook(@click="openFBVideoPost")
+        a.facebook(href="https://www.facebook.com/sharer/sharer.php?u=http://openingnightthemovie.com")
         .twitter(@click="openTWVideoPost")
       .list-videos
         .list-video(
@@ -170,7 +170,7 @@
         width: 100%;
         height: 100%;
       }
-  
+
       .giphy {
         pointer-events: none;
       }
