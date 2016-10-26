@@ -73,7 +73,7 @@ import CharactersPopupComponent from 'components/CharactersPopup';
 import store from 'store/Store';
 
 
-const trailerVideo = "BJwKK08_cPg";
+const trailerVideo = "C0Bi1_jLQAE";
 
 export default {
   components: {
