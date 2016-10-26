@@ -80,7 +80,8 @@
     },
 
     mounted: function () {
-      if (!store().isMobile) {
+      //if (!store().isMobile) {
+      if (window.innerWidth > 700) {
         window.addEventListener('resize', this.onResize);
         
         this.currentItem = this.items[0];
@@ -402,7 +403,7 @@
       padding: 0
       position: relative
 
-      @media (min-width: 700px)
+      @media (min-width: 701px)
         display: none
 
       .item
