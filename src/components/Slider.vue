@@ -15,12 +15,12 @@
         .person
         .shade
         .content
-          .in-touch
-            .icon
-            | In Touch Weekly
 
           .title
-            | “THE SHOW GOES THE F*CK ON”
+            | “worth a standing ovation”
+          .in-touch
+            //- .icon
+            | - Cinemacy.com
 
       .quote.alona(v-if="slideNum == 2" key="2" data="2")
         .bg
@@ -32,12 +32,12 @@
         .person
         .shade
         .content
-          .in-touch
-            .icon
-            | In Touch Weekly
 
           .title
-            | “FUNNIEST MOVIE TO OPEN THIS YEAR!”
+            | “Clever, funny and upbeat”
+          .in-touch
+            //- .icon
+            | - BlogCritics.org
 
       .quote.topher(v-if="slideNum == 3" key="3" data="3")
         .bg
@@ -49,12 +49,12 @@
         .person
         .shade
         .content
-          .in-touch
-            .icon
-            | In Touch Weekly
 
           .title
-            | “NEVER ENDING WRECK OF <span>HILARIOUS</span><span>NESS”</span>
+            | “Will make you laugh long after the credits roll”
+          .in-touch
+            //- .icon
+            | - AwardsCircuit.com
 
 
     .arrows
@@ -234,25 +234,25 @@
         position: absolute
 
       .quote-left
-        left: 5%
+        left: 2%
         bottom: 12vh
 
       .quote-right
         transform: rotate(180deg)
-        left: 42%
-        bottom: 20vh
+        left: 39%
+        bottom: 12vh
 
       .person
         width: 100%
         height: 100%
         position: absolute
-        left: 0
+        right: -10%
         bottom: 0
         z-index: 10
 
       .content
         position: absolute
-        left: 12%
+        left: 10%
         bottom: 5vh
         z-index: 55
 
@@ -264,21 +264,22 @@
           display: flex
           flex-flow: row nowrap
           align-items: center
+          margin-top: 31px
 
-          .icon
-            background: url("~assets/images/in-touch.png") no-repeat center center / contain
-            height: 60px
-            width: 60px
-            margin-right: 25px
+          //- .icon
+          //-   background: url("~assets/images/in-touch.png") no-repeat center center / contain
+          //-   height: 60px
+          //-   width: 60px
+          //-   margin-right: 25px
 
         .title
-          margin-top: 31px
           font-weight: bold
-          font-size: 82.36px
+          font-size: 78px
           color: #FFFFFF
           letter-spacing: 2.23px
-          line-height: 92.66px
+          line-height: 88px
           position: relative
+          text-transform: uppercase
 
         .twitter
           margin-top: 22px
@@ -311,10 +312,16 @@
         .quote-left, .quote-right
           color: #6E3AF0
 
+        .quote-right
+          bottom: 18vh
+
         .title
-          width: 55%
+          width: 70%
 
       &.alona
+        .content
+          top: 60%
+
         .bg
           background-image: linear-gradient(-174deg, #ffe038 0%, #fea345 100%)
 
@@ -329,14 +336,14 @@
 
         .quote-left
           left: 5%
-          bottom: 22vh
+          bottom: 16vh
 
         .quote-right
-          left: 48%
-          bottom: 30vh
+          left: 42%
+          bottom: 16vh
 
         .title
-          width: 60%
+          width: 65%
 
       &.topher
         .bg
@@ -357,10 +364,10 @@
 
         .quote-right
           left: 50%
-          bottom: 30vh
+          bottom: 12vh
 
         .title
-          width: 70%
+          width: 75%
 
   .v-leave-active
     transition-duration: 1s

@@ -6,8 +6,10 @@
 
     purchase-component(v-on:close="setWatch(false)" v-if="watchOpened")
 
-    .trailer-video(v-bind:class="{ 'trailer-video-active': this.trailerActive }")
-      .video-player#trailer-video
+    .trailer(v-bind:class="{ 'trailer-active': this.trailerActive }")
+      .trailer-close
+      .trailer-video
+        .video-player#trailer-video
 
     menu-component(v-on:watchOpen="setWatch(true)" v-on:nav="onScroll" v-bind:currentSection="currentSection")
 
@@ -443,17 +445,39 @@ export default {
   .footer-watch-it
     padding-bottom: 100px
 
-  .trailer-video
-    position: absolute
-    width: 100%
+  .trailer
+    position: fixed
     height: 100%
-    z-index: 20000
-    opacity: .01
-    pointer-events: none
+    width: 100%
+    top: 0
+    left: 0
 
-  .trailer-video-active
-    opacity: 1
-    pointer-events: auto
+    opacity: .01
+
+    &-close
+      background: url('~assets/images/cancel.svg') no-repeat center center / contain
+      height: 25px
+      width: 25px
+
+      position: absolute
+      left: 50%
+      transform: translateX(-50%)
+      top: 15px
+
+      z-index: 99999
+
+    &-video
+      position: absolute
+      width: 100%
+      height: 100%
+      pointer-events: none
+      z-index: 20000
+
+    &-active
+      opacity: 1
+      z-index: 20000
+      .trailer-video
+        pointer-events: auto
 </style>
 
 

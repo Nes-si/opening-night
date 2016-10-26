@@ -7,11 +7,6 @@
       .menu-item(@click="onClickItem(SECTION_REVIEWS)" v-bind:class="{'menu-active': currentSection == SECTION_REVIEWS}") Reviews
       .menu-item(@click="onClickItem(SECTION_CLIPS)" v-bind:class="{'menu-active': currentSection == SECTION_CLIPS}") Clips
       .menu-item(@click="onClickItem(SECTION_CONTEST)" v-bind:class="{'menu-active': currentSection == SECTION_CONTEST}") Contest
-    .watch(@click="onClickWatch")
-      .bg-1
-      .bg-2
-      .text
-        | Watch it now
     .burger(@click="onClickBurger")
 </template>
 
