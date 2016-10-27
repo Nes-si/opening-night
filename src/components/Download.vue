@@ -4,9 +4,9 @@
     .one-hit
       | #1HitWonder
       .socials
-        a.fb
-        a.twitter
-        a.ig
+        .fb
+        .twitter
+        .ig
 
     .download-item
       .title
