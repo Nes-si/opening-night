@@ -6,7 +6,7 @@
 
     purchase-component(v-on:close="setWatch(false)" v-if="watchOpened")
 
-    .trailer(v-bind:class="{ 'trailer-active': this.trailerActive }")
+    .trailer(v-show="trailerActive")
       .trailer-close
         .trailer-closeIcon(@click="trailerRemove")
       .trailer-video
@@ -468,8 +468,7 @@ export default {
     width: 100%
     top: 0
     left: 0
-
-    opacity: .01
+    z-index: 20000
 
     &-close
       position: absolute
@@ -498,14 +497,8 @@ export default {
       position: absolute
       width: 100%
       height: 100%
-      pointer-events: none
-      z-index: 20000
 
-    &-active
-      opacity: 1
-      z-index: 20000
-      .trailer-video
-        pointer-events: auto
+      
 </style>
 
 
