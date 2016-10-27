@@ -19,10 +19,11 @@
 
         .watch-button
           transition(name="fade" mode="out-in")
-            .watch-trailer(@click="onClickWatchTrailer")
-              .play(v-show="!trailerLoading")
+            .watch-trailer(@click="onClickWatchTrailer" v-if="!trailerLoading")
+              .play
               | Watch Trailer
-              .watch-loader(v-show="trailerLoading")
+            .watch-trailer(v-if="trailerLoading")
+              .watch-loader
 
     characters-component(v-on:showCharMobile="clickCharMobile")
     .smule(@click="onClickSmule")
@@ -39,7 +40,7 @@
 
   export default {
     name: "HeaderComponent",
-  
+
     props: ['trailerLoading'],
 
     components: {
@@ -100,7 +101,7 @@
     transition: opacity .5s ease
 
   .fade-enter, .fade-leave-active
-    opacity: 0
+    opacity: 0.01
 
   .header
     height: 100vh
@@ -234,7 +235,7 @@
           transform:rotate(360deg)
 
       &-loader
-        background: url('~assets/images/preloader.svg') no-repeat center center / contain
+        background: url('~assets/images/trailer-loader.svg') no-repeat center center / contain
         width: 40px
         height: 40px
         animation: spin 2s infinite linear
