@@ -78,7 +78,7 @@
   
         currentType: store().TYPE_YOUTUBE,
         
-        isMobileView: false
+        isMobileView: true
       }
     },
     
@@ -98,16 +98,18 @@
             this.isMobileView = true;
             this.currentItem = null;
           } else {
-            this.isMobileView = false;
-            this.currentItem = this.items[0];
-        
-            this.itemGroup = document.querySelector('.video .video-list .group');
-            this.itemElms = document.querySelectorAll('.video .video-list .item');
-        
-            this.giphyElm = document.querySelector(`.video .video-desktop .giphy`);
-        
-            this.setVideo();
-        
+            if (this.isMobileView) {
+              this.isMobileView = false;
+              this.currentItem = this.items[0];
+  
+              this.itemGroup = document.querySelector('.video .video-list .group');
+              this.itemElms = document.querySelectorAll('.video .video-list .item');
+  
+              this.giphyElm = document.querySelector(`.video .video-desktop .giphy`);
+  
+              this.setVideo();
+            }
+            
             let dimH = Math.round(window.innerHeight / 9 * .8);
             let dimW = Math.round(window.innerWidth / 16 * .8);
             let dim = Math.min(dimH, dimW);
