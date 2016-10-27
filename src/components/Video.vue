@@ -78,7 +78,8 @@
   
         currentType: store().TYPE_YOUTUBE,
         
-        isMobileView: true
+        isMobileView: false,
+        mobilePlayers: []
       }
     },
     
@@ -88,17 +89,19 @@
     },
 
     methods: {
-      onResize: function () {
+      onResize: function (e) {
         if (this.player && this.isMobileView != window.innerWidth <= 700) {
           this.player.destroy();
           this.player = null;
         }
         debounce(300, () => {
           if (window.innerWidth <= 700) {
+            if (!this.isMobileView || !e)
+              this.createMobilePlayers();
             this.isMobileView = true;
             this.currentItem = null;
           } else {
-            if (this.isMobileView) {
+            if (!e) {
               this.isMobileView = false;
               this.currentItem = this.items[0];
   
@@ -122,6 +125,23 @@
             this.giphyElm.width = dim * 16;
           }
         })();
+      },
+      
+      createMobilePlayers: function (onMore) {
+        let h = Math.round(window.innerHeight / 3);
+        let w = Math.round(window.innerWidth);
+  
+        for (let i = onMore ? MOBILE_ON_PAGE : 0; i < this.itemsMobile.length; i++) {
+          let item = this.itemsMobile[i];
+          if (item.type == this.TYPE_YOUTUBE) {
+            let player = new YouTubePlayer(`mobile-video-${i}`, {
+              playerVars: { 'autoplay': 0, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 0},
+              height: h.toString(),
+              width: w.toString()
+            });
+            this.mobilePlayers.push(player);
+          }
+        }
       },
       
       getPlaylist: function (isFirst) {
@@ -220,6 +240,7 @@
       onClickMore: function () {
         this.itemsMobile = this.items;
         this.moreBtnVisible = false;
+        setTimeout(() => this.createMobilePlayers(true), 100);
       },
   
       onClickItemMobile: function (index) {
@@ -227,22 +248,12 @@
           return;
         this.currentItem = this.itemsMobile[index];
   
-        if (this.player) {
-          this.player.destroy();
-          this.player = null;
-        }
-  
         let h = Math.round(window.innerHeight / 3);
         let w = Math.round(window.innerWidth);
         
         if (this.currentItem.type == this.TYPE_YOUTUBE) {
-          this.player = new YouTubePlayer(`mobile-video-${index}`, {
-            playerVars: { 'autoplay': 0, 'controls': 0, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 0},
-            videoId: this.currentItem.id,
-            height: h.toString(),
-            width: w.toString()
-          });
-          setTimeout(() => this.player.playVideo(), 500);
+          this.mobilePlayers[index].loadVideoById(this.currentItem.id);
+          this.mobilePlayers[index].playVideo();
           
         } else if (this.currentItem.type == this.TYPE_GIPHY) {
           let giphyElm = document.getElementById(`mobile-giphy-${index}`);
