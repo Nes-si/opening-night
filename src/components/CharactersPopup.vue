@@ -12,7 +12,7 @@
     .footer
       .socials
         | SHARE
-        a.facebook(href="https://www.facebook.com/sharer/sharer.php?u=http://openingnightthemovie.com")
+        .facebook(@click="openFBVideoPost")
         .twitter(@click="openTWVideoPost")
       .list-videos
         .list-video(

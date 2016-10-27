@@ -315,7 +315,8 @@ class Store {
 
   getFBVideoPost(video) {
     let videoURL = this.getVideoURL(video);
-    return `https://www.facebook.com/sharer/sharer.php?u=${videoURL}`;
+    //return `https://www.facebook.com/sharer/sharer.php?u=${videoURL}`;
+    return "https://www.facebook.com/sharer/sharer.php?u=http://openingnightthemovie.com";
   }
 
   getTWVideoPost(video, twName) {

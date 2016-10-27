@@ -4,8 +4,9 @@
     .one-hit
       | #1HitWonder
       .socials
-        a.fb(href="https://www.facebook.com/sharer/sharer.php?u=http://openingnightthemovie.com")
-        a.twitter(href="")
+        a.fb
+        a.twitter
+        a.ig
 
     .download-item
       .title

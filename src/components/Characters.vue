@@ -15,7 +15,7 @@
             video.giphy(autoplay loop v-show='currentType == TYPE_GIPHY')
           .char-socials
             | SHARE
-            a.facebook(href="https://www.facebook.com/sharer/sharer.php?u=http://openingnightthemovie.com")
+            .facebook(@click="openFBVideoPost")
             .twitter(@click="openTWVideoPost")
 
         .char-list
