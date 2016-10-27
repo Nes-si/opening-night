@@ -7,7 +7,7 @@
 
     .video
       .video-player(id="popup-video" v-show="currentType == TYPE_YOUTUBE")
-      video.giphy(id="popup-giphy" autoplay loop v-show="currentType == TYPE_GIPHY")
+      video.giphy(id="popup-giphy" v-bind:controls="showGifControls" autoplay playsinline muted loop v-show="currentType == TYPE_GIPHY")
 
     .footer
       .socials
@@ -39,7 +39,9 @@
         currentVideo: 0,
         player: null,
         playerActive: false,
-        currentType: store().TYPE_YOUTUBE
+        currentType: store().TYPE_YOUTUBE,
+        
+        showGifControls: (store().isIPad || store().isIPhone) && store().getIosVersion() < 10
       }
     },
 

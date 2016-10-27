@@ -12,7 +12,7 @@
         .char-player
           .char-video(v-bind:id="'video-char-' + index")
             .video-player(v-bind:id="'video-player-char-' + index" v-show='currentType == TYPE_YOUTUBE')
-            video.giphy(autoplay loop v-show='currentType == TYPE_GIPHY')
+            video.giphy(autoplay loop playsinline muted v-bind:controls="showGifControls" v-show='currentType == TYPE_GIPHY')
           .char-socials
             | SHARE
             .facebook(@click="openFBVideoPost")
@@ -49,7 +49,9 @@
         players: [],
 
         playerActive: false,
-        timeout: 0
+        timeout: 0,
+  
+        showGifControls: (store().isIPad || store().isIPhone) && store().getIosVersion() < 10
       }
     },
 

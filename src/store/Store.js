@@ -35,6 +35,21 @@ class Store {
   get isIPhone() {return navigator.platform.match(/i(Phone|Pod)/i);}
   get isAndroid() {return navigator.userAgent.match(/Android/i);}
   get isGadget() {return this.isIPad || this.isIPhone || this.isAndroid;}
+  
+  getIosVersion() {
+    let match = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+  
+    if (match) {
+      let version = [
+        parseInt(match[1], 10),
+        parseInt(match[2], 10),
+        parseInt(match[3] || 0, 10)
+      ];
+      return parseFloat(version.join('.'));
+    }
+    
+    return 0;
+  }
 
 
 
