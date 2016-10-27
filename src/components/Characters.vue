@@ -88,7 +88,7 @@
                 videoId: videoData.id
               });
               this.playerActive = true;
-              if (!store().isIPhone && !store().isIPad)
+              if (!store().isGadget)
                 this.player.playVideo();
             }, 400);
           }

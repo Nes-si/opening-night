@@ -131,7 +131,7 @@ export default {
     store().onReady();
     this.currentSection = store().SECTION_CAST;
     
-    if (store().isIPad || store().isIPhone) {
+    if (store().isGadget) {
       this.player = new YouTubePlayer('trailer-video', {
         playerVars: {'autoplay': 1, 'controls': 1, 'showinfo': 1, 'rel': 0, 'modestbranding': 1, 'disablekb': 0}
       });
@@ -189,7 +189,7 @@ export default {
     trailerWatch: function () {
       this.trailerLoading = true;
       
-      if (!store().isIPad && !store().isIPhone) {
+      if (!store().isGadget) {
         this.player = new YouTubePlayer('trailer-video', {
           playerVars: {'autoplay': 0, 'controls': 1, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 0, 'frameborder': 0}
         });
@@ -212,7 +212,7 @@ export default {
     },
 
     trailerRemove: function () {
-      if (!store().isIPad && !store().isIPhone)
+      if (!store().isGadget)
         this.player.destroy();
       else
         this.player.stopVideo();

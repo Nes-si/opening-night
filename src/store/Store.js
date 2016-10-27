@@ -26,12 +26,15 @@ class Store {
   }
 
 
-  //========sizes===========
+  //========sizes & gadgets===========
 
   get isMobile() {return window.innerWidth <= 510;}
   get isTablet() {return window.innerWidth <= 768 && !this.isMobile;}
-  get isIPad() {return navigator.userAgent.match(/iPad/i) != null;}
+  
+  get isIPad() {return navigator.userAgent.match(/iPad/i);}
   get isIPhone() {return navigator.platform.match(/i(Phone|Pod)/i);}
+  get isAndroid() {return navigator.userAgent.match(/Android/i);}
+  get isGadget() {return this.isIPad || this.isIPhone || this.isAndroid;}
 
 
 
