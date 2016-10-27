@@ -20,11 +20,9 @@
         .watch-button
           transition(name="fade" mode="out-in")
             .watch-trailer(@click="onClickWatchTrailer")
-              .play
+              .play(v-show="!trailerLoading")
               | Watch Trailer
-
-            .watch-trailer
-              .watch-loader
+              .watch-loader(v-show="trailerLoading")
 
     characters-component(v-on:showCharMobile="clickCharMobile")
     .smule(@click="onClickSmule")
@@ -41,6 +39,8 @@
 
   export default {
     name: "HeaderComponent",
+  
+    props: ['trailerLoading'],
 
     components: {
       CharactersComponent

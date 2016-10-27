@@ -14,7 +14,12 @@
 
     menu-component(v-on:watchOpen="setWatch(true)" v-on:nav="onScroll" v-bind:currentSection="currentSection")
 
-    header-component(v-on:watchOpen="setWatch(true)" v-on:watchTrailer="trailerWatch" v-on:showCharMobile="setCharMobile($event)")
+    header-component(
+      v-on:watchOpen="setWatch(true)"
+      v-on:watchTrailer="trailerWatch"
+      v-on:showCharMobile="setCharMobile($event)"
+      v-bind:trailerLoading="trailerLoading"
+      )
 
     slider-component
 
@@ -101,6 +106,7 @@ export default {
       player: null,
       playerElm: null,
       trailerActive: false,
+      trailerLoading: false,
 
       showWatchItByScroll: false,
       showWatchItByOpening: true
@@ -181,6 +187,8 @@ export default {
     },
 
     trailerWatch: function () {
+      this.trailerLoading = true;
+      
       if (!store().isIPad && !store().isIPhone) {
         this.player = new YouTubePlayer('trailer-video', {
           playerVars: {'autoplay': 0, 'controls': 1, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 0, 'frameborder': 0}
@@ -199,6 +207,7 @@ export default {
           window.scrollTo(0, 0);
           if (!store().isIPhone)
             this.trailerActive = true;
+          this.trailerLoading = false;
         });
     },
 
