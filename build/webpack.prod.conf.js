@@ -45,13 +45,7 @@ let webpackConfig = merge(baseWebpackConfig, {
      // (REQUIRED) Absolute path to static root
      path.join(__dirname, '../dist'),
      // (REQUIRED) List of routes to prerender
-     [ '/' ],
-     {
-        captureAfterTime: 5000,
-        maxAttempts: 10,
-        phantomOptions: '--disk-cache=true',
-        phantomPageSettings: { loadImages: true }
-    }
+     [ '/' ]
    ),
     new webpack.optimize.UglifyJsPlugin({
       compress: {warnings: false}

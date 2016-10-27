@@ -64,6 +64,8 @@
         .nav-copy
           | ©2016 BENITO FILMS, LLC ALL RIGHTS RESERVED.
 
+    link(href="//assets.juicer.io/embed.css" media="all" rel="stylesheet" type="text/css" v-if="load")
+
 </template>
 
 <script>
@@ -130,12 +132,12 @@ export default {
 
     store().onReady();
     this.currentSection = store().SECTION_CAST;
-    
+
     if (store().isGadget) {
       this.player = new YouTubePlayer('trailer-video', {
         playerVars: {'autoplay': 1, 'controls': 1, 'showinfo': 1, 'rel': 0, 'modestbranding': 1, 'disablekb': 0}
       });
-  
+
       this.player.loadVideoById(trailerVideo)
         .then(() => {
           this.playerElm = document.getElementById('trailer-video');
@@ -147,7 +149,16 @@ export default {
 
   methods: {
     handleLoad: function () {
-      document.querySelector('#app').className = '';
+      setTimeout(()=>{
+        this.load = true;
+
+        var script   = document.createElement("script");
+        script.type  = "text/javascript";
+        script.src   = "//assets.juicer.io/embed.js";
+        document.body.appendChild(script);
+
+        document.querySelector('#app').className = '';
+      },300)
     },
 
     onScroll: function () {
@@ -167,7 +178,7 @@ export default {
         this.showWatchItByScroll = window.scrollY > window.innerHeight;
       })();
     },
-    
+
     onResize: function () {
       debounce(100, () => {
         this.playerElm = document.getElementById('trailer-video');
@@ -188,12 +199,12 @@ export default {
 
     trailerWatch: function () {
       this.trailerLoading = true;
-      
+
       if (!store().isGadget) {
         this.player = new YouTubePlayer('trailer-video', {
           playerVars: {'autoplay': 0, 'controls': 1, 'showinfo': 0, 'rel': 0, 'modestbranding': 1, 'disablekb': 0, 'frameborder': 0}
         });
-  
+
         this.player.loadVideoById(trailerVideo)
           .then(() => {
             this.playerElm = document.getElementById('trailer-video');
@@ -201,7 +212,7 @@ export default {
             this.playerElm.height = window.innerHeight;
           });
       }
-      
+
       this.player.playVideo()
         .then(() => {
           window.scrollTo(0, 0);
@@ -496,9 +507,9 @@ export default {
         position: absolute
         right: 15px
         top: 20px
-        
+
         cursor: pointer
-        
+
       &Icon:hover
         filter: drop-shadow(0px 0px 2px #ffffff)
 
@@ -507,7 +518,7 @@ export default {
       width: 100%
       height: 100%
 
-      
+
 </style>
 
 
