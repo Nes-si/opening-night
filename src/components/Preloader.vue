@@ -24,7 +24,6 @@
             | -
             a(href="http://cinemacy.com") Cinemacy.com
       .loader
-        .loader-inner
 </template>
 
 <script>

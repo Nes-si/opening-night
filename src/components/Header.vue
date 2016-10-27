@@ -18,9 +18,13 @@
             | on Amazon Demand
 
         .watch-button
-          .watch-trailer(@click="onClickWatchTrailer")
-            .play
-            | Watch Trailer
+          transition(name="fade" mode="out-in")
+            .watch-trailer(@click="onClickWatchTrailer")
+              .play
+              | Watch Trailer
+
+            .watch-trailer
+              .watch-loader
 
     characters-component(v-on:showCharMobile="clickCharMobile")
     .smule(@click="onClickSmule")
@@ -92,6 +96,12 @@
 </script>
 
 <style lang="sss" scoped rel="stylesheet/sass">
+  .fade-enter-active, .fade-leave-active
+    transition: opacity .5s ease
+
+  .fade-enter, .fade-leave-active
+    opacity: 0
+
   .header
     height: 100vh
     min-height: 670px
@@ -100,7 +110,7 @@
     flex-flow: column nowrap
     align-items: center
     position: relative
-    
+
     .bg
       position: absolute
       top: 0
@@ -198,6 +208,12 @@
         flex-flow: row nowrap
         align-items: center
         outline: none
+        min-height: 55px
+
+        display: flex
+        flex-flow: row nowrap
+        justify-content: center
+        align-items: center
 
         transition: background 0.1s ease
 
@@ -210,6 +226,19 @@
         margin-right: 10px
         height: 27px
         width: 27px
+
+      @keyframes spin
+        from
+          transform:rotate(0deg)
+        to
+          transform:rotate(360deg)
+
+      &-loader
+        background: url('~assets/images/preloader.svg') no-repeat center center / contain
+        width: 40px
+        height: 40px
+        animation: spin 2s infinite linear
+        will-change: transform, opacity
 
     .smule
       position: absolute
@@ -241,7 +270,7 @@
   @media (max-width: 768px) {
     .header {
       height: 1030px;
-      
+
       .smule {
         background: url("~assets/images/smule-tablet.png") no-repeat center center / contain;
         height: 63px;
