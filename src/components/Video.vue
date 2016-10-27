@@ -122,14 +122,26 @@
         })();
       },
       
+      getPlaylist: function (isFirst) {
+        let ind = this.items.indexOf(this.currentItem);
+        let res = [];
+        for (let i = isFirst ? ind : ind + 1; i < this.items.length; i++) {
+          res.push(this.items[i].id);
+        }
+        for (let i = 0; i < ind; i++) {
+          res.push(this.items[i].id);
+        }
+        return res.join(',');
+      },
+      
       setVideo: function () {
         this.currentType = this.currentItem.type;
         if (this.currentItem.type == this.TYPE_YOUTUBE) {
           if (this.player) {
-            this.player.loadVideoById(this.currentItem.id);
+            this.player.loadPlaylist(this.getPlaylist(true));
           } else {
             this.player = new YouTubePlayer('main-video', {
-              playerVars: { 'autoplay': 0, 'controls': 1, 'showinfo': 1, 'rel': 0, 'modestbranding': 1, 'disablekb': 0},
+              playerVars: {autoplay: 0, controls: 1, showinfo: 0, rel: 0, modestbranding: 1, disablekb: 0, playlist: this.getPlaylist()},
               videoId: this.currentItem.id
             });
           }
