@@ -1,5 +1,5 @@
 <template lang="pug">
-  .download
+  .download#social-contest
     .chasez
     .one-hit
       | #1HitWonder
@@ -28,7 +28,7 @@
           .steps-point
             | 2.
           .steps-text
-            | Record a duet to <span>"I Know What Boys Like" with Lesli Margherita</span>
+            | Record a duet to <span>"Total Eclipse of the Heart" with Lesli Margherita</span>
         .steps-item
           .steps-point
             | 3.

@@ -29,7 +29,7 @@
       .title
         | Watch It Now
       .subtitle
-        | starting at $2.99 on Amazon Demand
+        | starting at $3.99 on demand
 
     video-component
 
@@ -37,13 +37,14 @@
 
     ul.juicer-feed(data-feed-id="blah-blah-blah")
 
-    .watch-it-now(@click="setWatch(true)" v-bind:class="{ 'watch-it-now-show': this.showWatchIt }")
-      .bg-1
-      .bg-2
-      .title
-        | Watch It Now
-      .subtitle
-        | starting at $2.99 on Amazon Demand
+    .watch-it-bg(v-bind:class="{ 'watch-it-now-show': this.showWatchIt }")
+      .watch-it-now(@click="setWatch(true)")
+        .bg-1
+        .bg-2
+        .title
+          | Watch It Now
+        .subtitle
+          | starting at $2.99 on Amazon Demand
 
     .footer(v-bind:class="{ 'footer-watch-it': this.showWatchIt }")
       .logos
@@ -67,7 +68,6 @@
     link(href="//assets.juicer.io/embed.css" media="all" rel="stylesheet" type="text/css" v-if="load")
 
 </template>
-
 <script>
 import YouTubePlayer from 'youtube-player';
 import debounce from 'throttle-debounce/debounce';
@@ -232,11 +232,9 @@ export default {
   }
 }
 </script>
-
 <style>
   @import 'normalize.css';
 </style>
-
 <style lang="scss" rel="stylesheet/scss">
   @font-face {
   	font-family: 'Open Sans Hebrew Condensed';
@@ -288,9 +286,7 @@ export default {
   	font-style: normal;
   }
 </style>
-
 <style lang="sss" rel="stylesheet/sass">
-
   #app.loading > *
     opacity: 0
 
@@ -354,6 +350,21 @@ export default {
 </style>
 
 <style lang="sss" scoped rel="stylesheet/sass">
+  .watch-it-bg
+    transform: translateY(120%)
+    transition: transform 0.3s ease
+    will-change: transform
+
+    position: fixed
+    bottom: 0
+    width: 100%
+
+    z-index: 999
+    background: rgb(27,37,42)
+    padding: 10px 5%
+
+    &.watch-it-now-show
+      transform: translateY(0)
 
   .watch-it-now
     padding: 22px 0
@@ -361,20 +372,10 @@ export default {
     flex-flow: column nowrap
     align-items: center
     cursor: pointer
-
-    position: fixed
-    bottom: 0
-    width: 100%
     overflow: hidden
+    position: relative
 
-    z-index: 999
-
-    transform: translateY(120%)
-    transition: transform 0.3s ease
-    will-change: transform
-
-    &.watch-it-now-show
-      transform: translateY(0)
+    border-radius: 100px
 
     &-mobile
       display: none
@@ -517,11 +518,7 @@ export default {
       position: absolute
       width: 100%
       height: 100%
-
-
 </style>
-
-
 <style scoped lang="scss" rel="stylesheet/scss">
   @media (max-width: 699px) {
     .watch-it-now-mobile {

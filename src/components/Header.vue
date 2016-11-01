@@ -14,8 +14,8 @@
               | Watch It Now
           .watch-starting
             | starting at
-            span $2.99
-            | on Amazon Demand
+            span $3.99
+            | on demand
 
         .watch-button
           transition(name="fade" mode="out-in")

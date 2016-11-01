@@ -30,15 +30,15 @@ class Store {
 
   get isMobile() {return window.innerWidth <= 510;}
   get isTablet() {return window.innerWidth <= 768 && !this.isMobile;}
-  
+
   get isIPad() {return navigator.userAgent.match(/iPad/i);}
   get isIPhone() {return navigator.platform.match(/i(Phone|Pod)/i);}
   get isAndroid() {return navigator.userAgent.match(/Android/i);}
   get isGadget() {return this.isIPad || this.isIPhone || this.isAndroid;}
-  
+
   getIosVersion() {
     let match = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
-  
+
     if (match) {
       let version = [
         parseInt(match[1], 10),
@@ -47,7 +47,7 @@ class Store {
       ];
       return parseFloat(version.join('.'));
     }
-    
+
     return 0;
   }
 
@@ -81,7 +81,7 @@ class Store {
       type: this.TYPE_YOUTUBE,
       id: "HN3xlrJlT1Y",
       preview: "assets/images/Zip_Code_Ratings.png",
-      text: "ZIP CODE RATINGS"
+      text: "AREA CODE RATING"
     },
     {
       type: this.TYPE_YOUTUBE,

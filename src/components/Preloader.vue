@@ -23,6 +23,20 @@
           .site
             | -
             a(href="http://cinemacy.com") Cinemacy.com
+
+        .text(v-if="slideNum == 4" key="4" data="4")
+          .title
+            | “Clever, funny and upbeat”
+          .site
+            | -
+            a(href="http://blogCritics.org") BlogCritics.org
+
+        .text(v-if="slideNum == 5" key="5" data="5")
+          .title
+            | “Worth a standing ovation!”
+          .site
+            | -
+            a(href="http://cinemacy.com") Cinemacy.com
       .loader
 </template>
 
@@ -41,7 +55,7 @@
     methods: {
       autoChange: function () {
         clearInterval(this.timer);
-        this.timer = setInterval(this.onTimer, 1500);
+        this.timer = setInterval(this.onTimer, 2000);
       },
 
       handleLoad: function () {
