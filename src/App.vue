@@ -144,6 +144,7 @@ export default {
           this.playerElm.width = document.documentElement.clientWidth;
           this.playerElm.height = window.innerHeight;
         });
+      this.player.addEventListener('onStateChange', this.trailerStateChange);
     }
   },
 
@@ -211,6 +212,7 @@ export default {
             this.playerElm.width = document.documentElement.clientWidth;
             this.playerElm.height = window.innerHeight;
           });
+        this.player.addEventListener('onStateChange', this.trailerStateChange);
       }
 
       this.player.playVideo()
@@ -221,7 +223,13 @@ export default {
           this.trailerLoading = false;
         });
     },
-
+  
+    trailerStateChange: function (e) {
+      //on end video
+      if (!store().isIPhone && e.data == 0)
+        this.trailerRemove();
+    },
+    
     trailerRemove: function () {
       if (!store().isGadget)
         this.player.destroy();
