@@ -41,7 +41,7 @@
 </template>
 
 <script>
-  const SLIDES = 3;
+  const SLIDES = 5;
 
   export default {
     name: "PreloaderComponent",
