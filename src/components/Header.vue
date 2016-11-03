@@ -180,6 +180,8 @@
 
 
       &-starting
+        width: 100%
+        text-align: center
         margin-top: 10px
         font-weight: 300
         font-size: 16px

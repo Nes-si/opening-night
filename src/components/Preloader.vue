@@ -28,15 +28,13 @@
           .title
             | "I could have stayed in the theater and just started it from the beginning again"
           .site
-            | -
-            a(href="http://blogCritics.org") WeLiveEntertainment
+            | - WeLiveEntertainment
 
         .text(v-if="slideNum == 5" key="5" data="5")
           .title
             | “Jam packed with one hit wonders you can’t help but sing along to”
           .site
-            | -
-            a(href="http://cinemacy.com") Talk Nerdy With Us
+            | - Talk Nerdy With Us
       .loader
 </template>
 
