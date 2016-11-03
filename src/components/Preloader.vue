@@ -8,33 +8,35 @@
             | “...comedy’s most talented actors”
           .site
             | -
-            a(href="http://cinemacasdasdy.com") Cinemacy.com
+            a(href="http://cinemacasdasdy.com" target="_blank") Cinemacy.com
 
         .text(v-if="slideNum == 2" key="2" data="2")
           .title
             | “Clever, funny and upbeat”
           .site
             | -
-            a(href="http://blogCritics.org") BlogCritics.org
+            a(href="http://blogCritics.org" target="_blank") BlogCritics.org
 
         .text(v-if="slideNum == 3" key="3" data="3")
           .title
             | “Worth a standing ovation!”
           .site
             | -
-            a(href="http://cinemacy.com") Cinemacy.com
+            a(href="http://cinemacy.com" target="_blank") Cinemacy.com
 
         .text(v-if="slideNum == 4" key="4" data="4")
           .title
             | "I could have stayed in the theater and just started it from the beginning again"
           .site
-            | - WeLiveEntertainment
+            | -
+            a(href="http://weliveentertainment.com/" target="_blank") WeLiveEntertainment
 
         .text(v-if="slideNum == 5" key="5" data="5")
           .title
             | “Jam packed with one hit wonders you can’t help but sing along to”
           .site
-            | - Talk Nerdy With Us
+            | -
+            a(href="http://talknerdywithus.com/" target="_blank") Talk Nerdy With Us
       .loader
 </template>
 
