@@ -44,7 +44,7 @@
         .title
           | Watch It Now
         .subtitle
-          | starting at $2.99 on Amazon Demand
+          | starting at $3.99 on Amazon Demand
 
     .footer(v-bind:class="{ 'footer-watch-it': this.showWatchIt }")
       .logos
@@ -223,13 +223,13 @@ export default {
           this.trailerLoading = false;
         });
     },
-  
+
     trailerStateChange: function (e) {
       //on end video
       if (!store().isIPhone && e.data == 0)
         this.trailerRemove();
     },
-    
+
     trailerRemove: function () {
       if (!store().isGadget)
         this.player.destroy();
@@ -384,6 +384,7 @@ export default {
     position: relative
 
     border-radius: 100px
+    overflow: hidden
 
     &-mobile
       display: none
@@ -393,6 +394,7 @@ export default {
       position: absolute
       top: 0
       left: 0
+      border-radius: 100px
       width: 100%
       height: 100%
       background: linear-gradient(-182deg, #f45232 0%, #e52816 100%)

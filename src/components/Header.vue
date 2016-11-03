@@ -303,6 +303,9 @@
       .watch-button {
         margin: 0;
       }
+      .watch-starting {
+        white-space: nowrap;
+      }
 
       .watch-trailer {
         border: none;

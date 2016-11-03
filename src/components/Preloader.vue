@@ -8,7 +8,7 @@
             | “...comedy’s most talented actors”
           .site
             | -
-            a(href="http://cinemacasdasdy.com") Cinemacasdasdy.com
+            a(href="http://cinemacasdasdy.com") Cinemacy.com
 
         .text(v-if="slideNum == 2" key="2" data="2")
           .title
@@ -26,17 +26,17 @@
 
         .text(v-if="slideNum == 4" key="4" data="4")
           .title
-            | “Clever, funny and upbeat”
+            | "I could have stayed in the theater and just started it from the beginning again"
           .site
             | -
-            a(href="http://blogCritics.org") BlogCritics.org
+            a(href="http://blogCritics.org") WeLiveEntertainment
 
         .text(v-if="slideNum == 5" key="5" data="5")
           .title
-            | “Worth a standing ovation!”
+            | “Jam packed with one hit wonders you can’t help but sing along to”
           .site
             | -
-            a(href="http://cinemacy.com") Cinemacy.com
+            a(href="http://cinemacy.com") Talk Nerdy With Us
       .loader
 </template>
 
@@ -55,7 +55,7 @@
     methods: {
       autoChange: function () {
         clearInterval(this.timer);
-        this.timer = setInterval(this.onTimer, 2000);
+        this.timer = setInterval(this.onTimer, 3000);
       },
 
       handleLoad: function () {
